@@ -4,7 +4,7 @@
 </p>
 
 <h1 align="center">✨ 𝐆𝐎𝐀𝐓 𝐁𝐎𝐓 𝐕𝟐 ✨</h1>
-<h3 align="center">💎 𝗠𝗢𝗗𝗜𝗙𝗜𝗘𝗗 𝗕𝗬 𝗔𝗟𝗩𝗜-𝗞𝗜𝗡𝗚 💎</h3>
+<h3 align="center">💎 𝗠𝗢𝗗𝗜𝗙𝗜𝗘𝗗 𝗕𝗬 𝗔𝗝𝗠𝗔𝗨𝗟 💎</h3>
 
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=28&duration=2500&pause=700&color=00F0FF&center=true&vCenter=true&width=750&lines=⚡+MULTI-DEVICE+MESSENGER+BOT;🔥+PREMIUM+AUTOMATION+SYSTEM;🧠+AI+POWERED+COMMANDS;🚀+ULTRA+FAST+PERFORMANCE;💎+ADVANCED+ADMIN+TOOLS" />
@@ -14,13 +14,9 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00F0FF,100:8A2BE2&height=120&section=header"/>
 </p>
 
-
-
 🌌 𝚂𝚝𝚊𝚝𝚜 𝙳𝚊𝚜𝚑𝚋𝚘𝚊𝚛𝚍
 
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=alvi-king&theme=tokyonight#gh-dark-mode-only" width="49%" />
-</p>
-
 
 📊 𝚁𝚎𝚙𝚘 𝙰𝚗𝚊𝚕𝚢𝚝𝚒𝚌𝚜
 
@@ -31,7 +27,6 @@
   <img src="https://img.shields.io/github/last-commit/alvi-king/GOAT-BOT-V2?style=for-the-badge"/>
 </p>
 
-
 🧠 𝙱𝚘𝚝 𝚂𝚝𝚊𝚝𝚞𝚜
 
 <p align="center">
@@ -40,7 +35,6 @@
   <img src="https://img.shields.io/badge/Uptime-24/7-success?style=for-the-badge"/>
 </p>
 
-
 📡 𝚂𝚎𝚛𝚟𝚎𝚛 𝙿𝚒𝚗𝚐
 
 <p align="center">
@@ -48,14 +42,11 @@
   <img src="https://img.shields.io/badge/Latency-Low-success?style=for-the-badge"/>
 </p>
 
-
 📈 𝙰𝚌𝚝𝚒𝚟𝚒𝚝𝚢 𝙶𝚛𝚊𝚙𝚑
 
 <p align="center">
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=alvi-king&theme=tokyo-night"/>
 </p>
-
-
 
 👁️ 𝚅𝚒𝚜𝚒𝚝𝚘𝚛𝚜
 
@@ -63,15 +54,12 @@
   <img src="https://komarev.com/ghpvc/?username=alvi-king&label=🔥+VISITORS&style=for-the-badge"/>
 </p>
 
-
 🎬 𝙿𝚛𝚎𝚟𝚒𝚎𝚠 𝚂𝚎𝚌𝚝𝚒𝚘𝚗
 
 <p align="center">
   <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" width="45%" />
   <img src="https://media.giphy.com/media/L8K62iTDkzGX6/giphy.gif" width="45%" />
 </p>
-
-
 
 🚀 𝙳𝚎𝚙𝚕𝚘𝚢𝚖𝚎𝚗𝚝
 
@@ -95,11 +83,6 @@
 
 </div>
 
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:8A2BE2,100:00F0FF&height=100&section=header"/>
-</p>
-
 ⚡ Advanced Features ⚡
 
 <p align="center">
@@ -116,7 +99,6 @@
   <img src="https://img.shields.io/badge/📜_LOGGING-SYSTEM-yellow?style=for-the-badge"/>
 </p>
 
-
 🎯 Command System 🎯
 
 <table align="center">
@@ -132,24 +114,25 @@
 
 </table>
 
-
-❤️ ՏᑌᑭᑭOᖇTՏ ❤️
+❤️ SUPPORT ❤️
 
 <p align="center">
   <a href="https://youtube.com/@SAUniqueBro">
     <img src="https://img.shields.io/badge/▶️_YouTube-Subscribe-red?style=for-the-badge&logo=youtube"/>
   </a>
-  <a href="https://www.facebook.com/profile.php?id=100001609058878">
+
+  <a href="https://www.facebook.com/seishiro.nagi.420">
     <img src="https://img.shields.io/badge/📘_Facebook-Follow-1877F2?style=for-the-badge&logo=facebook"/>
   </a>
-  <a href="https://t.me/MRALVIBRO">
-    <img src="https://img.shields.io/badge/✈️_Telegram-Join-26A5E4?style=for-the-badge&logo=telegram"/>
+
+  <a href="https://t.me/ajmaul2372">
+    <img src="https://img.shields.io/badge/✈️_Telegram-Message-26A5E4?style=for-the-badge&logo=telegram"/>
   </a>
+
   <a href="https://wa.me/966505748978">
     <img src="https://img.shields.io/badge/WhatsApp-Chat-25D366?style=for-the-badge&logo=whatsapp"/>
   </a>
 </p>
-
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:8A2BE2,100:00F0FF&height=140&section=footer"/>
@@ -158,7 +141,7 @@
 <h2 align="center">💎 GOAT BOT V2</h2>
 
 <p align="center">
-Made with ❤️ by <b>ALVI-KING</b><br><br>
+Made with ❤️ by <b>ajmaul</b><br><br>
 🚀 <b>Release:</b> 23 Feb 2026 <br><br>
 ⭐ <b>Don't forget to star the repo!</b>
 </p>
