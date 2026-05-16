@@ -2,7 +2,7 @@ Copyright (c) 2026
 
 Original Project:
 Goat-Bot-V2 by NTKhang
-https://github.com/ntkhang03/Goat-Bot-V2
+https://github.com/mdajmaul/goatbot_ajmaul_83
 
 --------------------------------------------------
 
