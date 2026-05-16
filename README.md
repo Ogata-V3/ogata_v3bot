@@ -138,11 +138,11 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:8A2BE2,100:00F0FF&height=140&section=footer"/>
 </p>
 
-<h2 align="center">💎 GOAT BOT V2</h2>
+<h2 align="center">💎 GOAT BOT </h2>
 
 <p align="center">
 Made with ❤️ by <b>ajmaul</b><br><br>
-🚀 <b>Release:</b> 23 Feb 2026 <br><br>
+🚀 <b>Release:</b> 26 may 2026 <br><br>
 ⭐ <b>Don't forget to star the repo!</b>
 </p>
 
