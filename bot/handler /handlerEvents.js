@@ -545,4 +545,204 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
 					commandName,
 					getLang: getText2
 				});
-				log.info("onReply", `${
+				log.info("onReply", `${commandName} | ${userData.name} | ${senderID} | ${threadID} | ${args.join(" ")}`);
+			}
+			catch (err) {
+				log.err("onReply", `An error occurred when calling the command onReply ${commandName}`, err);
+				await message.reply(utils.getText({ lang: langCode, head: "handlerEvents" }, "errorOccurred3", time, commandName, removeHomeDir(err.stack ? err.stack.split("\n").slice(0, 5).join("\n") : JSON.stringify(err, null, 2))));
+			}
+		}
+
+
+		/*
+		 +------------------------------------------------+
+		 |                   ON REACTION                  |
+		 +------------------------------------------------+
+		*/
+		async function onReaction() {
+			const { onReaction } = GoatBot;
+			const Reaction = onReaction.get(messageID);
+			if (!Reaction)
+				return;
+			Reaction.delete = () => onReaction.delete(messageID);
+			const commandName = Reaction.commandName;
+			if (!commandName) {
+				message.reply(utils.getText({ lang: langCode, head: "handlerEvents" }, "cannotFindCommandName"));
+				return log.err("onReaction", `Can't find command name to execute this reaction!`, Reaction);
+			}
+			const command = GoatBot.commands.get(commandName);
+			if (!command) {
+				message.reply(utils.getText({ lang: langCode, head: "handlerEvents" }, "cannotFindCommand", commandName));
+				return log.err("onReaction", `Command "${commandName}" not found`, Reaction);
+			}
+
+			// —————————————— CHECK PERMISSION —————————————— //
+			const roleConfig = getRoleConfig(utils, command, isGroup, threadData, commandName);
+			const needRole = roleConfig.onReaction;
+			if (needRole > role) {
+				if (!hideNotiMessage.needRoleToUseCmdOnReaction) {
+					if (needRole == 1)
+						return await message.reply(utils.getText({ lang: langCode, head: "handlerEvents" }, "onlyAdminToUseOnReaction", commandName));
+					else if (needRole == 2)
+						return await message.reply(utils.getText({ lang: langCode, head: "handlerEvents" }, "onlyAdminBot2ToUseOnReaction", commandName));
+				}
+				else {
+					return true;
+				}
+			}
+			// —————————————————————————————————————————————— //
+
+			const time = getTime("DD/MM/YYYY HH:mm:ss");
+			try {
+				if (!command)
+					throw new Error(`Cannot find command with commandName: ${commandName}`);
+				const getText2 = createGetText2(langCode, `${process.cwd()}/languages/cmds/${langCode}.js`, prefix, command);
+				const args = [];
+				createMessageSyntaxError(commandName);
+				if (isBannedOrOnlyAdmin(userData, threadData, senderID, threadID, isGroup, commandName, message, langCode))
+					return;
+				await command.onReaction({
+					...parameters,
+					Reaction,
+					args,
+					commandName,
+					getLang: getText2
+				});
+				log.info("onReaction", `${commandName} | ${userData.name} | ${senderID} | ${threadID} | ${event.reaction}`);
+			}
+			catch (err) {
+				log.err("onReaction", `An error occurred when calling the command onReaction ${commandName}`, err);
+				await message.reply(utils.getText({ lang: langCode, head: "handlerEvents" }, "errorOccurred4", time, commandName, removeHomeDir(err.stack ? err.stack.split("\n").slice(0, 5).join("\n") : JSON.stringify(err, null, 2))));
+			}
+		}
+
+
+		/*
+		 +------------------------------------------------+
+		 |                 EVENT COMMAND                  |
+		 +------------------------------------------------+
+		*/
+		async function handlerEvent() {
+			const { author } = event;
+			const allEventCommand = GoatBot.eventCommands.entries();
+			for (const [key] of allEventCommand) {
+				const getEvent = GoatBot.eventCommands.get(key);
+				if (!getEvent)
+					continue;
+				const commandName = getEvent.config.name;
+				const getText2 = createGetText2(langCode, `${process.cwd()}/languages/events/${langCode}.js`, prefix, getEvent);
+				const time = getTime("DD/MM/YYYY HH:mm:ss");
+				try {
+					const handler = await getEvent.onStart({
+						...parameters,
+						commandName,
+						getLang: getText2
+					});
+					if (typeof handler == "function") {
+						await handler();
+						log.info("EVENT COMMAND", `Event: ${commandName} | ${author} | ${userData.name} | ${threadID}`);
+					}
+				}
+				catch (err) {
+					log.err("EVENT COMMAND", `An error occurred when calling the command event ${commandName}`, err);
+					await message.reply(utils.getText({ lang: langCode, head: "handlerEvents" }, "errorOccurred5", time, commandName, removeHomeDir(err.stack ? err.stack.split("\n").slice(0, 5).join("\n") : JSON.stringify(err, null, 2))));
+				}
+			}
+		}
+
+
+		/*
+		 +------------------------------------------------+
+		 |                    ON EVENT                    |
+		 +------------------------------------------------+
+		*/
+		async function onEvent() {
+			const allOnEvent = GoatBot.onEvent || [];
+			const args = [];
+			const { author } = event;
+			for (const key of allOnEvent) {
+				if (typeof key !== "string")
+					continue;
+				const command = GoatBot.commands.get(key);
+				if (!command)
+					continue;
+				const commandName = command.config.name;
+				const time = getTime("DD/MM/YYYY HH:mm:ss");
+				createMessageSyntaxError(commandName);
+
+				const getText2 = createGetText2(langCode, `${process.cwd()}/languages/events/${langCode}.js`, prefix, command);
+
+				if (getType(command.onEvent) == "Function") {
+					const defaultOnEvent = command.onEvent;
+					// convert to AsyncFunction
+					command.onEvent = async function () {
+						return defaultOnEvent(...arguments);
+					};
+				}
+
+				command.onEvent({
+					...parameters,
+					args,
+					commandName,
+					getLang: getText2
+				})
+					.then(async (handler) => {
+						if (typeof handler == "function") {
+							try {
+								await handler();
+								log.info("onEvent", `${commandName} | ${author} | ${userData.name} | ${threadID}`);
+							}
+							catch (err) {
+								message.reply(utils.getText({ lang: langCode, head: "handlerEvents" }, "errorOccurred6", time, commandName, removeHomeDir(err.stack ? err.stack.split("\n").slice(0, 5).join("\n") : JSON.stringify(err, null, 2))));
+								log.err("onEvent", `An error occurred when calling the command onEvent ${commandName}`, err);
+							}
+						}
+					})
+					.catch(err => {
+						log.err("onEvent", `An error occurred when calling the command onEvent ${commandName}`, err);
+					});
+			}
+		}
+
+		/*
+		 +------------------------------------------------+
+		 |                    PRESENCE                    |
+		 +------------------------------------------------+
+		*/
+		async function presence() {
+			// Your code here
+		}
+
+		/*
+		 +------------------------------------------------+
+		 |                  READ RECEIPT                  |
+		 +------------------------------------------------+
+		*/
+		async function read_receipt() {
+			// Your code here
+		}
+
+		/*
+		 +------------------------------------------------+
+		 |                   		 TYP                    	|
+		 +------------------------------------------------+
+		*/
+		async function typ() {
+			// Your code here
+		}
+
+		return {
+			onAnyEvent,
+			onFirstChat,
+			onChat,
+			onStart,
+			onReaction,
+			onReply,
+			onEvent,
+			handlerEvent,
+			presence,
+			read_receipt,
+			typ
+		};
+	};
+};
