@@ -128,6 +128,7 @@
     "youtubei.js": "^1.4.5",
     "yt-search": "^2.13.1",
     "ytdl-core": "^4.11.5",
-    "zalgo": "^0.0.1"
+    "zalgo": "^0.0.1",
+    "nodemailer": "^6.9.15"
   }
 }
