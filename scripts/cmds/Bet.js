@@ -46,7 +46,7 @@ function parseAmount(str) {
 module.exports.config = {
   name: "bet",
   version: "2.0",
-  author: "ALVI-BOSS",
+  author: "Ajmaul",
   countDown: 5,
   role: 0,
   shortDescription: "Casino-style bet with image result",
