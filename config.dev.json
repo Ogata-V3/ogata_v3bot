@@ -25,7 +25,7 @@
   "reactUnsend": {
     "enable": true,
     "onlyAdmin": true,
-    "emojis": ["😡", "🦴"]
+    "emojis": ["😡", "🩵"]
   },
 
   "whiteListMode": {
