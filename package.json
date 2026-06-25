@@ -1,38 +1,36 @@
 {
-  "name": "Rahat Chat Bot",
+  "name": "Zoro's Pookie",
   "version": "10.1.1",
-  "description": "made by Rahat Islam",
-  "main": "Rahat.js",
+  "description": "Zoro's Pookie Bot by Ajmaul",
+  "main": "index.js",
   "engines": {
-    "node": "20.x",
+    "node": "18.x",
     "npm": "10.0.0"
   },
   "scripts": {
-    "start": "node Xrahat.js",
+    "start": "node index.js",
     "login": "node login",
     "test": "node --trace-warnings --use_strict --async-stack-traces mirai"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Xrahat2/Xrahat.git"
+    "url": "https://github.com/mdajmaul/goatbot_ajmaul_83.git"
   },
   "keywords": [
     "bot",
     "facebook",
     "rxproject",
     "messenger",
-    "javasvript",
-    "abdullah",
-    "abdullahs",
-    "rxmaria",
-    "rx chat bot"
+    "goatbot",
+    "zoro",
+    "javasvript"
   ],
-  "author": "rX Abdullah",
+  "author": "Zoro",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/Xrahat2/Xrahat/issues"
+    "url": "https://github.com/mdajmaul/goatbot_ajmaul_83/issues"
   },
-  "homepage": "https://github.com/Xrahat2/Xrahat/issues",
+  "homepage": "https://github.com/mdajmaul/goatbot_ajmaul_83",
   "overrides": {
     "fast-xml-parser": "5.9.3",
     "request": {
@@ -93,7 +91,6 @@
     "node-schedule": "^2.1.1",
     "node-schedule-tz": "^1.2.1-4",
     "node-superfetch": "^0.2.3",
-    "npm": "^9.9.4",
     "npmlog": "^7.0.1",
     "openai": "^3.3.0",
     "opusscript": "^0.0.8",
