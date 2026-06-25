@@ -15,7 +15,7 @@ module.exports = {
   config: {
     name: "ffinfo",
     version: "9.0",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     countDown: 10,
     role: 0,
     shortDescription: "FF Profile - Full Windows Look",
