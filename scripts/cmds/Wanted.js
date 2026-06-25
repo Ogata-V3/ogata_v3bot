@@ -20,7 +20,7 @@ module.exports = {
   config: {
     name: "wanted",
     version: "1.1",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     countDown: 5,
     role: 0,
     shortDescription: "Wanted poster",
@@ -104,7 +104,7 @@ module.exports = {
 
       ctx.font = "italic 24px Arial";
       ctx.fillStyle = "#7f8c8d";
-      ctx.fillText("AUTHOR: ALVI-BOSS", 350, 890);
+      ctx.fillText("AUTHOR: Ajmaul", 350, 890);
 
       fs.writeFileSync(outputPath, canvas.toBuffer("image/jpeg"));
 
