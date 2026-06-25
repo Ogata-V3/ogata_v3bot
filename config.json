@@ -1,8 +1,8 @@
 {
   "facebookAccount": {
-    "email": "",
-    "password": "",
-    "2FASecret": "",
+    "email": "zorovex2.20@gmail.com",
+    "password": "Ajmaul00",
+    "2FASecret": "GLWG W3AV WG5X B2A5 QL3V OMXE 4OL5 4Y6N",
     "i_user": "",
     "proxy": null,
     "userAgent": "Mozilla/5.0 (Linux; Android 12; M2102J20SG) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Mobile Safari/537.36",
@@ -11,7 +11,7 @@
   },
   "antiInbox": false,
   "language": "en",
-  "nickNameBot": "Goatbot_v",
+  "nickNameBot": "Zoro's pookie 🐥💖",
   "prefix": ".",
 
   "adminOnly": {
