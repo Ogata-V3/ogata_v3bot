@@ -6,7 +6,7 @@ const request = require('request');
 module.exports.config = {
   name: "jail",
   version: "8.0",
-  author: "ALVI-BOSS",
+  author: "Ajmaul",
   countDown: 10,
   role: 0,
   shortDescription: "Wanted with thin bars",
