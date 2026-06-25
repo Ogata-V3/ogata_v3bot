@@ -12,7 +12,7 @@
   "antiInbox": false,
   "language": "en",
   "nickNameBot": "Goatbot_v",
-  "prefix": "⭕",
+  "prefix": ".",
 
   "adminOnly": {
     "enable": false,
@@ -20,7 +20,7 @@
   },
 
   "adminBot": [
-    "100091050051972"
+    "61590001468913"
   ],
 
   "reactUnsend": {
@@ -32,7 +32,7 @@
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [
-      "100091050051972"
+      "61590001468913"
     ]
   },
 
