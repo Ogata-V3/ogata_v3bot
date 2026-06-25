@@ -5,7 +5,7 @@ module.exports = {
     name: "claude",
     aliases: ["cld"],
     version: "1.0",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     shortDescription: "Ask Claude 3 (Haiku)",
     longDescription: "Send text or image to Claude 3 Haiku AI and get a clean response.",
     category: "ai",
