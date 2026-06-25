@@ -7,7 +7,7 @@ module.exports = {
     name: "gay",
     aliases: [],
     version: "1.6",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     countDown: 2,
     role: 0,
     description: "Generate a gay image with two user IDs.",
