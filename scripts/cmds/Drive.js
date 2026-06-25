@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "drive",
     version: "1.0.0",
-    author: "ArYAN | Modified by Alvi-Boss",
+    author: "ArYAN | Modified by Ajmaul",
     countDown: 5,
     role: 2,
     shortDescription: "Upload media to Google Drive",
