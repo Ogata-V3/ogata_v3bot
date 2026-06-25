@@ -6,7 +6,7 @@ module.exports = {
   config: {
     name: "emoji_voice",
     version: "1.0.2",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     countDown: 5,
     role: 0,
     shortDescription: "ইমোজি দিলে কিউট মেয়ের ভয়েস পাঠাবে 😍",
