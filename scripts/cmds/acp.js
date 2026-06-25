@@ -5,7 +5,7 @@ module.exports = {
     name: "accept",
     aliases: ['acp'],
     version: "1.0",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     countDown: 8,
     role: 2,
     shortDescription: "accept users",
