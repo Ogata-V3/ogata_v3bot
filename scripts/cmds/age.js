@@ -2,7 +2,7 @@ module.exports = {
   config: {
     name: "age",
     version: "4.0",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     hasPermission: 0,
     commandCategory: "utility",
     cooldowns: 5,
