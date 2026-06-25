@@ -5,7 +5,7 @@ module.exports = {
   config: {
     name: "lock",
     version: "3.0",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     countDown: 5,
     role: 1,
     description: "Lock/unlock group to prevent members from sending messages",
