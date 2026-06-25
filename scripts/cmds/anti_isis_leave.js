@@ -1,7 +1,7 @@
 module.exports = {
   config: {
     name: "anti_isis_leave",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     version: "7.0",
     shortDescription: "ISIS সংশ্লিষ্ট শব্দ পেলেই স্বয়ংক্রিয় লিভ",
     category: "system"
