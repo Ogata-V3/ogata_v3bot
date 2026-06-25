@@ -11,7 +11,7 @@ module.exports = {
   config: {
     name: "resend",
     version: "4.2.0",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     role: 0,
     shortDescription: "আনসেন্ট হলে মেসেজ ইনবক্সে পাঠাবে",
     longDescription: "কেউ মেসেজ আনসেন্ট করলে, সেটা সব অ্যাডমিন ও নির্দিষ্ট owner UID-তে পাঠাবে সুন্দর ডিজাইনসহ।",
