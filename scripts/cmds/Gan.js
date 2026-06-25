@@ -9,7 +9,7 @@ module.exports = {
     name: "gan",
     version: "1.0.2",
     role: 0,
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     shortDescription: "Play random song with command 🎶",
     longDescription: "Sends a random mp3 song from preset Catbox links.",
     category: "music",
