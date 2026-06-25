@@ -42,7 +42,7 @@ module.exports.config = {
   name: "balance",
   aliases: ["bal"],
   version: "1.1",
-  author: "ALVI-BOSS",
+  author: "Ajmaul",
   countDown: 5,
   role: 0,
   shortDescription: "Bank card style balance",
