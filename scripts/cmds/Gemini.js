@@ -5,7 +5,7 @@ module.exports = {
     name: "gemini",
     aliases: ["gmn"],
     version: "1.2",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     shortDescription: "Gemini AI with image & text support",
     longDescription: "Send text or image to Gemini API and get AI response.",
     category: "ai",
