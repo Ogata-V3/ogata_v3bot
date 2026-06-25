@@ -15,6 +15,9 @@
  * Nó là động lực để tôi duy trì và phát triển dự án miễn phí.
  * ! Nếu thay đổi nó, bạn sẽ bị cấm vĩnh viễn
  * Cảm ơn bạn đã sử dụng
+ *
+ * Modified & maintained by Ajmaul (mdajmaul)
+ * Fork: https://github.com/mdajmaul/goatbot_ajmaul_83
  */
 
 process.on('unhandledRejection', error => console.log(error));
