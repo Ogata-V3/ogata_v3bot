@@ -1,106 +1,52 @@
 module.exports.config = {
   name: "autoreact",
-  version: "3.0.0",
-  hasPermission: 0,
-  credits: "ALVI",
-  description: "Ultra Advanced Auto Reaction",
-  commandCategory: "No Prefix",
-  usages: "",
-  cooldowns: 0
+  version: "3.1",
+  author: "Ajmaul",
+  countDown: 0,
+  role: 0,
+  shortDescription: "Auto react to messages based on keywords",
+  longDescription: "Automatically reacts with emojis based on message content",
+  category: "system",
+  guide: { en: "Auto trigger — no manual use needed" }
 };
 
-module.exports.handleEvent = async function ({ api, event }) {
-  const { messageID } = event;
-  if (!event.body || !messageID) return;
+module.exports.onStart = async function () {};
 
-  const msg = event.body.toLowerCase();
+// onChat fires on every message — proper GoatBot V2 format
+module.exports.onChat = async function ({ api, event }) {
+  const { messageID, body } = event;
+  if (!body || !messageID) return;
 
-  // ---------- WORD CATEGORIES ----------
-  const loveWords = [
-    "love","ilove","labyu","mahal","baby","babe","bby","kiss","hug",
-    "crush","cute","kilig","sweet","mwah","😗","😘","😍","🥰",
-    "heart","❤️","💋","hot","romantic","sexy","u love me"
+  const msg = body.toLowerCase();
+
+  const match = (list) => list.some(w => msg.includes(w));
+
+  const reactions = [
+    { words: ["🖤","soul","dark","alone","black heart"], emoji: "🖤" },
+    { words: ["love","ilove","labyu","baby","babe","kiss","hug","crush","cute","sweet","mwah","😘","😍","🥰","❤️","💋","romantic"], emoji: "❤️" },
+    { words: ["sex","fuck","porn","horny","xxx"], emoji: "😏" },
+    { words: ["sad","pain","hurt","cry","😭","😢","lonely","broken","breakup","depress"], emoji: "😢" },
+    { words: ["good morning","gm","good night","gn","morning","night","sleep","wake"], emoji: "❤" },
+    { words: ["wow","amazing","great","super","nice","awesome","legend","bot op"], emoji: "😮" },
+    { words: ["angry","mad","fuck you","bitch","stop","shut up"], emoji: "😡" },
+    { words: ["lol","lmao","haha","😂","🤣","funny","haste"], emoji: "😂" },
+    { words: ["food","pizza","burger","rice","eat","hungry","khida"], emoji: "🍔" },
+    { words: ["song","music","gan","lyrics","beat","rap"], emoji: "🎶" },
+    { words: ["fire","lit","power","boss","king","danger"], emoji: "🔥" },
+    { words: ["hmm","think","maybe","idea","confuse"], emoji: "🤔" },
+    { words: ["yes","true","right","ok","agree","done","sure"], emoji: "✅" },
+    { words: ["no","false","wrong","never","cancel"], emoji: "❌" },
+    { words: ["?","why","what","how","when","keno","kivabe"], emoji: "❓" }
   ];
 
-  const badWords = [
-    "sex","fuck","porn","hot video","horny","vagina","dick","boob",
-    "cum","nude","xxx","xvideo","manyak"
-  ];
-
-  const sadWords = [
-    "sad","pain","hurt","cry","😭","😢","😞","😔","lonely",
-    "broken","breakup","die","kill me","depress","stress"
-  ];
-
-  const greetWords = [
-    "good morning","gm","good night","gn","morning","night",
-    "evening","sleep","wake"
-  ];
-
-  const wowWords = [
-    "wow","amazing","bot op","great","super","nice",
-    "awesome","legend"
-  ];
-
-  const soulWords = [
-    "soul","dark","alone","black heart"
-  ];
-
-  const angryWords = [
-    "angry","rag","mad","fuck you","bitch","stop","shut up"
-  ];
-
-  const laughWords = [
-    "lol","lmao","haha","😂","🤣","funny","joke","haste"
-  ];
-
-  const questionWords = [
-    "?","why","what","how","kivabe","keno","ki","when"
-  ];
-
-  const foodWords = [
-    "food","pizza","burger","rice","eat","hungry","khida"
-  ];
-
-  const musicWords = [
-    "song","music","gan","lyrics","beat","rap","singer"
-  ];
-
-  const fireWords = [
-    "fire","lit","power","boss","king","danger","killer"
-  ];
-
-  const thinkWords = [
-    "think","hmm","maybe","idea","wait","confuse"
-  ];
-
-  const yesWords = [
-    "yes","true","right","ok","agree","done","sure"
-  ];
-
-  const noWords = [
-    "no","false","wrong","not","never","cancel"
-  ];
-
-  // ---------- MATCH ----------
-  const match = (list) => list.some(word => msg.includes(word));
-
-  // ---------- REACTIONS ----------
-  if (match(soulWords)) return api.setMessageReaction("🖤", messageID, () => {});
-  if (match(loveWords)) return api.setMessageReaction("❤️", messageID, () => {});
-  if (match(badWords)) return api.setMessageReaction("😏", messageID, () => {});
-  if (match(sadWords)) return api.setMessageReaction("😢", messageID, () => {});
-  if (match(greetWords)) return api.setMessageReaction("❤", messageID, () => {});
-  if (match(wowWords)) return api.setMessageReaction("😮", messageID, () => {});
-  if (match(angryWords)) return api.setMessageReaction("😡", messageID, () => {});
-  if (match(laughWords)) return api.setMessageReaction("😂", messageID, () => {});
-  if (match(questionWords)) return api.setMessageReaction("❓", messageID, () => {});
-  if (match(foodWords)) return api.setMessageReaction("🍔", messageID, () => {});
-  if (match(musicWords)) return api.setMessageReaction("🎶", messageID, () => {});
-  if (match(fireWords)) return api.setMessageReaction("🔥", messageID, () => {});
-  if (match(thinkWords)) return api.setMessageReaction("🤔", messageID, () => {});
-  if (match(yesWords)) return api.setMessageReaction("✅", messageID, () => {});
-  if (match(noWords)) return api.setMessageReaction("❌", messageID, () => {});
+  return async () => {
+    try {
+      for (const r of reactions) {
+        if (match(r.words)) {
+          api.setMessageReaction(r.emoji, messageID, () => {}, true);
+          return;
+        }
+      }
+    } catch {}
+  };
 };
-
-module.exports.run = async function () {};
