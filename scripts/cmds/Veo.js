@@ -2,7 +2,7 @@
 
 const axios = require("axios"); const fs = require("fs-extra"); const path = require("path");
 
-module.exports = { config: { name: "veo", version: "1.2.0", author: "ALVI-BOSS", role: 0, countDown: 5, shortDescription: "Generate a video from a text prompt 🎬", longDescription: "Use /veo [prompt] to generate a short AI video using mahbub-ullash API.", category: "ai-video" },
+module.exports = { config: { name: "veo", version: "1.2.0", author: "Ajmaul", role: 0, countDown: 5, shortDescription: "Generate a video from a text prompt 🎬", longDescription: "Use /veo [prompt] to generate a short AI video using mahbub-ullash API.", category: "ai-video" },
 
 onStart: async function ({ api, event, args }) { try { const prompt = args.join(" ").trim(); if (!prompt) { return api.sendMessage( "❌ ব্যবহার: /veo <prompt>\nউদাহরণ: /veo A cute girl dancing in rain ☔", event.threadID, event.messageID ); }
 
