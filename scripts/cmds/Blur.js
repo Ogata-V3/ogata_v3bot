@@ -6,7 +6,7 @@ module.exports = {
   config: {
     name: "blur",
     version: "1.0",
-    author: "ALVI-BOSS",
+    author: "Ajmaul",
     countDown: 10,
     role: 0,
     shortDescription: {
