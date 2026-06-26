@@ -2,7 +2,7 @@ module.exports = {
 	config: {
 		name: "resend",
 		version: "1.3",
-		author: "NTKhang",
+		author: "Zoro",
 		countDown: 5,
 		role: 0,
 		description: {
