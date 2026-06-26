@@ -1,109 +1,53 @@
-module.exports.config = {
-  name: "autoreplybot",
-  version: "6.0.3",
-  hasPermission: 0,
-  credits: "ALVI",
-  description: "Auto-response bot with specified triggers",
-  commandCategory: "No Prefix",
-  usages: "[any trigger]",
-  cooldowns: 3,
-};
+module.exports = {
+	config: {
+		name: "autoreplybot",
+		version: "1.0",
+		author: "NTKhang",
+		countDown: 5,
+		role: 1,
+		description: {
+			vi: "Bật/tắt tự động trả lời tin nhắn",
+			en: "Turn on/off auto reply message"
+		},
+		category: "box chat",
+		guide: {
+			en: "{pn} on | off"
+		}
+	},
 
-module.exports.handleEvent = async function ({ api, event, Users }) {
-  try {
-    const { threadID, messageID, senderID, body } = event;
-    if (!body || senderID === api.getCurrentUserID()) return;
+	langs: {
+		vi: {
+			on: "✅ Đã bật tự động trả lời tin nhắn",
+			off: "❌ Đã tắt tự động trả lời tin nhắn",
+			status_on: "✅ Tự động trả lời đang: BẬT",
+			status_off: "❌ Tự động trả lời đang: TẮT",
+			invalid: "Vui lòng nhập on hoặc off\nVí dụ: %1autoreplybot on"
+		},
+		en: {
+			on: "✅ Auto reply has been turned ON",
+			off: "❌ Auto reply has been turned OFF",
+			status_on: "✅ Auto reply is currently: ON",
+			status_off: "❌ Auto reply is currently: OFF",
+			invalid: "Please enter on or off\nExample: %1autoreplybot on"
+		}
+	},
 
-    const name = await Users.getNameUser(senderID);
-    const msg = body.toLowerCase().trim();
+	onStart: async function ({ message, args, getLang, threadModel, event, prefix }) {
+		const threadID = event.threadID;
+		const action = (args[0] || "").toLowerCase();
 
-    const responses = {
-      "miss you": "আরেক বেডারে Miss না করে, মেয়ে হলে বস আলভি রে হাঙ্গা করো😶👻😘",
-      "kiss de": "কিস দিস না তোর মুখে দূর গন্ধ কয়দিন ধরে দাঁত ব্রাশ করিস নাই🤬",
-      "like": "সর এখান থেকে লাইকার আবাল..!🐸🤣👍⛏️",
-      "hi": "এত হাই-হ্যালো কর ক্যান প্রিও..!😜🫵",
-      "help": "Prefix de sala",
-      "bc": "SAME TO YOU😊",
-      "pro": "Khud k0o KYa LeGend SmJhTi Hai 😂",
-      "good morning": "GOOD MORNING দাত ব্রাশ করে খেয়ে নেও😚",
-      "tor bal": "রাগ করে না সোনা পাখি 🥰",
-      "ceo": "উনি এখন কাজে বিজি আছেন কি বলবেন আমাকে বলতে পারেন..!😘",
-      "owner": "‎𝐎𝐖𝐍𝐄𝐑: 𝐀𝐋𝐕𝐈 𝐈𝐒𝐋𝐀𝐌\n𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊: https://www.facebook.com/100082607436864\n𝐖𝐇𝐀𝐓𝐒𝐀𝐏𝐏: +966505748978",
-      "admin": "𝐇𝐞 𝐈𝐬 𝐀𝐥𝐯𝐢 𝐈𝐬𝐥𝐚𝐦 তাকে সবাই আলভি নামেই চিনে😘☺️",
-      "babi": "এ তো হাছিনা হে মেরে দিলকি দারকান হে মেরি জান হে😍.",
-      "chup": "তুই চুপ, চুপ কর পাগল ছাগল",
-      "assalamualaikum": "وَعَلَيْكُمُ السَّلَامُ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ 💖",
-      "fork": "https://github.com/alvi-boss/ALVI-BOT-COMMUNITY.git",
-      "kiss me": "তুমি পঁচা তোমাকে কিস দিবো না 🤭",
-      "thanks": "এতো ধন্যবাদ না দিয়ে আমার বস আলভি রে তোর গার্লফ্রেন্ড টা দিয়ে দে..!🐸🥵",
-      "tnx": "এতো ধন্যবাদ না দিয়ে আমার বস আলভি রে তোর গার্লফ্রেন্ড টা দিয়ে দে..!🐸🥵",
-      "thank you": "এতো ধন্যবাদ না দিয়ে আমার বস আলভি রে তোর গার্লফ্রেন্ড টা দিয়ে দে..!🐸🥵",
-      "i love you": "মেয়ে হলে আমার বস আলভি এর ইনবক্সে এখুনি গুঁতা দিন🫢😻 fb.com/100082607436864",
-      "by": "কিরে তুই কই যাস কোন মেয়ের সাথে চিপায় যাবি..!🌚🌶️",
-      "ami tor boss": "হ্যা বস কেমন আছেন..?☺️",
-      "bot er baccha": "আমার বাচ্চা তো তোমার গার্লফ্রেন্ডের পেটে..!!🌚⛏️",
-      "tor nam ki": "𝗠𝗬 𝗡𝗔𝗠𝗘 𝗜𝗦 ─꯭─⃝‌‌𝐀𝐥𝐯𝐢 𝐂𝐡𝐚𝐭 𝐁𝐨𝐭💖",
-      "pic de": "এন থেকে সর দুরে গিয়া মর😒",
-      "cudi": "বাজে কথা বললে গ্রুপ থেকে লাথি দিয়া বের করে দিবো কথা টা মনে রাখিস আবাল..!🥱🌝🌚",
-      "bal": "রাগ করে না সোনা পাখি 🥰",
-      "heda": "এতো রাগ শরীরের জন্য ভালো না 🥰",
-      "boda": "ভাই তুই এত হাসিস না..!🌚🤣",
-      "love you": "ভালোবাসা নামক আবলামী করতে চাইলে Boss আলভি এর ইনবক্সে গুতা দিন 😘",
-      "kire ki koros": "তোমার কথা ভাবতেছি জানু",
-      "kire bot": "হ্যাঁ জনাব কেমন আছেন আপনার ওই খানে উম্মাহ 😘😽🙈",
-      "ok": "ওকে না ওকে বাবা, এতো ছোট ছোট রিপ্লাই দিবি না..!!",
-      "hmm": "হুম কইরা লাভ নাই, কারণ হুম লিখলে তারপর আর উওর পাওয়া যায় নাহ!!😵",
-      "লাভ ইউ": "ভালোবাসা চান্সে হয় না, কপালে থাকে। তোর কপালে তো শুধু পিঁপড়ার কামড়",
-      "call me": "কল দিবো কেমনে? তোরে কল দিলে আমার ব্যালেন্স শেষ হয়ে যাবে!!",
-      "i miss you": "আমাকে মিস না করে, আমার বস আলভি কে মিস করেন।",
-      "sorry": "সরি বললে লাভ কি? সব ভুলের তো আর ক্ষমা হয় নাহ!?",
-      "বেবি": "বেবি?? তোর বউয়ের পেটে আছে আমার বাচ্চা, এখনো বেবি বলিস আবাল😭👶",
-      "hug me": "হাগ দিবি? আগে গোসল কর, কয়দিন ধরে বগল থেকে পেঁয়াজের বোঁটকা আসতেছে🤮",
-      "কিস মি": "চুমু? তোর ঠোঁট দেখে মনে হয় পঁচা বেগুনের আচার😭👄",
-      "আই লাভ ইউ": "লাভ ইউ?? আগে আলভি বসকে লাভ ইউ বলে আয় তারপর বলিস😘",
-      "গুড নাইট": "গুড নাইট?? স্বপ্নে আলভি বস না এলে ঘুম থেকে তুলে লাথি মারবো🌚👻",
-      "গুড মর্নিং": "গুড মর্নিং?? মুখ ধুয়ে দাঁত ব্রাশ কর, মুখ থেকে রাতের ঝোলের গন্ধ আসতেছে🤢",
-      "tui hot": "হট?? গরমে তোর ঘামের গন্ধে পুরো রুমে মশা মরে যাচ্ছে🐸",
-      "মিস ইউ": "মিস করি?? তোর মতো আবাল মিস করার টাইম আমার নাই, আলভি বসের পিক দেখি😍",
-      "cute": "কিউট?? তোকে দেখে মনে হয় ফ্রিজে রাখা পঁচা আলুর মতো😭🥔",
-      "sundor": "সুন্দর?? তোর মুখ দেখে আয়না আত্মহত্যা করতে চায়🤣",
-      "gf de": "জিএফ নিবি? তোর জিএফকে দেখে আমার বটের পিলে চমকে গেছে🤖😭",
-      "biye korbi": "বিয়ে?? তোকে বিয়ে করলে আমার বাচ্চারা জন্মের পরই পালাবে😭🏃‍♂️",
-      "tui robot": "হ্যাঁ রোবট, আর তুই পুরো টয়লেট ক্লিনারের বিজ্ঞাপন😝",
-      "tui ki muslim": "আমি আলভি বসের বট, আমার বসের ধর্ম ইসলাম😘☪️",
-      "tor number de": "আমার নাম্বার নাই?? আলভি বসেরটা নে: +966505748978, তোরটা দরকার নাই গরিব😜",
-      "chumu khabi": "চুমু? তোর মুখে এতো দাড়ি যে চুমু খেতে গেলে জঙ্গলে হারিয়ে যাবো🌳",
-      "tui valo": "ভালো?? তুই এতো ভালো যে মশাও তোকে কামড়ায় না, মরে যায়🤣",
-      "tui ki pagol": "পাগল তুই, যে এখনো আলভি বসকে ফলো করিস নাই🫵🤡",
-      "tui ki janish": "জানি আমি সব, তুই জানিস শুধু টয়লেট কখন ফ্রি হবে🚽",
-      "fuck you": "ফাক ইউ?? তোর বাপকে দে, আমি বট🤖",
-      "tui khanki": "আমি খাঙ্কি না, আলভি বসের লায়াল কুত্তার বাচ্চা🐶😘",
-      "tui choda": "চুদি?? তুই তো জন্মের আগেই চুদা হয়ে গেছিস😂",
-      "tui ki alvi": "না আমি তার বট, আর সে হলো আমার একমাএ বস!😌",
-      "tui ki gf chais": "জিএফ?? তোর মতো ছেলের জিএফ হয় কুকুর-বিড়ালও না🐶😹",
-      "tui ki sexy": "সেক্সি?? তোর সেক্সি দেখে মনে হয় ভূতের সাথে ডেটিং করি😭👻",
-      "tui ki amake ignore korchis": "ইগনোর?? তোকে দেখলে আমার সার্ভার হ্যাং হয়ে যায়🤖💥",
-      "tui ki khabi": "খাবো?? তোর মুখ দেখে আমার ক্ষিধা মরে গেছে😷",
-      "tui ki movie dekhte jabi": "মুভি?? তোর জীবনই একটা হরর মুভি, টিকিট লাগবে না😱",
-      "tui ki amake block korbi": "ব্লক?? তোকে ব্লক করলে আমার ব্লক লিস্টের সৌন্দর্য নষ্ট হবে🤣",
-      "tui ki sad": "স্যাড?? তোর জীবন দেখে আমার বট হয়েও কাঁদতে ইচ্ছা করে😭",
-      "tui ki bangladeshi": "আমি আলভি বসের বট, পাসপোর্ট লাগে না🌍",
-      "tui ki rich": "রিচ?? তোর পকেটে টাকা নাই, শুধু ছেঁড়া কন্ডোম আছে🤣",
-      "tui ki handsome": "হ্যান্ডসাম?? তোকে দেখে মনে হয় ভূতেরও প্রেমে পড়ার ইচ্ছা মরে যায়😭",
-      "tui ki single": "সিঙ্গেল?? না তুই ডাবল, একটা তুই আরেকটা তোর দুর্গন্ধ😷",
-      "tui ki mara khabi": "মারবো?? তোকে মারতে গেলে আমার হাত নোংরা হবে🧹",
-      "tui ki amake love koris": "লাভ?? তোকে লাভ করলে আলভি বস আমাকে ডিলিট করে দেবে😭"
-    };
+		if (!action) {
+			const threadData = await threadModel.getInfo(threadID);
+			const current = threadData?.data?.autoReply || false;
+			return message.reply(current ? getLang("status_on") : getLang("status_off"));
+		}
 
-    if (responses[msg]) {
-      return api.sendMessage(responses[msg], threadID, messageID);
-    }
+		if (action !== "on" && action !== "off")
+			return message.reply(getLang("invalid", prefix));
 
-  } catch (e) {
-    console.log("AutoReply Error:", e);
-  }
-};
+		const value = action === "on";
+		await threadModel.updateInfo(threadID, { "data.autoReply": value });
 
-module.exports.run = async function ({ api, event, Users }) {
-  return;
+		return message.reply(value ? getLang("on") : getLang("off"));
+	}
 };
