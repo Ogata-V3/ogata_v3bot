@@ -18,7 +18,6 @@ module.exports = {
     const allCommands = global.GoatBot.commands;
     const categories = {};
 
-    // ফন্ট কনভার্টার ফাংশন
     const fontMap = {
       A: "𝙰", B: "𝙱", C: "𝙲", D: "𝙳", E: "𝙴", F: "𝙵", G: "𝙶", H: "𝙷", I: "𝙸", J: "𝙹",
       K: "𝙺", L: "𝙻", M: "𝙼", N: "𝙽", O: "𝙾", P: "𝙿", Q: "𝚀", R: "𝚁", S: "𝚂",
@@ -27,7 +26,7 @@ module.exports = {
       k: "𝚔", l: "𝚕", m: "𝚖", n: "𝚗", o: "𝚘", p: "𝚙", q: "𝚚", r: "𝚛", s: "𝚜",
       t: "𝚝", u: "𝚞", v: "𝚟", w: "𝚠", x: "𝚡", y: "𝚢", z: "𝚣"
     };
-    const fancy = (str) => str.replace(/[A-Za-z]/g, (c) => fontMap[c] || c);
+    const fancy = (str) => String(str).replace(/[A-Za-z]/g, (c) => fontMap[c] || c);
 
     const emojiMap = {
       ai: "🤖", "ai-image": "🎨", group: "👥", system: "⚙️",
@@ -65,7 +64,6 @@ module.exports = {
     const gifName = path.basename(randomGifURL);
     const gifPath = path.join(gifFolder, gifName);
 
-    // ✅ FIX: GIF fail হলে crash করবে না
     let gifReady = false;
     try {
       if (!fs.existsSync(gifPath)) await downloadGif(randomGifURL, gifPath);
