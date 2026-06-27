@@ -48,7 +48,10 @@
 		"tinyurl": "^1.1.7",
 		"totp-generator": "^0.0.13",
 		"websocket-stream": "^5.5.2",
-		"fca-delta": "^3.9.0"
+		"fca-delta": "^3.9.0",
+		"bluebird": "^3.7.2",
+		"lodash": "^4.17.21",
+		"mime-db": "^1.52.0"
 	},
 	"scripts": {
 		"start": "set NODE_ENV=&& node index.js",
