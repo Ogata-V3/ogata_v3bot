@@ -6,7 +6,7 @@ const CONFIG_PATH = path.join(__dirname, "config", "autoChatConfig.json");
 const DEFAULT_CONFIG = {
   enable: true,
   replyToAll: false,
-  replyChance: 40,
+  replyChance: 0,
   typingSpeed: 50,
   minDelay: 800,
   maxDelay: 3000,
