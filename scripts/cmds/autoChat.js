@@ -181,8 +181,8 @@ const RESPONSES = {
 };
 
 // ─── Context Tracking ──────────────────────────────────────────────────────
-const threadContext = new Map();  // threadID → { lastReply, history[] }
-const cooldowns = new Map();       // userID → timestamp
+const threadContext = new Map();
+const cooldowns = new Map();
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
 function pickRandom(arr) {
@@ -261,11 +261,7 @@ module.exports = {
 
       // Match response
       const matched = getResponse(body);
-      if (!matched) {
-        // Random reply chance for unmatched messages
-        if (!cfg.replyToAll && Math.random() * 100 > cfg.replyChance) return;
-        return; // Only reply to matched patterns by default
-      }
+      if (!matched) return; // Only reply to matched patterns
 
       const ctx = getContext(threadID);
       const reply = pickNonRepeat(matched.replies, ctx.lastReply);
@@ -279,21 +275,20 @@ module.exports = {
       cooldowns.set(senderID, now);
 
       // Show typing indicator then reply
-      return async () => {
-        try {
-          api.sendTypingIndicator(threadID);
-          await new Promise(r => setTimeout(r, delay));
-          await message.reply(reply);
+      try {
+        api.sendTypingIndicator(threadID);
+        await new Promise(r => setTimeout(r, delay));
+        await message.reply(reply);
 
-          // Update context
-          ctx.lastReply = reply;
-          ctx.lastKey = matched.key;
-          ctx.history.push({ key: matched.key, time: now });
-          if (ctx.history.length > 10) ctx.history.shift();
-        } catch (err) {
-          // Silent fail
-        }
-      };
+        // Update context
+        ctx.lastReply = reply;
+        ctx.lastKey = matched.key;
+        ctx.history.push({ key: matched.key, time: now });
+        if (ctx.history.length > 10) ctx.history.shift();
+      } catch (err) {
+        // Silent fail
+      }
+
     } catch (err) {
       // Silent fail — never crash the bot
     }
