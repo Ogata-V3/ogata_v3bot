@@ -1,4 +1,3 @@
-const createFuncMessage = global.utils.message;
 const handlerCheckDB = require("./handlerCheckData.js");
 
 module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData) => {
@@ -13,7 +12,7 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 		)
 			return;
 
-		const message = createFuncMessage(api, event);
+		const message = global.utils.message(api, event);
 
 		await handlerCheckDB(usersData, threadsData, event);
 		const handlerChat = await handlerEvents(event, message);
