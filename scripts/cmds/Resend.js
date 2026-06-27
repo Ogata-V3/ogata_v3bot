@@ -1,101 +1,59 @@
-const fs = require("fs-extra");
-const path = __dirname + "/cacheMsg.json";
-
-// 🔹 ক্যাশ ফাইল তৈরি না থাকলে বানায়
-if (!fs.existsSync(path)) fs.writeFileSync(path, JSON.stringify({}, null, 2));
-
-// 🔸 তোমার UID (Owner)
-const OWNER_ID = "100082607436864";
-
 module.exports = {
-  config: {
-    name: "resend",
-    version: "4.2.0",
-    author: "Ajmaul",
-    role: 0,
-    shortDescription: "আনসেন্ট হলে মেসেজ ইনবক্সে পাঠাবে",
-    longDescription: "কেউ মেসেজ আনসেন্ট করলে, সেটা সব অ্যাডমিন ও নির্দিষ্ট owner UID-তে পাঠাবে সুন্দর ডিজাইনসহ।",
-    category: "system"
-  },
+	config: {
+		name: "resend",
+		version: "1.3",
+		author: "Zoro",
+		countDown: 5,
+		role: 0,
+		description: {
+			vi: "Gửi lại tin nhắn",
+			en: "Resend a message"
+		},
+		category: "box chat",
+		guide: {
+			en: "Reply to a message and use {pn} to resend it"
+		}
+	},
 
-  // 🧠 মেসেজ ক্যাশ সেভ
-  onChat: async function ({ event }) {
-    const { messageID, threadID, senderID, body, attachments } = event;
-    if (!messageID) return;
-    const cache = JSON.parse(fs.readFileSync(path));
-    cache[messageID] = {
-      senderID,
-      threadID,
-      body: body || null,
-      attachments: attachments || []
-    };
-    fs.writeFileSync(path, JSON.stringify(cache, null, 2));
-  },
+	langs: {
+		vi: {
+			noReply: "Vui lòng reply vào tin nhắn bạn muốn gửi lại"
+		},
+		en: {
+			noReply: "Please reply to the message you want to resend"
+		}
+	},
 
-  // ❌ আনসেন্ট ডিটেকশন
-  onMessageUnsend: async function ({ event, api }) {
-    try {
-      const { messageID, threadID, senderID } = event;
-      const cache = JSON.parse(fs.readFileSync(path));
-      const msgData = cache[messageID];
-      if (!msgData) return;
+	onStart: async function ({ message, event, getLang }) {
+		try {
+			if (!event.messageReply)
+				return message.reply(getLang("noReply"));
 
-      const threadInfo = await api.getThreadInfo(threadID);
-      const adminIDs = threadInfo.adminIDs.map(item => item.id);
-      const groupName = threadInfo.threadName || "Unnamed Group";
+			const { body, attachments } = event.messageReply;
 
-      const userInfo = await api.getUserInfo(senderID);
-      const userName = userInfo[senderID]?.name || "Unknown User";
+			if (attachments && attachments.length > 0) {
+				const { getStreamFromURL } = global.utils;
+				const attachmentStreams = [];
+				for (const att of attachments) {
+					if (att.type === "photo" || att.type === "sticker" || att.type === "animated_image") {
+						try {
+							const stream = await getStreamFromURL(att.url || att.previewUrl);
+							if (stream) attachmentStreams.push(stream);
+						} catch (e) {}
+					}
+				}
+				return message.reply({
+					body: body || "",
+					attachment: attachmentStreams.length > 0 ? attachmentStreams : undefined
+				});
+			}
 
-      // 🕒 সময় ও তারিখ (Bangladesh)
-      const now = new Date();
-      const time = now.toLocaleTimeString("bn-BD", { timeZone: "Asia/Dhaka", hour12: true });
-      const date = now.toLocaleDateString("bn-BD");
+			if (body)
+				return message.reply(body);
 
-      // 📄 আনসেন্ট মেসেজের ধরন
-      let msgBody = "";
-      if (msgData.body) msgBody = `💬 মেসেজ: ${msgData.body}`;
-      else if (msgData.attachments.length > 0) {
-        const type = msgData.attachments[0].type;
-        if (type === "photo") msgBody = "📷 একটি ছবি আনসেন্ট করেছে!";
-        else if (type === "video") msgBody = "🎥 একটি ভিডিও আনসেন্ট করেছে!";
-        else if (type === "audio") msgBody = "🎧 একটি ভয়েস মেসেজ আনসেন্ট করেছে!";
-        else msgBody = "📎 একটি ফাইল আনসেন্ট করেছে!";
-      } else msgBody = "❓ কিছু আনসেন্ট করেছে!";
-
-      // 🎨 ডিজাইন আউটপুট
-      const alertMsg =
-`━━━━━━━━━━━━━━━━━━━━━
-🕵️‍♂️ 𝙐𝙉𝙎𝙀𝙉𝘿 𝘼𝙇𝙀𝙍𝙏 ⚠️
-━━━━━━━━━━━━━━━━━━━━━
-👤 ইউজার: ${userName}
-${msgBody}
-🏠 গ্রুপ: ${groupName}
-⏰ সময়: ${time}
-📅 তারিখ: ${date}
-━━━━━━━━━━━━━━━━━━━━━
-𝙱𝚘𝚝 𝙾𝚠𝚗𝚎𝚛 : 𝙰𝚕𝚟𝚒-𝙱𝚘𝚜𝚜`;
-
-      // 📩 রিসিভার লিস্ট (অ্যাডমিন + Owner)
-      const receivers = [...new Set([...adminIDs, OWNER_ID])];
-
-      // 🔁 প্রত্যেককে পাঠানো
-      for (const adminID of receivers) {
-        await api.sendMessage(alertMsg, adminID);
-
-        if (msgData.attachments.length > 0) {
-          for (const att of msgData.attachments) {
-            const stream = await global.utils.getStreamFromURL(att.url);
-            await api.sendMessage({ attachment: stream }, adminID);
-          }
-        }
-      }
-
-      delete cache[messageID];
-      fs.writeFileSync(path, JSON.stringify(cache, null, 2));
-
-    } catch (err) {
-      console.error("❌ Resend Error:", err);
-    }
-  }
+			return message.reply(getLang("noReply"));
+		} catch (err) {
+			return message.reply("❌ Error: " + err.message);
+		}
+	}
 };
