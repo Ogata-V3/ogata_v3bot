@@ -12,7 +12,18 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 		)
 			return;
 
-		const message = global.utils.message(api, event);
+		// Safe message wrapper — global.utils.message may not be ready at load time
+		const messageFunc = global.utils?.message;
+		const message = typeof messageFunc === "function"
+			? messageFunc(api, event)
+			: (() => {
+				// Fallback: basic message wrapper
+				return {
+					reply: (msg) => api.sendMessage(msg, event.threadID),
+					send: (msg) => api.sendMessage(msg, event.threadID),
+					delete: (msgID) => api.unsendMessage(msgID || event.messageID),
+				};
+			})();
 
 		await handlerCheckDB(usersData, threadsData, event);
 		const handlerChat = await handlerEvents(event, message);
@@ -52,13 +63,6 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 			case "read_receipt":
 				read_receipt();
 				break;
-			// case "friend_request_received":
-			// { /* code block */ }
-			// break;
-
-			// case "friend_request_cancel"
-			// { /* code block */ }
-			// break;
 			default:
 				break;
 		}
