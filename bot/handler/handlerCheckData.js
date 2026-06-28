@@ -22,7 +22,7 @@ module.exports = async function (usersData, threadsData, event) {
 					return;
 
 				const threadData = await threadsData.create(threadID);
-				log.info("DATABASE", `New Thread: ${threadID} | ${threadData.threadName} | ${config.database.type}`);
+				log.info("DATABASE", `New Thread: ${threadID} | ${threadData?.threadName || "Unknown"} | ${config.database.type}`);
 			}
 			else {
 				await findInCreatingThreadData.promise;
@@ -46,7 +46,7 @@ module.exports = async function (usersData, threadsData, event) {
 					return;
 
 				const userData = await usersData.create(senderID);
-				log.info("DATABASE", `New User: ${senderID} | ${userData.name} | ${config.database.type}`);
+				log.info("DATABASE", `New User: ${senderID} | ${userData?.name || "Unknown"} | ${config.database.type}`);
 			}
 			else {
 				await findInCreatingUserData.promise;
