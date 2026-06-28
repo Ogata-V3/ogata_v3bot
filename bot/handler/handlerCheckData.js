@@ -1,9 +1,12 @@
 const { db, utils, GoatBot } = global;
 const { config } = GoatBot;
-const { log, getText } = utils;
 const { creatingThreadData, creatingUserData } = global.client.database;
 
 module.exports = async function (usersData, threadsData, event) {
+	// Safe access to log and getText in case utils is not ready
+	const log = global.utils?.log || { info: console.log, err: console.error, warn: console.warn };
+	const getText = global.utils?.getText || ((k1, k2, ...a) => a.join(" ") || k2 || k1);
+
 	const { threadID } = event;
 	const senderID = event.senderID || event.author || event.userID;
 
