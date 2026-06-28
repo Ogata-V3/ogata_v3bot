@@ -7,8 +7,8 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 		// Check if the bot is in the inbox and anti inbox is enabled
 		if (
 			global.GoatBot.config.antiInbox == true &&
-			(event.senderID == event.threadID || event.userID == event.senderID || event.isGroup == false) &&
-			(event.senderID || event.userID || event.isGroup == false)
+			event.isGroup == false &&
+			event.senderID == event.threadID
 		)
 			return;
 
