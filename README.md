@@ -1,168 +1,208 @@
-<!-- 🔥 TOP BANNER -->
-<p align="center">
-  <img src="https://i.ibb.co/d4Brrz06/image0.jpg" width="100%" />
-</p>
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d0d0d,50:1a1a2e,100:16213e&height=180&section=header&text=X69X%20BOT%20V3&fontSize=65&fontColor=00FFFF&animation=fadeIn&fontAlignY=38&desc=🤖%20Facebook%20Messenger%20Bot%20🤖&descSize=18&descAlignY=60&descColor=FFD700" width="100%"/>
+</div>
 
-<h1 align="center">✨ 𝐆𝐎𝐀𝐓 𝐁𝐎𝐓 𝐕𝟐 ✨</h1>
-<h3 align="center">💎 𝗠𝗢𝗗𝗜𝗙𝗜𝗘𝗗 𝗕𝗬 𝗔𝗝𝗠𝗔𝗨𝗟 💎</h3>
+<br/>
 
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=28&duration=2500&pause=700&color=00F0FF&center=true&vCenter=true&width=750&lines=⚡+MULTI-DEVICE+MESSENGER+BOT;🔥+PREMIUM+AUTOMATION+SYSTEM;🧠+AI+POWERED+COMMANDS;🚀+ULTRA+FAST+PERFORMANCE;💎+ADVANCED+ADMIN+TOOLS" />
-</p>
+<div align="center">
+  <img src="https://i.imgur.com/MaHxr85.jpeg" width="90%" style="border-radius:12px; border: 2px solid #00FFFF;"/>
+</div>
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00F0FF,100:8A2BE2&height=120&section=header"/>
-</p>
-
----
-
-## 🌌 Stats Dashboard
-
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=mdajmaul&theme=tokyonight#gh-dark-mode-only" width="49%" />
-</p>
-
----
-
-## 📊 Repo Analytics
-
-<p align="center">
-  <img src="https://img.shields.io/github/stars/mdajmaul/goatbot_ajmaul_83?style=for-the-badge&logo=github"/>
-  <img src="https://img.shields.io/github/forks/mdajmaul/goatbot_ajmaul_83?style=for-the-badge&logo=github"/>
-  <img src="https://img.shields.io/github/repo-size/mdajmaul/goatbot_ajmaul_83?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/last-commit/mdajmaul/goatbot_ajmaul_83?style=for-the-badge"/>
-</p>
-
----
-
-## 🧠 Bot Status
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Bot_Status-ONLINE-brightgreen?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/API-Running-blue?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Uptime-24/7-success?style=for-the-badge"/>
-</p>
-
----
-
-## 📡 Server Ping
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Ping-20ms-brightgreen?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Latency-Low-success?style=for-the-badge"/>
-</p>
-
----
-
-## 📈 Activity Graph
-
-<p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=mdajmaul&theme=tokyo-night"/>
-</p>
-
----
-
-## 👁️ Visitors
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=mdajmaul&label=🔥+VISITORS&style=for-the-badge"/>
-</p>
-
----
-
-## 🎬 Preview Section
-
-<p align="center">
-  <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" width="45%" />
-  <img src="https://media.giphy.com/media/L8K62iTDkzGX6/giphy.gif" width="45%" />
-</p>
-
----
-
-## 🚀 Deployment
+<br/>
 
 <div align="center">
 
-<a href="https://railway.app/new">
-  <img src="https://img.shields.io/badge/Deploy-Railway-black?style=for-the-badge&logo=railway"/>
-</a>
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=24&duration=3000&pause=800&color=00FFFF&center=true&vCenter=true&width=550&lines=🤖+109%2B+Commands+Ready;⚡+Fast+%26+Anti-Suspension+Protected;🎛️+Web+Dashboard+Included;💫+Made+by+Azadx69x)](https://git.io/typing-svg)
 
-<a href="https://dashboard.render.com">
-  <img src="https://img.shields.io/badge/Deploy-Render-black?style=for-the-badge&logo=render"/>
-</a>
+</div>
 
-<a href="https://repl.it/github/mdajmaul/goatbot_ajmaul_83">
-  <img src="https://img.shields.io/badge/Deploy-Replit-black?style=for-the-badge&logo=replit"/>
+<br/>
+
+<div align="center">
+
+[![Stars](https://img.shields.io/github/stars/ncazad/X69X-BOT-V3?style=for-the-badge&logo=starship&logoColor=white&color=FF69B4&label=Stars)](https://github.com/ncazad/X69X-BOT-V3/stargazers)
+[![Forks](https://img.shields.io/github/forks/ncazad/X69X-BOT-V3?style=for-the-badge&logo=git&logoColor=white&color=00CED1&label=Forks)](https://github.com/ncazad/X69X-BOT-V3/forks)
+[![Size](https://img.shields.io/github/repo-size/ncazad/X69X-BOT-V3?style=for-the-badge&logo=github&logoColor=white&color=8A2BE2&label=Size)](https://github.com/ncazad/X69X-BOT-V3)
+[![Last Commit](https://img.shields.io/github/last-commit/ncazad/X69X-BOT-V3?style=for-the-badge&logo=github&logoColor=white&color=FFD700&label=Updated)](https://github.com/ncazad/X69X-BOT-V3/commits)
+
+</div>
+
+<div align="center">
+
+![NodeJS](https://img.shields.io/badge/Node.js-20.x-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![Messenger](https://img.shields.io/badge/Facebook_Messenger-Bot-1877F2?style=flat-square&logo=messenger&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Online-00FF7F?style=flat-square&logo=statuspage&logoColor=white)
+![Views](https://komarev.com/ghpvc/?username=ncazad&style=flat-square&color=FF69B4&label=Views)
+
+</div>
+
+---
+
+## ✨ Features
+
+<div align="center">
+
+| Feature | Description |
+|:-------:|:-----------|
+| 🛡️ **Anti-Suspension** | Human-behavior simulation to avoid Facebook bans |
+| ⚡ **Fast MQTT** | Optimized connection with auto-restart & keep-alive |
+| 🎛️ **Web Dashboard** | Manage bot, users & groups from your browser |
+| 🌐 **Multi-Account** | Run multiple Facebook accounts simultaneously |
+| 💾 **Dual Database** | MongoDB + SQLite for reliable data storage |
+| 🔄 **Auto Token Refresh** | Cookies & tokens auto-refreshed to prevent expiry |
+| 🎵 **Music & Media** | Download from YouTube, TikTok, Spotify in chat |
+| 🤖 **AI Commands** | DeepAI, DeepSeek, Midjourney integrations |
+| 🏆 **Economy System** | Daily rewards, bank, casino, rank cards |
+| 🔒 **Permission System** | 7-level role-based access control |
+
+</div>
+
+---
+
+## 🔐 Permission Levels
+
+<div align="center">
+
+| Level | Role | Bar | Access |
+|:-----:|:----:|:---:|:------:|
+| 0 👥 | Standard User | `░░░░░░` | None |
+| 1 ⚔️ | Group Admin | `██░░░░` | Moderate |
+| 2 🤖 | VIP User | `███░░░` | Advanced |
+| 3 💎 | Premium User | `████░░` | Premium |
+| 4 👑 | Admin Bot | `█████░` | Full |
+| 5 🔧 | Developer | `██████` | High |
+| 6 🌟 | Creator | `██████` | **Highest** |
+
+</div>
+
+---
+
+## 📦 Command Categories
+
+<div align="center">
+
+| # | Category | Sample Commands |
+|:-:|:--------:|:---------------|
+| 🎵 | **Music & Media** | `sing` `yt` `tiktok` `alldl` `album` |
+| 🤖 | **AI & Smart** | `deepseek` `deepai` `midjourney` `prompt` |
+| 👮 | **Admin Tools** | `ban` `kick` `admin` `setrole` `setwelcome` |
+| 💰 | **Economy** | `daily` `bank` `casino` `balance` `slot` |
+| 🎮 | **Fun & Games** | `quiz` `wordgame` `pair` `slap` `maze` |
+| 📊 | **Info & Stats** | `uid` `boxinfo` `gcinfo` `pfp` `rank` |
+| ⚙️ | **Utility** | `eval` `shell` `restart` `update` `help` |
+| 🎨 | **Image & Art** | `4k` `rbg` `font` `animate` `customrankcard` |
+
+</div>
+
+---
+
+## ⚙️ Command Template
+
+```js
+module.exports = {
+  config: {
+    name: "commandName",
+    version: "1.0",
+    author: "Azadx69x",
+    role: 0,              // 0=All  1=Admin  2=VIP  3=Premium  4=AdminBot  5=Dev  6=Creator
+    usePrefix: true,
+    description: "What this command does",
+    guide: "{pn} [args]",
+    category: "Utility",
+    cooldowns: 3
+  },
+  onStart: async function ({ api, event, args, message }) {
+    // command logic here
+  }
+};
+```
+
+---
+
+## 📊 Project Status
+
+<div align="center">
+
+| Module | Progress | State |
+|:------:|:--------:|:-----:|
+| 💻 Core Code | ![95%](https://img.shields.io/badge/95%25-■■■■■■■■■□-00CED1?style=flat-square) | ✅ Done |
+| 🧪 Testing | ![80%](https://img.shields.io/badge/80%25-■■■■■■■■□□-FFD700?style=flat-square) | 🔄 Active |
+| 📄 Docs | ![90%](https://img.shields.io/badge/90%25-■■■■■■■■■□-8A2BE2?style=flat-square) | ✅ Done |
+| ⚡ Performance | ![98%](https://img.shields.io/badge/98%25-■■■■■■■■■■-FF69B4?style=flat-square) | ✅ Done |
+| 🟢 Uptime | ![99%](https://img.shields.io/badge/99%25-■■■■■■■■■■-00FF7F?style=flat-square) | ✅ Live |
+
+</div>
+
+---
+
+## 📶 GitHub Stats
+
+<div align="center">
+
+<img height="160" src="https://github-readme-stats-beryl-chi-76.vercel.app/api?username=ncazad&show_icons=true&count_private=true&theme=tokyonight&hide_border=true&border_radius=10&title_color=00FFFF&icon_color=FF69B4"/>
+<img height="160" src="https://github-readme-stats-beryl-chi-76.vercel.app/api/top-langs/?username=ncazad&langs_count=6&theme=tokyonight&hide_border=true&border_radius=10&title_color=00FFFF&layout=compact"/>
+
+<br/>
+
+<img src="https://github-readme-streak-stats-opal-ten-98.vercel.app/?user=ncazad&theme=tokyonight&hide_border=true&ring=FF69B4&fire=FFD700&currStreakLabel=00FFFF"/>
+
+</div>
+
+---
+
+## 🪪 Connect & Support
+
+<div align="center">
+
+<a href="https://www.facebook.com/profile.php?id=61589294235712">
+  <img src="https://img.shields.io/badge/-Facebook%20%7C%20Azadx69x-1877F2?style=for-the-badge&logo=facebook&logoColor=white"/>
+</a>
+&nbsp;
+<a href="https://github.com/ncazad">
+  <img src="https://img.shields.io/badge/-GitHub%20%7C%20ncazad-181717?style=for-the-badge&logo=github&logoColor=white"/>
+</a>
+&nbsp;
+<a href="https://github.com/ncazad/X69X-BOT-V3/issues">
+  <img src="https://img.shields.io/badge/-Report%20a%20Bug-FF4444?style=for-the-badge&logo=github&logoColor=white"/>
 </a>
 
 </div>
 
 ---
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:8A2BE2,100:00F0FF&height=100&section=header"/>
-</p>
+## 🗃️ Credits
 
-## ⚡ Advanced Features
+<div align="center">
 
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=24&duration=2500&pause=800&color=00F0FF&center=true&width=650&lines=AI+POWERED+COMMANDS;PREMIUM+SYSTEM+ENABLED;AUTO+RESTART+ACTIVE;DATABASE+SUPPORT+READY;LIVE+DASHBOARD+CONNECTED;ADVANCED+LOGGING+SYSTEM"/>
-</p>
+| Role | Name | Project |
+|:----:|:----:|:-------:|
+| 🏆 Original Creator | [NTKhang03](https://github.com/ntkhang03) | [Goat-Bot-V2](https://github.com/ntkhang03/Goat-Bot-V2) |
+| 👑 Modified By | [Azadx69x](https://github.com/ncazad) | [X69X-BOT-V3](https://github.com/ncazad/X69X-BOT-V3) |
 
-<p align="center">
-  <img src="https://img.shields.io/badge/🤖_AI_COMMANDS-ENABLED-blue?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/💎_PREMIUM_SYSTEM-ACTIVE-purple?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/🔄_AUTO_RESTART-ONLINE-green?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/🗄️_DATABASE-MongoDB_/_SQLite-orange?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/🚫_ANTI_REACT-SYSTEM-red?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/📊_LIVE_DASHBOARD-CONNECTED-blue?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/📜_LOGGING-SYSTEM-yellow?style=for-the-badge"/>
-</p>
+</div>
 
 ---
 
-## 🎯 Command System
+## 📜 License
 
-<table align="center">
-<tr>
-<th>⚡ Command</th>
-<th>💡 Description</th>
-</tr>
-<tr><td><code>.help</code></td><td>📜 Show all commands</td></tr>
-<tr><td><code>.prefix</code></td><td>⚙️ Change bot prefix</td></tr>
-<tr><td><code>.update</code></td><td>🚀 Update bot system</td></tr>
-<tr><td><code>.rank</code></td><td>🏆 Show your rank</td></tr>
-<tr><td><code>.ban</code></td><td>🔨 Ban a user</td></tr>
-<tr><td><code>.kick</code></td><td>👢 Kick from group</td></tr>
-</table>
+```
+ajmaul_goat_83 — MIT License (No Derivatives)
+Copyright (c) 2022 NTKhang03 | Modified by Ajmaul 
+
+✔ You may use and share this software freely.
+✘ You may NOT modify or create derivative works.
+✘ You may NOT sell this source code or claim it as your own.
+```
 
 ---
 
-## ❤️ Support
+<div align="center">
 
-<p align="center">
-  <a href="https://github.com/mdajmaul/goatbot_ajmaul_83">
-    <img src="https://img.shields.io/badge/⭐_Star-GitHub-black?style=for-the-badge&logo=github"/>
-  </a>
-  <a href="https://github.com/mdajmaul/goatbot_ajmaul_83/issues">
-    <img src="https://img.shields.io/badge/🐛_Report-Issue-red?style=for-the-badge&logo=github"/>
-  </a>
-</p>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:16213e,50:1a1a2e,100:0d0d0d&height=120&section=footer&animation=fadeIn" width="100%"/>
 
----
+**⭐ Star this repo if you like it — it means a lot! 🖤**
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:8A2BE2,100:00F0FF&height=140&section=footer"/>
-</p>
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=13&duration=3000&pause=1000&color=FF69B4&center=true&vCenter=true&width=450&lines=Thanks+for+visiting+X69X+BOT+V3!;Follow+%40ncazad+on+GitHub+💫;Made+with+❤️+by+Azadx69x)](https://git.io/typing-svg)
 
-<h2 align="center">💎 GOAT BOT V2</h2>
-
-<p align="center">
-  Original Bot by <b>NTKhang</b> | Modified & Maintained by <b>AJMAUL</b><br><br>
-  🚀 <b>Fork:</b> <a href="https://github.com/mdajmaul/goatbot_ajmaul_83">github.com/mdajmaul/goatbot_ajmaul_83</a><br><br>
-  ⭐ <b>Don't forget to star the repo!</b>
-</p>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00F0FF,100:8A2BE2&height=5&section=footer"/>
-</p>
+</div>
