@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- TITLE BANNER -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d0d0d,50:003399,100:00ccff&height=200&section=header&text=GOATBOT%20AJMAUL%2083&fontSize=55&fontColor=00ffff&fontAlignY=50&desc=Facebook%20Messenger%20Bot%20%F0%9F%A4%96&descAlignY=75&descSize=20&animation=twinkling" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d0d0d,50:003399,100:00ccff&height=280&section=header&text=GOATBOT%20AJMAUL%2083&fontSize=70&fontColor=00ffff&fontAlignY=50&desc=Facebook%20Messenger%20Bot%20%F0%9F%A4%96&descAlignY=75&descSize=25&animation=twinkling" width="100%"/>
 
 <!-- MAIN LOGO -->
 <img src="https://i.imgur.com/vxxSpX8.jpeg" alt="AJ GoatBot 83" width="100%"/>
