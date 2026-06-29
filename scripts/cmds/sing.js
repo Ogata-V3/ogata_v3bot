@@ -1,152 +1,96 @@
 const axios = require("axios");
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
-
-const baseApiUrl = async () => {
-  const base = await axios.get(
-    `https://raw.githubusercontent.com/rummmmna21/rx-api/main/baseApiUrl.json?fbclid=IwY2xjawN1LPlleHRuA2FlbQIxMQABHrS3c9PLQEj8--h_gtg-Dn1chJA1PuOg39Bl3_7volMObgoBTusScj7atlSv_aem_Od2q66hLLFpjGWb1_EWUhw`
-  );
-  return base.data.api;
-};
 
 module.exports = {
   config: {
     name: "sing",
-    version: "2.2.0",
-    author: "RX api x MOHAMMAD AKASH",
+    aliases: ["song", "music"],
+    version: "1.1",
+    author: "Zoro🐊",
+    countDown: 5,
     role: 0,
+    shortDescription: { en: "Search and download YouTube audio" },
     category: "media",
-    shortDescription: "Download audio from YouTube",
-    longDescription: "Search YouTube videos and download audio (MP3 format).",
-    guide: "{pn} [song name | YouTube link]\n\nExample:\n{pn} chipi chipi chapa chapa"
+    guide: { en: "{pn} <song name>" }
   },
 
-  onStart: async function ({ api, event, args }) {
-    const checkurl = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})(?:\S+)?$/;
-    const input = args.join(" ");
-
-    if (!input)
-      return api.sendMessage("❌ Please provide a song name or YouTube link.", event.threadID, event.messageID);
-
-    const isYtLink = checkurl.test(input);
-    const tmpFolder = path.join(__dirname, "tmp");
-    if (!fs.existsSync(tmpFolder)) fs.mkdirSync(tmpFolder, { recursive: true });
-
-    // direct YouTube link
-    if (isYtLink) {
-      const match = input.match(checkurl);
-      const videoID = match ? match[1] : null;
-
-      try {
-        const { data } = await axios.get(`${await baseApiUrl()}/ytDl3?link=${videoID}&format=mp3`);
-        const { title, downloadLink } = data;
-
-        const filePath = path.join(tmpFolder, `${Date.now()}_audio.mp3`);
-        const res = await axios.get(downloadLink, { responseType: "arraybuffer" });
-        fs.writeFileSync(filePath, Buffer.from(res.data));
-
-        return api.sendMessage(
-          { body: `🎵 ${title}`, attachment: fs.createReadStream(filePath) },
-          event.threadID,
-          () => fs.unlinkSync(filePath),
-          event.messageID
-        );
-      } catch (err) {
-        console.error(err);
-        return api.sendMessage("❌ Failed to fetch audio.", event.threadID, event.messageID);
-      }
-    }
-
-    // keyword search
-    let keyWord = input.includes("?feature=share")
-      ? input.replace("?feature=share", "")
-      : input;
-    const maxResults = 6;
+  onStart: async function ({ message, args, event, api, commandName }) {
+    const query = args.join(" ");
+    if (!query) return message.reply("Please provide a song name.");
 
     try {
-      const res = await axios.get(`${await baseApiUrl()}/ytFullSearch?songName=${encodeURIComponent(keyWord)}`);
-      const results = res.data.slice(0, maxResults);
+      const res = await axios.get(`https://neokex-dlapis.vercel.app/api/search?q=${encodeURIComponent(query)}`);
+      const results = res.data.results.slice(0, 6);
 
-      if (!results.length)
-        return api.sendMessage(`⭕ No results found for: ${keyWord}`, event.threadID, event.messageID);
+      if (results.length === 0) return message.reply("No songs found.");
 
-      let msg = "🎧 Choose a song below (reply with number 1–6):\n\n";
-      const thumbs = [];
+      let msg = "";
+      const attachments = [];
+      const cacheDir = path.join(__dirname, "cache");
+      await fs.ensureDir(cacheDir);
 
-      results.forEach((info, i) => {
-        msg += `${i + 1}. ${info.title}\n⏱️ ${info.time}\n📺 ${info.channel.name}\n\n`;
-        thumbs.push(loadStream(info.thumbnail));
+      for (let i = 0; i < results.length; i++) {
+        msg += `${i + 1}. ${results[i].title}\n[${results[i].duration}]\n\n`;
+        const imgPath = path.join(cacheDir, `sing_${Date.now()}_${i}.jpg`);
+        const imgRes = await axios.get(results[i].thumbnail, { responseType: "arraybuffer" });
+        await fs.writeFile(imgPath, Buffer.from(imgRes.data));
+        attachments.push(fs.createReadStream(imgPath));
+      }
+
+      message.reply({ body: msg.trim(), attachment: attachments }, (err, info) => {
+        global.GoatBot.onReply.set(info.messageID, {
+          commandName,
+          author: event.senderID,
+          results
+        });
+        attachments.forEach(s => setTimeout(() => fs.remove(s.path).catch(() => {}), 10000));
+      });
+    } catch (e) {
+      message.reply("Search error.");
+    }
+  },
+
+  onReply: async function ({ message, event, Reply, api }) {
+    const choice = parseInt(event.body);
+    if (isNaN(choice) || choice < 1 || choice > Reply.results.length) return;
+
+    const selected = Reply.results[choice - 1];
+    api.unsendMessage(event.messageReply.messageID);
+    api.setMessageReaction("⏳", event.messageID);
+
+    try {
+      const dlRes = await axios.get(`https://neokex-dlapis.vercel.app/api/alldl?url=${encodeURIComponent(selected.url)}`);
+      const pollUrl = dlRes.data.audio.downloadUrl;
+
+      let streamUrl = null;
+      for (let i = 0; i < 60; i++) {
+        const statusRes = await axios.get(pollUrl);
+        if (statusRes.data.status === "completed") {
+          streamUrl = statusRes.data.viewUrl;
+          break;
+        }
+        await new Promise(r => setTimeout(r, 1000));
+      }
+
+      if (!streamUrl) throw new Error("Processing timeout.");
+
+      const cacheDir = path.join(__dirname, "cache");
+      const filePath = path.join(cacheDir, `${Date.now()}.mp3`);
+      
+      const fileRes = await axios.get(streamUrl, { responseType: "arraybuffer" });
+      await fs.writeFile(filePath, Buffer.from(fileRes.data));
+
+      await message.reply({
+        body: selected.title,
+        attachment: fs.createReadStream(filePath)
       });
 
-      const allThumbs = await Promise.all(thumbs);
-
-      return api.sendMessage(
-        {
-          body: msg + "🎶 Reply with the number to download the song.",
-          attachment: allThumbs
-        },
-        event.threadID,
-        (err, info) => {
-          global.GoatBot.onReply.set(info.messageID, {
-            commandName: "sing",
-            author: event.senderID,
-            results,
-            messageID: info.messageID // store messageID to unsend later
-          });
-        },
-        event.messageID
-      );
-    } catch (err) {
-      console.error(err);
-      return api.sendMessage("❌ Error searching for songs.", event.threadID, event.messageID);
-    }
-  },
-
-  onReply: async function ({ api, event, Reply }) {
-    if (event.senderID !== Reply.author) return;
-    const { results, messageID } = Reply;
-    const choice = parseInt(event.body);
-
-    if (isNaN(choice) || choice < 1 || choice > results.length)
-      return api.sendMessage("❌ Please reply with a valid number.", event.threadID, event.messageID);
-
-    const selected = results[choice - 1];
-    const tmpFolder = path.join(__dirname, "tmp");
-    if (!fs.existsSync(tmpFolder)) fs.mkdirSync(tmpFolder, { recursive: true });
-
-    try {
-      // unsend the "Choose a song" message
-      api.unsendMessage(messageID);
-
-      const { data } = await axios.get(`${await baseApiUrl()}/ytDl3?link=${selected.id}&format=mp3`);
-      const { title, quality, downloadLink } = data;
-
-      const filePath = path.join(tmpFolder, `${Date.now()}_audio.mp3`);
-      const res = await axios.get(downloadLink, { responseType: "arraybuffer" });
-      fs.writeFileSync(filePath, Buffer.from(res.data));
-
-      return api.sendMessage(
-        {
-          body: `🎶 Now Playing: ${title}\n📦 Quality: ${quality}`,
-          attachment: fs.createReadStream(filePath)
-        },
-        event.threadID,
-        () => fs.unlinkSync(filePath),
-        event.messageID
-      );
-    } catch (err) {
-      console.error(err);
-      return api.sendMessage("⭕ Error downloading audio (may exceed 26MB).", event.threadID, event.messageID);
+      api.setMessageReaction("✅", event.messageID);
+      fs.remove(filePath).catch(() => {});
+    } catch (e) {
+      api.setMessageReaction("❌", event.messageID);
+      message.reply("Download error.");
     }
   }
 };
-
-// Helper to stream thumbnails
-async function loadStream(url) {
-  try {
-    const res = await axios.get(url, { responseType: "stream" });
-    return res.data;
-  } catch {
-    return null;
-  }
-}
