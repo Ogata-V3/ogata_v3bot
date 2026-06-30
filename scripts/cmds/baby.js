@@ -12,7 +12,7 @@ const mahmud = [
   "বেবি",
   "gf",
   "Ajmaul",
-  "nagi",
+  "zoro",
   "muzan",
   "ajma",
 ];
