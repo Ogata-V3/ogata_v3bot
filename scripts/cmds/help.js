@@ -55,7 +55,10 @@ module.exports = {
     const gifURLs = [
       "https://i.imgur.com/GPj19M6.mp4",
       "https://i.imgur.com/KOLCmFG.mp4",
-      "https://i.imgur.com/DYfouuR.gif"
+      "https://i.imgur.com/DYfouuR.gif",
+      "https://i.imgur.com/7KSnkkL.mp4",
+      "https://i.imgur.com/bqgkfcd.mp4",
+      "https://i.imgur.com/yrkDNcM.mp4"
     ];
 
     const randomGifURL = gifURLs[Math.floor(Math.random() * gifURLs.length)];
