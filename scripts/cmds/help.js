@@ -7,7 +7,7 @@ module.exports = {
     name: "help",
     aliases: ["menu", "commands"],
     version: "5.0",
-    author: "Ajmaul",
+    author: "Zoro",
     shortDescription: "𝙎𝙝𝙤𝙬 𝙖𝙡𝙡 𝙘𝙤𝙢𝙢𝙖𝙣𝙙𝙨",
     longDescription: "𝘿𝙞𝙨𝙥𝙡𝙖𝙮𝙨 𝙖 𝙗𝙚𝙖𝙪𝙩𝙞𝙛𝙪𝙡 𝙛𝙤𝙣𝙩-𝙨𝙩𝙮𝙡𝙚𝙙 𝙘𝙖𝙩𝙚𝙜𝙤𝙧𝙞𝙯𝙚𝙙 𝙘𝙤𝙢𝙢𝙖𝙣𝙙 𝙢𝙚𝙣𝙪.",
     category: "system",
@@ -53,8 +53,8 @@ module.exports = {
     }
 
     const gifURLs = [
-      "https://i.imgur.com/3tBIaSF.gif",
-      "https://i.imgur.com/vWl3Tb5.gif",
+      "https://i.imgur.com/GPj19M6.mp4",
+      "https://i.imgur.com/KOLCmFG.mp4",
       "https://i.imgur.com/DYfouuR.gif"
     ];
 
