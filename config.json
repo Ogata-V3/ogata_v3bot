@@ -11,8 +11,8 @@
   },
   "antiInbox": false,
   "language": "en",
-  "nickNameBot": "Zoro's pookie 🐥💖",
-  "prefix": ".",
+  "nickNameBot": "boka bot🐥💖",
+  "prefix": "!",
 
   "adminOnly": {
     "enable": false,
