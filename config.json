@@ -12,7 +12,7 @@
   "antiInbox": false,
   "language": "en",
   "nickNameBot": "boka bot🐥💖",
-  "prefix": ".",
+  "prefix": "!",
 
   "adminOnly": {
     "enable": false,
