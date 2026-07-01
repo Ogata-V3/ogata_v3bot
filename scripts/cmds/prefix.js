@@ -58,7 +58,8 @@ module.exports = {
     const nextPf = args[0];
     const isGlobal = args[1] === "-g";
 
-    if (isGlobal && senderID !== api.getCurrentUserID()) {
+    // FIX: check against admin list, not the bot's own ID
+    if (isGlobal && !global.GoatBot.config.adminBot.includes(senderID)) {
       return api.sendMessage(getLang("ownerOnly"), threadID, messageID);
     }
 
