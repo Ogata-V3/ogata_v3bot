@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "slap",
     version: "1.0.0",
-    author: "Azadx69x",
+    author: "Zoro",
     countDown: 3,
     role: 0,
     shortDescription: "𝐒𝐥𝐚𝐩 𝐚 𝐮𝐬𝐞𝐫 😆",
