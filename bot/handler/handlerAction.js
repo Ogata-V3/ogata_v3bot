@@ -7,19 +7,12 @@ const HUMAN_CONFIG = {
   // Active hours (24h format) — bot slow/fast এর সময়
   activeHours: { start: 8, end: 23 }, // সকাল ৮টা - রাত ১১টা
 
-  // Typing delay (ms per word)
-  typingSpeedMs: 120,
+  // দিনের বেলা ফিক্সড ৩ সেকেন্ড reply delay
+  dayFixedDelay: 3000,
 
-  // Min/Max delay before replying
-  minDelay: 800,
-  maxDelay: 4500,
-
-  // Night mode delay (রাতে slow)
+  // Night mode delay (রাতে random slow)
   nightMinDelay: 3000,
   nightMaxDelay: 9000,
-
-  // Seen delay — message দেখার পর reply এর আগে
-  seenDelay: { min: 1000, max: 5000 },
 
   // React only chance (reply না করে শুধু react করার % chance)
   reactOnlyChance: 8, // 8% chance
@@ -55,16 +48,13 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getTypingDelay(text = "") {
-  const words = String(text).split(" ").length;
-  const baseDelay = words * HUMAN_CONFIG.typingSpeedMs;
+// দিনের বেলা সবসময় exact ৩ সেকেন্ড, রাতে random delay
+function getTypingDelay() {
   const night = isNightTime();
-
-  const min = night ? HUMAN_CONFIG.nightMinDelay : HUMAN_CONFIG.minDelay;
-  const max = night ? HUMAN_CONFIG.nightMaxDelay : HUMAN_CONFIG.maxDelay;
-
-  // Clamp between min and max
-  return Math.min(Math.max(baseDelay, min), max);
+  if (!night) {
+    return HUMAN_CONFIG.dayFixedDelay;
+  }
+  return getRandomInt(HUMAN_CONFIG.nightMinDelay, HUMAN_CONFIG.nightMaxDelay);
 }
 
 function shouldIgnore() {
@@ -88,16 +78,8 @@ function setCooldown(userID) {
   cooldownMap.set(userID, Date.now());
 }
 
-async function humanDelay(text = "") {
-  const delay = getTypingDelay(text);
-  await new Promise(r => setTimeout(r, delay));
-}
-
-async function seenDelay() {
-  const delay = getRandomInt(
-    HUMAN_CONFIG.seenDelay.min,
-    HUMAN_CONFIG.seenDelay.max
-  );
+async function humanDelay() {
+  const delay = getTypingDelay();
   await new Promise(r => setTimeout(r, delay));
 }
 
@@ -121,8 +103,8 @@ function createHumanMessage(api, event) {
     try {
       // Typing indicator চালু
       await api.sendTypingIndicator(event.threadID);
-      // Human delay
-      await humanDelay(typeof msg === "string" ? msg : msg?.body || "");
+      // Human delay (দিনে ফিক্সড ৩ সেকেন্ড, রাতে random)
+      await humanDelay();
       // Reply করো
       return await originalReply(msg, callback);
     } catch {
@@ -164,9 +146,6 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 
         // Random ignore — কিছু message এ reply করবে না (human এর মতো)
         if (shouldIgnore()) return;
-
-        // Seen delay — দেখার পর একটু দেরি করে reply
-        await seenDelay();
 
         // Mark as seen
         try { api.markAsRead(event.threadID); } catch {}
