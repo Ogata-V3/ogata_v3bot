@@ -4,69 +4,38 @@ const handlerCheckDB = require("./handlerCheckData.js");
 //  HUMAN BEHAVIOR CONFIG
 // ─────────────────────────────────────────────────────────────
 const HUMAN_CONFIG = {
-  // Active hours (24h format) — bot slow/fast এর সময়
-  activeHours: { start: 8, end: 23 }, // সকাল ৮টা - রাত ১১টা
-
-  // দিনের বেলা ফিক্সড ৩ সেকেন্ড reply delay
-  dayFixedDelay: 3000,
-
-  // Night mode delay (রাতে random slow)
-  nightMinDelay: 3000,
-  nightMaxDelay: 9000,
-
-  // React only chance (reply না করে শুধু react করার % chance)
-  reactOnlyChance: 8, // 8% chance
-
-  // Random ignore chance (কিছু message ignore করবে)
-  ignoreChance: 3, // 3% chance
+  // Reply delay range (ms) — সব সময় ২-৩ সেকেন্ডের মধ্যে random
+  minDelay: 2000,
+  maxDelay: 3000,
 
   // Spam protection — একই user কে এত ms এর মধ্যে reply না
   cooldownMs: 2000,
-};
 
-// Emojis for random reactions
-const REACT_EMOJIS = ["😊", "👍", "❤️", "😂", "🔥", "✨", "😎", "💯"];
+  // Normal chat (prefix ছাড়া) এর ক্ষেত্রে কতক্ষণ পর পর একটা মেসেজ ignore করবে (human এর মতো মাঝে মাঝে miss)
+  normalChatIgnoreIntervalMin: 2 * 60 * 1000, // 2 min
+  normalChatIgnoreIntervalMax: 3 * 60 * 1000, // 3 min
+};
 
 // Cooldown tracker
 const cooldownMap = new Map();
+
+// Normal chat ignore টাইমার ট্র্যাকার
+let lastNormalChatIgnoreTime = 0;
+let nextIgnoreInterval = getRandomInt(
+  HUMAN_CONFIG.normalChatIgnoreIntervalMin,
+  HUMAN_CONFIG.normalChatIgnoreIntervalMax
+);
 
 // ─────────────────────────────────────────────────────────────
 //  HELPER FUNCTIONS
 // ─────────────────────────────────────────────────────────────
 
-function isNightTime() {
-  const hour = new Date().toLocaleString("en-US", {
-    timeZone: global.GoatBot?.config?.timeZone || "Asia/Dhaka",
-    hour: "numeric",
-    hour12: false
-  });
-  const h = parseInt(hour);
-  return h < HUMAN_CONFIG.activeHours.start || h >= HUMAN_CONFIG.activeHours.end;
-}
-
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// দিনের বেলা সবসময় exact ৩ সেকেন্ড, রাতে random delay
-function getTypingDelay() {
-  const night = isNightTime();
-  if (!night) {
-    return HUMAN_CONFIG.dayFixedDelay;
-  }
-  return getRandomInt(HUMAN_CONFIG.nightMinDelay, HUMAN_CONFIG.nightMaxDelay);
-}
-
-function shouldIgnore() {
-  return Math.random() * 100 < HUMAN_CONFIG.ignoreChance;
-}
-
-function shouldReactOnly() {
-  return Math.random() * 100 < HUMAN_CONFIG.reactOnlyChance;
-}
-
-function getRandomEmoji() {
-  return REACT_EMOJIS[Math.floor(Math.random() * REACT_EMOJIS.length)];
+function getReplyDelay() {
+  return getRandomInt(HUMAN_CONFIG.minDelay, HUMAN_CONFIG.maxDelay);
 }
 
 function isOnCooldown(userID) {
@@ -78,9 +47,74 @@ function setCooldown(userID) {
   cooldownMap.set(userID, Date.now());
 }
 
-async function humanDelay() {
-  const delay = getTypingDelay();
-  await new Promise(r => setTimeout(r, delay));
+// Typing indicator পাঠানো — callback style আর promise style দুইটাই handle করে
+function sendTyping(api, threadID) {
+  return new Promise((resolve) => {
+    let settled = false;
+    const done = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+    try {
+      const maybePromise = api.sendTypingIndicator(threadID, (err) => {
+        if (err) console.error("[TypingIndicator Callback Error]", err?.message || err);
+        done();
+      });
+      if (maybePromise && typeof maybePromise.then === "function") {
+        maybePromise.then(done).catch((err) => {
+          console.error("[TypingIndicator Promise Error]", err?.message || err);
+          done();
+        });
+      }
+      // Callback না এলেও যেন আটকে না থাকে — fallback timeout
+      setTimeout(done, 700);
+    } catch (err) {
+      console.error("[TypingIndicator Throw]", err?.message || err);
+      done();
+    }
+  });
+}
+
+// পুরো delay জুড়ে প্রতি ~2 সেকেন্ডে typing indicator resend করে (expire হয়ে গেলেও যেন দেখা যায়)
+async function humanDelayWithTyping(api, threadID) {
+  const totalDelay = getReplyDelay();
+  const keepAliveMs = 2000;
+  const startTime = Date.now();
+
+  await sendTyping(api, threadID);
+
+  while (Date.now() - startTime < totalDelay) {
+    const remaining = totalDelay - (Date.now() - startTime);
+    const waitChunk = Math.min(keepAliveMs, remaining);
+    await new Promise(r => setTimeout(r, waitChunk));
+
+    if (Date.now() - startTime < totalDelay) {
+      await sendTyping(api, threadID);
+    }
+  }
+}
+
+// প্রেফিক্স দিয়ে শুরু হয়েছে কিনা চেক করে — মানে এটা একটা command কিনা
+function isCommandMessage(body) {
+  const prefix = global.GoatBot?.config?.prefix ?? "!";
+  if (typeof body !== "string") return false;
+  return body.trim().startsWith(prefix);
+}
+
+// প্রতি ~2-3 মিনিটে একবার normal chat (prefix ছাড়া) মেসেজ ignore করার জন্য
+function shouldIgnoreNormalChat() {
+  const now = Date.now();
+  if (now - lastNormalChatIgnoreTime >= nextIgnoreInterval) {
+    lastNormalChatIgnoreTime = now;
+    // পরের ignore এর জন্য নতুন random interval সেট করো
+    nextIgnoreInterval = getRandomInt(
+      HUMAN_CONFIG.normalChatIgnoreIntervalMin,
+      HUMAN_CONFIG.normalChatIgnoreIntervalMax
+    );
+    return true;
+  }
+  return false;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -97,18 +131,17 @@ function createHumanMessage(api, event) {
         delete: (msgID) => api.unsendMessage(msgID || event.messageID),
       };
 
-  // Wrap reply with human delay + typing indicator
+  // Wrap reply with typing indicator (keep-alive) + 2-3s human delay
   const originalReply = baseMessage.reply.bind(baseMessage);
   baseMessage.reply = async (msg, callback) => {
+    // Typing indicator পুরো delay জুড়ে চালু রাখে (auto-expire হলে resend করে)
+    await humanDelayWithTyping(api, event.threadID);
+
+    // Reply করো (error হলেও bot crash করবে না)
     try {
-      // Typing indicator চালু
-      await api.sendTypingIndicator(event.threadID);
-      // Human delay (দিনে ফিক্সড ৩ সেকেন্ড, রাতে random)
-      await humanDelay();
-      // Reply করো
       return await originalReply(msg, callback);
-    } catch {
-      return await originalReply(msg, callback);
+    } catch (err) {
+      console.error("[Reply Error]", err?.message || err);
     }
   };
 
@@ -137,34 +170,28 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 
       const senderID = event.senderID || event.userID;
 
-      // ── Message type হলে human behavior apply করো
-      if (event.type === "message" || event.type === "message_reply") {
+      if (event.type === "message") {
+        const isCommand = isCommandMessage(event.body);
 
-        // Spam protection
-        if (isOnCooldown(senderID)) return;
-        setCooldown(senderID);
+        if (isCommand) {
+          // ── Command হলে কখনোই ignore হবে না, শুধু spam-cooldown প্রযোজ্য
+          if (isOnCooldown(senderID)) return;
+          setCooldown(senderID);
+        } else {
+          // ── Normal chat (prefix ছাড়া) — প্রতি ~2-3 মিনিটে একবার একটা মেসেজ ignore করবে
+          if (isOnCooldown(senderID)) return;
+          setCooldown(senderID);
 
-        // Random ignore — কিছু message এ reply করবে না (human এর মতো)
-        if (shouldIgnore()) return;
+          if (shouldIgnoreNormalChat()) return;
+        }
 
         // Mark as seen
-        try { api.markAsRead(event.threadID); } catch {}
-
-        // React only mode — reply না করে শুধু react করবে (মাঝে মাঝে)
-        if (shouldReactOnly() && event.messageID) {
-          try {
-            await api.setMessageReaction(
-              getRandomEmoji(),
-              event.messageID,
-              () => {},
-              true
-            );
-          } catch {}
-          return;
+        try { api.markAsRead(event.threadID); } catch (err) {
+          console.error("[MarkAsRead Error]", err?.message || err);
         }
       }
 
-      // Human-like message wrapper তৈরি করো
+      // Human-like message wrapper তৈরি করো (typing + delay সহ)
       const message = createHumanMessage(api, event);
 
       await handlerCheckDB(usersData, threadsData, event);
@@ -209,7 +236,7 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
       }
 
     } catch (err) {
-      // Silent fail — bot কখনো crash করবে না
+      // Silent fail — bot কখনো crash করবে না, শুধু log হবে
       console.error("[HandlerAction Error]", err?.message || err);
     }
   };
