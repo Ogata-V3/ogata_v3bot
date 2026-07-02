@@ -166,6 +166,14 @@ module.exports = function (api, threadModel, userModel, dashBoardModel, globalMo
 			}
 		}
 
+		// Guard against threadData.data / threadData.adminIDs being undefined
+		// (happens for brand-new threads) which was causing unhandled promise
+		// rejections -> bot silently not replying to any command.
+		if (threadData) {
+			if (!threadData.data) threadData.data = {};
+			if (!threadData.adminIDs) threadData.adminIDs = [];
+		}
+
 		if (typeof threadData?.settings?.hideNotiMessage == "object")
 			hideNotiMessage = threadData.settings.hideNotiMessage;
 
