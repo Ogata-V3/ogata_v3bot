@@ -29,7 +29,10 @@ module.exports = async function (usersData, threadsData, event) {
 			}
 		}
 		catch (err) {
-			if (err.name != "DATA_ALREADY_EXISTS") {
+			if (
+				err.name != "DATA_ALREADY_EXISTS" &&
+				err.name != "SequelizeUniqueConstraintError"
+			) {
 				global.temp.createThreadDataError.push(threadID);
 				log.err("DATABASE", getText("handlerCheckData", "cantCreateThread", threadID), err);
 			}
@@ -53,7 +56,10 @@ module.exports = async function (usersData, threadsData, event) {
 			}
 		}
 		catch (err) {
-			if (err.name != "DATA_ALREADY_EXISTS")
+			if (
+				err.name != "DATA_ALREADY_EXISTS" &&
+				err.name != "SequelizeUniqueConstraintError"
+			)
 				log.err("DATABASE", getText("handlerCheckData", "cantCreateUser", senderID), err);
 		}
 	}
