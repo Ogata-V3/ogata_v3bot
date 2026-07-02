@@ -2,6 +2,24 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 	const handlerCheckDB = require(`${__dirname}/handlerCheckData.js`);
 	const handlerEventsFactory = require(process.env.NODE_ENV == 'development' ? `${__dirname}/handlerEvents.dev.js` : `${__dirname}/handlerEvents.js`);
 
+	function logError(tag, err) {
+		const log = global.utils?.log;
+		if (log && typeof log.err === "function") {
+			log.err(tag, err?.message || err);
+		} else {
+			console.error(tag, err?.message || err);
+		}
+	}
+
+	async function safeCall(fn, name) {
+		if (typeof fn !== "function") return;
+		try {
+			await fn();
+		} catch (e) {
+			logError(`HANDLER:${name}`, e);
+		}
+	}
+
 	return async function (event) {
 		try {
 			if (
@@ -20,8 +38,11 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 					delete: (msgID) => api.unsendMessage(msgID || event.messageID),
 				};
 
-			try { await handlerCheckDB(usersData, threadsData, event); }
-			catch (e) { (global.utils?.log || console).err?.("DB", e.message) || console.error("DB", e.message); }
+			try {
+				await handlerCheckDB(usersData, threadsData, event);
+			} catch (e) {
+				logError("DB", e);
+			}
 
 			const handlerEvents = handlerEventsFactory(api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData);
 			const handlerChat = await handlerEvents(event, message);
@@ -34,37 +55,38 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
 				typ, presence, read_receipt
 			} = handlerChat;
 
-			onAnyEvent();
+			await safeCall(onAnyEvent, "onAnyEvent");
+
 			switch (event.type) {
 				case "message":
 				case "message_reply":
 				case "message_unsend":
-					onFirstChat();
-					onChat();
-					onStart();
-					onReply();
+					await safeCall(onFirstChat, "onFirstChat");
+					await safeCall(onChat, "onChat");
+					await safeCall(onStart, "onStart");
+					await safeCall(onReply, "onReply");
 					break;
 				case "event":
-					handlerEvent();
-					onEvent();
+					await safeCall(handlerEvent, "handlerEvent");
+					await safeCall(onEvent, "onEvent");
 					break;
 				case "message_reaction":
-					onReaction();
+					await safeCall(onReaction, "onReaction");
 					break;
 				case "typ":
-					typ();
+					await safeCall(typ, "typ");
 					break;
 				case "presence":
-					presence();
+					await safeCall(presence, "presence");
 					break;
 				case "read_receipt":
-					read_receipt();
+					await safeCall(read_receipt, "read_receipt");
 					break;
 				default:
 					break;
 			}
-		} catch(err) {
-			(global.utils?.log || console).err?.("HANDLER", err.message) || console.error("HANDLER", err);
+		} catch (err) {
+			logError("HANDLER", err);
 		}
 	};
 };
