@@ -4,7 +4,7 @@ const { utils } = global;
 module.exports = {
   config: {
     name: "prefix",
-    version: "0.0.7",
+    version: "0.0.8",
     author: "Zoro",
     countDown: 5,
     role: 0,
@@ -25,7 +25,9 @@ module.exports = {
     }
   },
 
-  onStart: async function ({ api, event, args, threadsData, getLang }) {
+  // Shared helper: sends the "what's my prefix" info message.
+  // Used by both onStart (with prefix symbol) and onChat (no prefix symbol).
+  showPrefixInfo: async function ({ api, event, threadsData, getLang }) {
     const { threadID, messageID, senderID } = event;
 
     let name = "User";
@@ -38,13 +40,23 @@ module.exports = {
     const threadPf = await threadsData.get(threadID, "data.prefix").catch(() => null);
     const currentPf = threadPf || globalPf;
 
+    return api.sendMessage(
+      getLang("askPrefix").replace("%name%", name).replace("%global%", globalPf).replace("%chat%", currentPf),
+      threadID,
+      messageID
+    );
+  },
+
+  onStart: async function ({ api, event, args, threadsData, getLang }) {
+    const { threadID, messageID, senderID } = event;
+
     if (!args[0]) {
-      return api.sendMessage(
-        getLang("askPrefix").replace("%name%", name).replace("%global%", globalPf).replace("%chat%", currentPf),
-        threadID,
-        messageID
-      );
+      return this.showPrefixInfo({ api, event, threadsData, getLang });
     }
+
+    const globalPf = global.GoatBot.config.prefix;
+    const threadPf = await threadsData.get(threadID, "data.prefix").catch(() => null);
+    const currentPf = threadPf || globalPf;
 
     if (args[0].toLowerCase() === "reset") {
       await threadsData.set(threadID, null, "data.prefix");
@@ -79,6 +91,25 @@ module.exports = {
         threadID: threadID
       });
     }, messageID);
+  },
+
+  // Fires on EVERY message, prefix or not. Only reacts when the whole
+  // message is just the word "prefix" (case-insensitive, no symbol).
+  onChat: async function ({ api, event, threadsData, getLang }) {
+    const body = event.body;
+    if (!body) return;
+
+    const trimmed = body.trim().toLowerCase();
+    if (trimmed !== "prefix") return; // only exact word "prefix"
+
+    // Guard: don't double-fire if the message already starts with an
+    // active prefix (that case is already handled by onStart).
+    const globalPf = global.GoatBot.config.prefix;
+    const threadPf = await threadsData.get(event.threadID, "data.prefix").catch(() => null);
+    const activePf = threadPf || globalPf;
+    if (activePf && body.trim().startsWith(activePf)) return;
+
+    return this.showPrefixInfo({ api, event, threadsData, getLang });
   },
 
   onReaction: async function ({ api, event, Reaction, threadsData, getLang }) {
