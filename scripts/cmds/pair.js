@@ -51,8 +51,10 @@ module.exports = {
         const canvas = createCanvas(width, height);
         const ctx = canvas.getContext("2d");
 
+        // Background draw korar por dimension measure kore position thik kora hobe
+        let bgImage;
         try {
-          const bgImage = await loadImage("https://files.catbox.moe/29jl5s.jpg");
+          bgImage = await loadImage("https://files.catbox.moe/29jl5s.jpg");
           ctx.drawImage(bgImage, 0, 0, width, height);
         } catch (e) {
           ctx.fillStyle = "#FF69B4";
@@ -67,44 +69,53 @@ module.exports = {
           `https://graph.facebook.com/${selectedMatch.id}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
         ).catch(() => null);
 
-        // Draw an image clipped into an ELLIPSE (matches the background's oval frames),
-        // with a white border ring drawn first.
-        function drawInOval(ctx, img, cx, cy, rx, ry) {
-          // white border ring
-          ctx.fillStyle = "#FFFFFF";
-          ctx.beginPath();
-          ctx.ellipse(cx, cy, rx + 6, ry + 6, 0, 0, Math.PI * 2);
-          ctx.fill();
+        // ========================================================
+        // Background: https://files.catbox.moe/29jl5s.jpg
+        // এই background এ দুটো oval frame আছে:
+        //   Frame 1 (উপরে বাম দিকে - ছেলে/sender): cx≈200, cy≈200
+        //   Frame 2 (নিচে ডান দিকে - মেয়ে/match): cx≈580, cy≈400
+        // Radius গুলো frame এর size অনুযায়ী
+        // ========================================================
 
+        function drawCircleProfile(ctx, img, cx, cy, radius) {
+          // সাদা border ring
           ctx.save();
           ctx.beginPath();
-          ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+          ctx.arc(cx, cy, radius + 5, 0, Math.PI * 2);
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fill();
+          ctx.restore();
+
+          // ছবি circle এ clip করে বসানো
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
           ctx.closePath();
           ctx.clip();
 
           if (img) {
-            // draw image to fully cover the ellipse's bounding box
-            ctx.drawImage(img, cx - rx, cy - ry, rx * 2, ry * 2);
+            ctx.drawImage(img, cx - radius, cy - radius, radius * 2, radius * 2);
           } else {
-            ctx.fillStyle = "#DDDDDD";
-            ctx.fillRect(cx - rx, cy - ry, rx * 2, ry * 2);
+            ctx.fillStyle = "#CCCCCC";
+            ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
           }
           ctx.restore();
         }
 
-        // ===== Positions measured from the background template's two oval frames =====
-        // Tweak these 6 numbers if your background image differs slightly.
-        const TOP_OVAL    = { cx: 515, cy: 150, rx: 95,  ry: 112 };
-        const BOTTOM_OVAL = { cx: 655, cy: 415, rx: 112, ry: 125 };
+        // Background image এর actual frame position অনুযায়ী
+        // Frame 1: উপর-বামে oval (sender)
+        const FRAME_1 = { cx: 195, cy: 195, r: 105 };
+        // Frame 2: নিচে-ডানে oval (match)  
+        const FRAME_2 = { cx: 600, cy: 405, r: 115 };
 
-        drawInOval(ctx, senderImg, TOP_OVAL.cx, TOP_OVAL.cy, TOP_OVAL.rx, TOP_OVAL.ry);
-        drawInOval(ctx, matchImg, BOTTOM_OVAL.cx, BOTTOM_OVAL.cy, BOTTOM_OVAL.rx, BOTTOM_OVAL.ry);
+        drawCircleProfile(ctx, senderImg, FRAME_1.cx, FRAME_1.cy, FRAME_1.r);
+        drawCircleProfile(ctx, matchImg, FRAME_2.cx, FRAME_2.cy, FRAME_2.r);
 
-        // Heart between the two ovals (roughly on the line connecting their centers)
-        const heartX = (TOP_OVAL.cx + BOTTOM_OVAL.cx) / 2;
-        const heartY = (TOP_OVAL.cy + BOTTOM_OVAL.cy) / 2;
+        // দুই frame এর মাঝখানে heart
+        const heartX = (FRAME_1.cx + FRAME_2.cx) / 2;
+        const heartY = (FRAME_1.cy + FRAME_2.cy) / 2;
         ctx.fillStyle = "#FF4D6D";
-        ctx.font = "bold 46px Arial";
+        ctx.font = "bold 50px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("♥", heartX, heartY);
