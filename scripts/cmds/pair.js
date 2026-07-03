@@ -55,13 +55,20 @@ module.exports = {
       try {
         // Create canvas
         const width = 800;
-        const height = 400;
+        const height = 500;
         const canvas = createCanvas(width, height);
         const ctx = canvas.getContext("2d");
 
-        // Background
-        ctx.fillStyle = "#FF69B4";
-        ctx.fillRect(0, 0, width, height);
+        // Load background image from catbox
+        let bgImage;
+        try {
+          bgImage = await loadImage("https://files.catbox.moe/29jl5s.jpg");
+          ctx.drawImage(bgImage, 0, 0, width, height);
+        } catch (e) {
+          // Fallback: pink background
+          ctx.fillStyle = "#FF69B4";
+          ctx.fillRect(0, 0, width, height);
+        }
 
         // Get profile pictures
         const senderImg = await loadImage(
@@ -72,8 +79,15 @@ module.exports = {
           `https://graph.facebook.com/${selectedMatch.id}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
         ).catch(() => null);
 
-        // Draw circles
+        // Draw circles with white border
         function drawCircle(ctx, img, x, y, size) {
+          // White border
+          ctx.fillStyle = "#FFFFFF";
+          ctx.beginPath();
+          ctx.arc(x + size / 2, y + size / 2, size / 2 + 5, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Image circle
           ctx.save();
           ctx.beginPath();
           ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
@@ -85,14 +99,9 @@ module.exports = {
           ctx.restore();
         }
 
-        if (senderImg) drawCircle(ctx, senderImg, 80, 80, 150);
-        if (matchImg) drawCircle(ctx, matchImg, 570, 80, 150);
-
-        // Text
-        ctx.fillStyle = "#FFFFFF";
-        ctx.font = "bold 30px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText("💕 PAIR MATCH 💕", width / 2, height - 20);
+        // Draw profile pictures - positioned nicely
+        if (senderImg) drawCircle(ctx, senderImg, 100, 150, 140);
+        if (matchImg) drawCircle(ctx, matchImg, 560, 150, 140);
 
         // Save image
         const outputPath = path.join(__dirname, "pair_output.png");
