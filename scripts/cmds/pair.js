@@ -55,7 +55,7 @@ module.exports = {
       try {
         // Create canvas
         const width = 800;
-        const height = 500;
+        const height = 600;
         const canvas = createCanvas(width, height);
         const ctx = canvas.getContext("2d");
 
@@ -99,9 +99,15 @@ module.exports = {
           ctx.restore();
         }
 
-        // Draw profile pictures - positioned nicely
-        if (senderImg) drawCircle(ctx, senderImg, 100, 150, 140);
-        if (matchImg) drawCircle(ctx, matchImg, 560, 150, 140);
+        // Draw profile pictures - centered position
+        if (senderImg) drawCircle(ctx, senderImg, 150, 200, 150);
+        if (matchImg) drawCircle(ctx, matchImg, 500, 200, 150);
+
+        // Heart in middle
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "bold 50px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("💕", width / 2, 330);
 
         // Save image
         const outputPath = path.join(__dirname, "pair_output.png");
