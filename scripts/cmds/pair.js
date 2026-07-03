@@ -33,9 +33,9 @@ module.exports = {
 
       // Find opposite gender users
       let oppositeGender = senderGender === "MALE" ? "FEMALE" : "MALE";
-      let matchCandidates = users.filter(user => 
-        user.id !== event.senderID && 
-        user.gender && 
+      let matchCandidates = users.filter(user =>
+        user.id !== event.senderID &&
+        user.gender &&
         user.gender.toUpperCase() === oppositeGender
       );
 
@@ -45,7 +45,7 @@ module.exports = {
 
       // Select random match
       const selectedMatch = matchCandidates[Math.floor(Math.random() * matchCandidates.length)];
-      
+
       if (!selectedMatch || !selectedMatch.id) {
         return api.sendMessage("❌ Error selecting match.", event.threadID, event.messageID);
       }
@@ -60,9 +60,8 @@ module.exports = {
         const ctx = canvas.getContext("2d");
 
         // Load background image from catbox
-        let bgImage;
         try {
-          bgImage = await loadImage("https://files.catbox.moe/29jl5s.jpg");
+          const bgImage = await loadImage("https://files.catbox.moe/29jl5s.jpg");
           ctx.drawImage(bgImage, 0, 0, width, height);
         } catch (e) {
           // Fallback: pink background
@@ -79,41 +78,54 @@ module.exports = {
           `https://graph.facebook.com/${selectedMatch.id}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
         ).catch(() => null);
 
-        // Draw circles with white border
+        // Draw circle with white border + fallback fill if image missing
         function drawCircle(ctx, img, x, y, size) {
+          const centerX = x + size / 2;
+          const centerY = y + size / 2;
+
           // White border
           ctx.fillStyle = "#FFFFFF";
           ctx.beginPath();
-          ctx.arc(x + size / 2, y + size / 2, size / 2 + 5, 0, Math.PI * 2);
+          ctx.arc(centerX, centerY, size / 2 + 6, 0, Math.PI * 2);
           ctx.fill();
 
-          // Image circle
           ctx.save();
           ctx.beginPath();
-          ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+          ctx.arc(centerX, centerY, size / 2, 0, Math.PI * 2);
           ctx.closePath();
           ctx.clip();
+
           if (img) {
             ctx.drawImage(img, x, y, size, size);
+          } else {
+            // fallback so it never looks broken/empty
+            ctx.fillStyle = "#DDDDDD";
+            ctx.fillRect(x, y, size, size);
           }
           ctx.restore();
         }
 
-        // Draw profile pictures - centered position
-        if (senderImg) drawCircle(ctx, senderImg, 150, 200, 150);
-        if (matchImg) drawCircle(ctx, matchImg, 500, 200, 150);
+        // Centered, evenly spaced positions
+        const circleSize = 180;
+        const centerY = (height / 2) - (circleSize / 2); // vertical center
+        const leftX = 100;                        // sender circle
+        const rightX = width - 100 - circleSize;  // match circle
 
-        // Heart in middle
+        drawCircle(ctx, senderImg, leftX, centerY, circleSize);
+        drawCircle(ctx, matchImg, rightX, centerY, circleSize);
+
+        // Heart perfectly centered
         ctx.fillStyle = "#FFFFFF";
-        ctx.font = "bold 50px Arial";
+        ctx.font = "bold 60px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("💕", width / 2, 330);
+        ctx.textBaseline = "middle";
+        ctx.fillText("💕", width / 2, height / 2);
 
         // Save image
-        const outputPath = path.join(__dirname, "pair_output.png");
+        const outputPath = path.join(__dirname, `pair_${event.senderID}_${Date.now()}.png`);
         const stream = canvas.createPNGStream();
         const out = fs.createWriteStream(outputPath);
-        
+
         stream.pipe(out);
 
         out.on("finish", () => {
