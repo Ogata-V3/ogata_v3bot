@@ -53,7 +53,6 @@ module.exports = {
 
         try {
           const bgImage = await loadImage("https://files.catbox.moe/29jl5s.jpg");
-          // Background কে canvas size এ fit করো
           ctx.drawImage(bgImage, 0, 0, width, height);
         } catch (e) {
           ctx.fillStyle = "#FF69B4";
@@ -68,7 +67,6 @@ module.exports = {
           `https://graph.facebook.com/${selectedMatch.id}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
         ).catch(() => null);
 
-        // Circle এ profile picture বসানো
         function drawCircleProfile(ctx, img, cx, cy, radius) {
           // সাদা border
           ctx.save();
@@ -93,19 +91,16 @@ module.exports = {
           ctx.restore();
         }
 
-        // ========================================================
-        // Background এ দুটো oval/circle frame আছে:
-        // Screenshot দেখে measure করা exact position:
-        // Frame 1 (উপরে, বাম-মধ্য): sender এর জন্য
-        // Frame 2 (নিচে, ডান-মধ্য): match এর জন্য
-        // ========================================================
-        const FRAME_1 = { cx: 310, cy: 175, r: 88 };  // উপরের frame
-        const FRAME_2 = { cx: 510, cy: 410, r: 100 }; // নিচের frame
+        // Screenshot বিশ্লেষণ:
+        // Sender: বামে একটু ডানে এবং উপরে যেতে হবে
+        // Match: ডানে আরো ডানে এবং একটু উপরে যেতে হবে
+        const FRAME_1 = { cx: 360, cy: 170, r: 88 };  // sender - ডানে সরানো
+        const FRAME_2 = { cx: 580, cy: 385, r: 95 };  // match - ডানে ও উপরে সরানো
 
         drawCircleProfile(ctx, senderImg, FRAME_1.cx, FRAME_1.cy, FRAME_1.r);
         drawCircleProfile(ctx, matchImg, FRAME_2.cx, FRAME_2.cy, FRAME_2.r);
 
-        // দুই frame এর মাঝে heart
+        // Heart মাঝখানে
         const heartX = (FRAME_1.cx + FRAME_2.cx) / 2;
         const heartY = (FRAME_1.cy + FRAME_2.cy) / 2;
         ctx.font = "bold 48px Arial";
