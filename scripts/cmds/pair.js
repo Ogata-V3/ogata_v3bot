@@ -1,263 +1,110 @@
-const { loadImage, createCanvas } = require("canvas");
 const axios = require("axios");
-const fs = require("fs-extra");
+const { createCanvas, loadImage } = require("canvas");
+const fs = require("fs");
 const path = require("path");
-
-const recentPairs = new Map();
 
 module.exports = {
   config: {
     name: "pair",
-    author: "Azadx69x",
-    version: "0.0.8",
-    role: 0,
-    shortDescription: "Pair",
-    longDescription: "pair",
+    author: "Zoro",
     category: "love",
-    guide: "{pn} or {pn} @mention"
   },
 
-  downloadWithRetry: async function(url, retries = 3, delay = 1000) {
-    for (let i = 0; i < retries; i++) {
-      try {
-        const response = await axios.get(url, {
-          responseType: "arraybuffer",
-          timeout: 15000,
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Accept': 'image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'
-          }
-        });
-        return response;
-      } catch (error) {
-        if (error.response?.status === 429) {
-          const waitTime = delay * Math.pow(2, i);
-          console.log(`Rate limited, waiting ${waitTime}ms...`);
-          await new Promise(resolve => setTimeout(resolve, waitTime));
-          continue;
-        }
-        if (i === retries - 1) throw error;
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
-    }
-    throw new Error("Max retries reached");
-  },
-
-  onStart: async function ({ api, event, args, usersData }) {
-    const { threadID, messageID, senderID, mentions } = event;
-    const cacheDir = path.join(__dirname, "cache");
-    if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
-
-    const pathAvt1 = path.join(cacheDir, `avt1_${Date.now()}.png`);
-    const pathAvt2 = path.join(cacheDir, `avt2_${Date.now()}.png`);
-    const pathImg = path.join(cacheDir, `pair_${Date.now()}.png`);
-
+  onStart: async function ({ api, event, usersData }) {
     try {
-      let id1 = senderID, id2, name2;
+      const senderData = await usersData.get(event.senderID);
+      const senderName = senderData.name;
+      const threadData = await api.getThreadInfo(event.threadID);
+      const users = threadData.userInfo;
 
-      const ThreadInfo = await api.getThreadInfo(threadID);
-      const all = ThreadInfo.userInfo;
-      const senderInfo = all.find(u => u.id == id1);
-      const senderGender = senderInfo ? senderInfo.gender : null;
-
-      if (!senderGender || (senderGender !== "MALE" && senderGender !== "FEMALE")) {
-        return api.sendMessage("❌ Could not determine your gender! Please ensure your Facebook profile has gender set to Male or Female.", threadID, messageID);
+      const myData = users.find((user) => user.id === event.senderID);
+      if (!myData || !myData.gender) {
+        return api.sendMessage("⚠️ Could not determine your gender.", event.threadID, event.messageID);
       }
 
-      if (Object.keys(mentions).length > 0) {
-        id2 = Object.keys(mentions)[0];
-        const mentionedUser = all.find(u => u.id == id2);
-        const mentionedGender = mentionedUser ? mentionedUser.gender : null;
+      const myGender = myData.gender.toUpperCase();
+      let matchCandidates = [];
 
-        if (senderGender === mentionedGender) {
-          return api.sendMessage(
-            senderGender === "MALE"
-              ? "❌ You can't pair with another boy! 💔\nOnly Boys ↔️ Girls matching allowed!"
-              : "❌ You can't pair with another girl! 💔\nOnly Girls ↔️ Boys matching allowed!",
-            threadID, messageID
-          );
-        }
-
-        const mentionedName = mentions[id2].replace("@", "");
-
-        let userInfoData;
-        try {
-          userInfoData = await api.getUserInfo([id1, id2]);
-        } catch (e) {
-          userInfoData = {};
-        }
-
-        const name1 = userInfoData[id1]?.name || "You";
-        const name2Final = mentionedName || userInfoData[id2]?.name || "Someone";
-
-        return await this.createAndSendPair(api, threadID, messageID, id1, id2, name1, name2Final, pathAvt1, pathAvt2, pathImg);
+      if (myGender === "MALE") {
+        matchCandidates = users.filter(user => user.gender === "FEMALE" && user.id !== event.senderID);
+      } else if (myGender === "FEMALE") {
+        matchCandidates = users.filter(user => user.gender === "MALE" && user.id !== event.senderID);
+      } else {
+        return api.sendMessage("⚠️ Your gender is undefined. Cannot find a match.", event.threadID, event.messageID);
       }
 
-      let targetGender = senderGender === "MALE" ? "FEMALE" : "MALE";
-      let candidates = all.filter(u => u.gender === targetGender && u.id !== id1);
-
-      if (candidates.length === 0) {
-        const genderText = senderGender === "MALE" ? "girls" : "boys";
-        return api.sendMessage(`❌ No ${genderText} found in this group to pair with!`, threadID, messageID);
+      if (matchCandidates.length === 0) {
+        return api.sendMessage("❌ No suitable match found in the group.", event.threadID, event.messageID);
       }
 
-      const userKey = `${threadID}_${id1}`;
-      let recentList = recentPairs.get(userKey) || [];
+      const selectedMatch = matchCandidates[Math.floor(Math.random() * matchCandidates.length)];
+      const matchName = selectedMatch.name;
 
-      let availableCandidates = candidates.filter(u => !recentList.includes(u.id));
-
-      if (availableCandidates.length === 0) {
-        recentList = [];
-        availableCandidates = candidates;
-      }
-
-      const randomUser = availableCandidates[Math.floor(Math.random() * availableCandidates.length)];
-      id2 = randomUser.id;
-      name2 = randomUser.name;
-
-      recentList.push(id2);
-      if (recentList.length > 5) recentList.shift();
-      recentPairs.set(userKey, recentList);
-
-      let userInfoData;
-      try {
-        userInfoData = await api.getUserInfo([id1, id2]);
-      } catch (e) {
-        userInfoData = {};
-      }
-
-      const name1 = userInfoData[id1]?.name || "You";
-      if (!name2) name2 = userInfoData[id2]?.name || "Someone";
-
-      return await this.createAndSendPair(api, threadID, messageID, id1, id2, name1, name2, pathAvt1, pathAvt2, pathImg);
-
-    } catch (error) {
-      console.error("Pair Error:", error);
-      try {
-        if (fs.existsSync(pathAvt1)) fs.removeSync(pathAvt1);
-        if (fs.existsSync(pathAvt2)) fs.removeSync(pathAvt2);
-        if (fs.existsSync(pathImg)) fs.removeSync(pathImg);
-      } catch (cleanupErr) {
-        console.error("Cleanup error:", cleanupErr);
-      }
-
-      if (error.response?.status === 429) {
-        return api.sendMessage("⏳ Rate limited Facebook API. Please wait a few minutes and try again!", threadID, messageID);
-      }
-      if (error.message && error.message.includes("updatedAt")) {
-        return api.sendMessage("❌ Database conflict error. Please try again in a few seconds!", threadID, messageID);
-      }
-      return api.sendMessage(`❌ Error: ${error.message}`, threadID, messageID);
-    }
-  },
-
-  createAndSendPair: async function(api, threadID, messageID, id1, id2, name1, name2, pathAvt1, pathAvt2, pathImg) {
-    let avt1Data, avt2Data;
-
-    try {
-      // Public FB avatar endpoint, no access_token needed (avoids expired/blocked shared tokens)
-      const avt1Url = `https://graph.facebook.com/${id1}/picture?width=1024&height=1024`;
-      const avt2Url = `https://graph.facebook.com/${id2}/picture?width=1024&height=1024`;
-
-      avt1Data = await this.downloadWithRetry(avt1Url, 3, 2000);
-      avt2Data = await this.downloadWithRetry(avt2Url, 3, 2000);
-
-      fs.writeFileSync(pathAvt1, Buffer.from(avt1Data.data));
-      fs.writeFileSync(pathAvt2, Buffer.from(avt2Data.data));
-
-      const baseUrl = "https://i.imgur.com/LqWKIyW.jpeg";
-      const baseRes = await this.downloadWithRetry(baseUrl);
-      fs.writeFileSync(pathImg, Buffer.from(baseRes.data));
-
-      const baseImage = await loadImage(pathImg);
-      const avt1 = await loadImage(pathAvt1);
-      const avt2 = await loadImage(pathAvt2);
-
-      const canvas = createCanvas(baseImage.width, baseImage.height);
+      const width = 800;
+      const height = 400;
+      const canvas = createCanvas(width, height);
       const ctx = canvas.getContext("2d");
 
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
+      // ✅ Use your given background
+      const background = await loadImage("https://files.catbox.moe/29jl5s.jpg");
+      ctx.drawImage(background, 0, 0, width, height);
 
-      ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
+      // Load profile pictures
+      const sIdImage = await loadImage(
+        `https://graph.facebook.com/${event.senderID}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
+      );
+      const pairPersonImage = await loadImage(
+        `https://graph.facebook.com/${selectedMatch.id}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
+      );
 
-      // Manual rounded-rect path (works on all node-canvas versions,
-      // unlike ctx.roundRect which older versions don't support)
-      function roundedRectPath(ctx, x, y, w, h, r) {
-        ctx.beginPath();
-        ctx.moveTo(x + r, y);
-        ctx.lineTo(x + w - r, y);
-        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-        ctx.lineTo(x + w, y + h - r);
-        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-        ctx.lineTo(x + r, y + h);
-        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-        ctx.lineTo(x, y + r);
-        ctx.quadraticCurveTo(x, y, x + r, y);
-        ctx.closePath();
-      }
-
-      function drawRoundedImage(ctx, img, x, y, size, radius) {
+      // Draw circular avatars (same position)
+      function drawCircle(ctx, img, x, y, size) {
         ctx.save();
-        roundedRectPath(ctx, x, y, size, size, radius);
+        ctx.beginPath();
+        ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+        ctx.closePath();
         ctx.clip();
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(img, x, y, size, size);
         ctx.restore();
       }
 
-      drawRoundedImage(ctx, avt1, 68, 98, 180, 20);
-      drawRoundedImage(ctx, avt2, 478, 93, 180, 20);
+      drawCircle(ctx, sIdImage, 385, 40, 170);
+      drawCircle(ctx, pairPersonImage, width - 213, 190, 170);
 
-      const textY1 = 98 + 180 + 8;
-      const textY2 = 93 + 180 + 8;
-
-      ctx.fillStyle = "rgba(0,0,0,0.7)";
-      roundedRectPath(ctx, 68, textY1, 180, 42, 5); ctx.fill();
-      roundedRectPath(ctx, 478, textY2, 180, 42, 5); ctx.fill();
-
-      ctx.fillStyle = "white";
-      ctx.font = "bold 20px Arial";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-
-      const displayName1 = name1.length > 12 ? name1.substring(0, 12) + "..." : name1;
-      const displayName2 = name2.length > 12 ? name2.substring(0, 12) + "..." : name2;
-
-      ctx.fillText(displayName1, 68 + 180 / 2, textY1 + 42 / 2);
-      ctx.fillText(displayName2, 478 + 180 / 2, textY2 + 42 / 2);
-
-      const out = fs.createWriteStream(pathImg);
-      const stream = canvas.createPNGStream({
-        compressionLevel: 3,
-        filters: canvas.PNG_FILTER_ALL
-      });
+      // Save to file
+      const outputPath = path.join(__dirname, "pair_output.png");
+      const out = fs.createWriteStream(outputPath);
+      const stream = canvas.createPNGStream();
       stream.pipe(out);
-      await new Promise((resolve, reject) => {
-        out.on("finish", resolve);
-        out.on("error", reject);
+
+      out.on("finish", () => {
+        const lovePercent = Math.floor(Math.random() * 31) + 70;
+
+        const message = `🥰𝗦𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹 𝗽𝗮𝗶𝗿𝗶𝗻𝗴
+・${senderName} 🎀
+・${matchName} 🎀
+💌 𝗪𝗶𝘀𝗵 𝘆𝗼𝘂 𝘁𝘄𝗼 𝗵𝘂𝗻𝗱𝗿𝗲𝗱 𝘆𝗲𝗮𝗿𝘀 𝗼𝗳 𝗵𝗮𝗽𝗽𝗶𝗻𝗲𝘀𝘀 ❤️❤️
+
+𝗟𝗼𝘃𝗲 𝗣𝗲𝗿𝗰𝗲𝗻𝘁𝗮𝗴𝗲: ${lovePercent}% 💙`;
+
+        api.sendMessage(
+          {
+            body: message,
+            attachment: fs.createReadStream(outputPath),
+          },
+          event.threadID,
+          () => {
+            fs.unlinkSync(outputPath);
+          },
+          event.messageID
+        );
       });
-
-      if (fs.existsSync(pathAvt1)) fs.removeSync(pathAvt1);
-      if (fs.existsSync(pathAvt2)) fs.removeSync(pathAvt2);
-
-      return api.sendMessage({
-        attachment: fs.createReadStream(pathImg)
-      }, threadID, () => {
-        if (fs.existsSync(pathImg)) fs.unlinkSync(pathImg);
-      }, messageID);
-
     } catch (error) {
-      console.error("Create Pair Error:", error);
-      try {
-        if (fs.existsSync(pathAvt1)) fs.removeSync(pathAvt1);
-        if (fs.existsSync(pathAvt2)) fs.removeSync(pathAvt2);
-        if (fs.existsSync(pathImg)) fs.removeSync(pathImg);
-      } catch (cleanupErr) {
-        console.error("Cleanup error:", cleanupErr);
-      }
-      throw error;
+      api.sendMessage(
+        "❌ An error occurred while trying to find a match.\n" + error.message,
+        event.threadID,
+        event.messageID
+      );
     }
-  }
+  },
 };
