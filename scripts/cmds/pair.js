@@ -51,10 +51,9 @@ module.exports = {
         const canvas = createCanvas(width, height);
         const ctx = canvas.getContext("2d");
 
-        // Background draw korar por dimension measure kore position thik kora hobe
-        let bgImage;
         try {
-          bgImage = await loadImage("https://files.catbox.moe/29jl5s.jpg");
+          const bgImage = await loadImage("https://files.catbox.moe/29jl5s.jpg");
+          // Background কে canvas size এ fit করো
           ctx.drawImage(bgImage, 0, 0, width, height);
         } catch (e) {
           ctx.fillStyle = "#FF69B4";
@@ -69,30 +68,22 @@ module.exports = {
           `https://graph.facebook.com/${selectedMatch.id}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
         ).catch(() => null);
 
-        // ========================================================
-        // Background: https://files.catbox.moe/29jl5s.jpg
-        // এই background এ দুটো oval frame আছে:
-        //   Frame 1 (উপরে বাম দিকে - ছেলে/sender): cx≈200, cy≈200
-        //   Frame 2 (নিচে ডান দিকে - মেয়ে/match): cx≈580, cy≈400
-        // Radius গুলো frame এর size অনুযায়ী
-        // ========================================================
-
+        // Circle এ profile picture বসানো
         function drawCircleProfile(ctx, img, cx, cy, radius) {
-          // সাদা border ring
+          // সাদা border
           ctx.save();
           ctx.beginPath();
-          ctx.arc(cx, cy, radius + 5, 0, Math.PI * 2);
+          ctx.arc(cx, cy, radius + 6, 0, Math.PI * 2);
           ctx.fillStyle = "#FFFFFF";
           ctx.fill();
           ctx.restore();
 
-          // ছবি circle এ clip করে বসানো
+          // ছবি clip করে বসানো
           ctx.save();
           ctx.beginPath();
           ctx.arc(cx, cy, radius, 0, Math.PI * 2);
           ctx.closePath();
           ctx.clip();
-
           if (img) {
             ctx.drawImage(img, cx - radius, cy - radius, radius * 2, radius * 2);
           } else {
@@ -102,20 +93,23 @@ module.exports = {
           ctx.restore();
         }
 
-        // Background image এর actual frame position অনুযায়ী
-        // Frame 1: উপর-বামে oval (sender)
-        const FRAME_1 = { cx: 195, cy: 195, r: 105 };
-        // Frame 2: নিচে-ডানে oval (match)  
-        const FRAME_2 = { cx: 600, cy: 405, r: 115 };
+        // ========================================================
+        // Background এ দুটো oval/circle frame আছে:
+        // Screenshot দেখে measure করা exact position:
+        // Frame 1 (উপরে, বাম-মধ্য): sender এর জন্য
+        // Frame 2 (নিচে, ডান-মধ্য): match এর জন্য
+        // ========================================================
+        const FRAME_1 = { cx: 310, cy: 175, r: 88 };  // উপরের frame
+        const FRAME_2 = { cx: 510, cy: 410, r: 100 }; // নিচের frame
 
         drawCircleProfile(ctx, senderImg, FRAME_1.cx, FRAME_1.cy, FRAME_1.r);
         drawCircleProfile(ctx, matchImg, FRAME_2.cx, FRAME_2.cy, FRAME_2.r);
 
-        // দুই frame এর মাঝখানে heart
+        // দুই frame এর মাঝে heart
         const heartX = (FRAME_1.cx + FRAME_2.cx) / 2;
         const heartY = (FRAME_1.cy + FRAME_2.cy) / 2;
+        ctx.font = "bold 48px Arial";
         ctx.fillStyle = "#FF4D6D";
-        ctx.font = "bold 50px Arial";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("♥", heartX, heartY);
