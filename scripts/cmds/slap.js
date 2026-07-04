@@ -33,7 +33,8 @@ module.exports = {
       const avatar1 = await usersData.getAvatarUrl(senderID);
       const avatar2 = await usersData.getAvatarUrl(targetID);
 
-      const apiURL = `https://i.imgur.com/Yre6eGF.gif(
+      const apiURL = "https://i.imgur.com/Yre6eGF.gif",
+        (
         avatar1
       )}&avatar2=${encodeURIComponent(avatar2)}`;
 
