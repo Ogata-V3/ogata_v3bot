@@ -33,7 +33,7 @@ module.exports = {
       const avatar1 = await usersData.getAvatarUrl(senderID);
       const avatar2 = await usersData.getAvatarUrl(targetID);
 
-      const apiURL = `https://azadx69x-all-apis-top.vercel.app/api/slap?avatar1=${encodeURIComponent(
+      const apiURL = `https://i.imgur.com/Yre6eGF.gif(
         avatar1
       )}&avatar2=${encodeURIComponent(avatar2)}`;
 
