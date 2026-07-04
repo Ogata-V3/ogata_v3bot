@@ -84,7 +84,7 @@ module.exports = {
           // White border
           ctx.fillStyle = "#FFFFFF";
           ctx.beginPath();
-          ctx.arc(x + size / 2, y + size / 2, size / 2 + 10, 0, Math.PI * 2);
+          ctx.arc(x + size / 2, y + size / 2, size / 2 + 12, 0, Math.PI * 2);
           ctx.fill();
 
           // Image circle
@@ -99,15 +99,15 @@ module.exports = {
           ctx.restore();
         }
 
-        // Draw profile pictures - matching image size
-        if (senderImg) drawCircle(ctx, senderImg, 50, 160, 220);
-        if (matchImg) drawCircle(ctx, matchImg, 530, 160, 220);
+        // Draw profile pictures - very big, fill the space
+        if (senderImg) drawCircle(ctx, senderImg, 30, 140, 280);
+        if (matchImg) drawCircle(ctx, matchImg, 490, 140, 280);
 
-        // Heart in middle - larger
+        // Heart in middle - very large
         ctx.fillStyle = "#FFFFFF";
-        ctx.font = "bold 100px Arial";
+        ctx.font = "bold 120px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("💕", width / 2, 350);
+        ctx.fillText("💕", width / 2, 370);
 
         // Save image
         const outputPath = path.join(__dirname, "pair_output.png");
