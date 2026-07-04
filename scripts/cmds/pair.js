@@ -51,25 +51,9 @@ module.exports = {
       }
 
       const matchName = selectedMatch.name || "Unknown User";
+      const lovePercent = Math.floor(Math.random() * 31) + 70;
 
       try {
-        // Create canvas
-        const width = 800;
-        const height = 600;
-        const canvas = createCanvas(width, height);
-        const ctx = canvas.getContext("2d");
-
-        // Load background image from imgur
-        let bgImage;
-        try {
-          bgImage = await loadImage("https://i.imgur.com/PheFdLt.jpeg");
-          ctx.drawImage(bgImage, 0, 0, width, height);
-        } catch (e) {
-          // Fallback: pink background
-          ctx.fillStyle = "#FF69B4";
-          ctx.fillRect(0, 0, width, height);
-        }
-
         // Get profile pictures
         const senderImg = await loadImage(
           `https://graph.facebook.com/${event.senderID}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
@@ -79,69 +63,62 @@ module.exports = {
           `https://graph.facebook.com/${selectedMatch.id}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
         ).catch(() => null);
 
-        // Draw egg-shaped ellipse with image
-        function drawEggShape(ctx, img, x, y, width, height) {
-          // White border (egg shape)
-          ctx.fillStyle = "#FFFFFF";
-          ctx.beginPath();
-          ctx.ellipse(x + width / 2, y + height / 2, width / 2 + 10, height / 2 + 10, 0, 0, Math.PI * 2);
-          ctx.fill();
+        const attachments = [];
 
-          // Image ellipse (egg shape)
-          ctx.save();
-          ctx.beginPath();
-          ctx.ellipse(x + width / 2, y + height / 2, width / 2, height / 2, 0, 0, Math.PI * 2);
-          ctx.closePath();
-          ctx.clip();
-          if (img) {
-            ctx.drawImage(img, x, y, width, height);
-          }
-          ctx.restore();
+        // Create sender image
+        if (senderImg) {
+          const canvas1 = createCanvas(400, 400);
+          const ctx1 = canvas1.getContext("2d");
+          ctx1.drawImage(senderImg, 0, 0, 400, 400);
+          
+          const senderPath = path.join(__dirname, "pair_sender.png");
+          const stream1 = canvas1.createPNGStream();
+          const out1 = fs.createWriteStream(senderPath);
+          stream1.pipe(out1);
+          
+          attachments.push(new Promise(resolve => {
+            out1.on("finish", () => resolve(senderPath));
+          }));
         }
 
-        // Draw profile pictures - bigger egg shape
-        // Width = 190, Height = 240 (larger egg shape)
-        if (senderImg) drawEggShape(ctx, senderImg, 70, 160, 190, 240);
-        if (matchImg) drawEggShape(ctx, matchImg, 540, 160, 190, 240);
+        // Create match image
+        if (matchImg) {
+          const canvas2 = createCanvas(400, 400);
+          const ctx2 = canvas2.getContext("2d");
+          ctx2.drawImage(matchImg, 0, 0, 400, 400);
+          
+          const matchPath = path.join(__dirname, "pair_match.png");
+          const stream2 = canvas2.createPNGStream();
+          const out2 = fs.createWriteStream(matchPath);
+          stream2.pipe(out2);
+          
+          attachments.push(new Promise(resolve => {
+            out2.on("finish", () => resolve(matchPath));
+          }));
+        }
 
-        // Heart in middle
-        ctx.fillStyle = "#FFB6D9";
-        ctx.font = "bold 80px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText("💕", width / 2, 340);
-
-        // Save image
-        const outputPath = path.join(__dirname, "pair_output.png");
-        const stream = canvas.createPNGStream();
-        const out = fs.createWriteStream(outputPath);
-        
-        stream.pipe(out);
-
-        out.on("finish", () => {
-          const lovePercent = Math.floor(Math.random() * 31) + 70;
-
+        // Wait for both images to finish
+        Promise.all(attachments).then(paths => {
           const message = `🥰 𝗦𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹 𝗽𝗮𝗶𝗿𝗶𝗻𝗴
 ・${senderName} 🎀
 ・${matchName} 🎀
-💌 𝗪𝗶𝘀𝗵 𝘆𝗼𝘂 𝘁𝘄𝗼 𝗵𝘂𝗻𝗱𝗿𝗲𝗱 𝘆𝗲𝗮𝗿𝘀 𝗼𝗳 𝗵𝗮𝗽𝗽𝗶𝗻𝗲𝘀𝘀 ❤️❤️
+💌 𝗪𝗶𝘀𝗵 𝘆𝗼𝘂 𝘁𝘄𝗼 𝗵𝘂𝗻𝗱𝗿𝗲𝗱 𝘆𝗲𝗮𝗿𝘀 𝗼𝗳 𝗵𝗮𝗽𝗽𝗶𝗻𝗲𝘀𝘴 ❤️❤️
 
 𝗟𝗼𝘃𝗲 𝗣𝗲𝗿𝗰𝗲𝗻𝘁𝗮𝗴𝗲: ${lovePercent}% 💙`;
 
           api.sendMessage(
             {
               body: message,
-              attachment: fs.createReadStream(outputPath),
+              attachment: paths.map(p => fs.createReadStream(p))
             },
             event.threadID,
             () => {
-              try { fs.unlinkSync(outputPath); } catch (e) {}
+              paths.forEach(p => {
+                try { fs.unlinkSync(p); } catch (e) {}
+              });
             },
             event.messageID
           );
-        });
-
-        out.on("error", (err) => {
-          api.sendMessage(`❌ Image error: ${err.message}`, event.threadID, event.messageID);
         });
 
       } catch (canvasError) {
