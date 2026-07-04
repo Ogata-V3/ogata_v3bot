@@ -79,35 +79,36 @@ module.exports = {
           `https://graph.facebook.com/${selectedMatch.id}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
         ).catch(() => null);
 
-        // Draw circles with white border
-        function drawCircle(ctx, img, x, y, size) {
-          // White border
+        // Draw egg-shaped ellipse with image
+        function drawEggShape(ctx, img, x, y, width, height) {
+          // White border (egg shape)
           ctx.fillStyle = "#FFFFFF";
           ctx.beginPath();
-          ctx.arc(x + size / 2, y + size / 2, size / 2 + 8, 0, Math.PI * 2);
+          ctx.ellipse(x + width / 2, y + height / 2, width / 2 + 8, height / 2 + 8, 0, 0, Math.PI * 2);
           ctx.fill();
 
-          // Image circle
+          // Image ellipse (egg shape)
           ctx.save();
           ctx.beginPath();
-          ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+          ctx.ellipse(x + width / 2, y + height / 2, width / 2, height / 2, 0, 0, Math.PI * 2);
           ctx.closePath();
           ctx.clip();
           if (img) {
-            ctx.drawImage(img, x, y, size, size);
+            ctx.drawImage(img, x, y, width, height);
           }
           ctx.restore();
         }
 
-        // Draw profile pictures - perfect size and position matching image
-        if (senderImg) drawCircle(ctx, senderImg, 60, 180, 240);
-        if (matchImg) drawCircle(ctx, matchImg, 500, 180, 240);
+        // Draw profile pictures - egg shape (উপরে চিকন, নিচে মোটা)
+        // Width = 160, Height = 200 (egg shape)
+        if (senderImg) drawEggShape(ctx, senderImg, 90, 190, 160, 210);
+        if (matchImg) drawEggShape(ctx, matchImg, 550, 190, 160, 210);
 
-        // Heart in middle - match image style
+        // Heart in middle
         ctx.fillStyle = "#FFB6D9";
-        ctx.font = "bold 100px Arial";
+        ctx.font = "bold 80px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("💕", width / 2, 355);
+        ctx.fillText("💕", width / 2, 340);
 
         // Save image
         const outputPath = path.join(__dirname, "pair_output.png");
