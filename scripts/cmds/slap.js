@@ -1,5 +1,3 @@
-const axios = require("axios");
-
 module.exports = {
   config: {
     name: "slap",
@@ -30,23 +28,24 @@ module.exports = {
       const name1 = await usersData.getName(senderID).catch(() => "User");
       const name2 = await usersData.getName(targetID).catch(() => "User");
 
-      const avatar1 = await usersData.getAvatarUrl(senderID);
-      const avatar2 = await usersData.getAvatarUrl(targetID);
+      const slapImage = "https://i.imgur.com/LyG1bq1.jpeg";
 
-      const apiURL = `https://i.imgur.com/Yre6eGF.gif?avatar1=${encodeURIComponent(avatar1)}&avatar2=${encodeURIComponent(avatar2)}`;
+      try {
+        const stream = await global.utils.getStreamFromURL(slapImage);
 
-      const stream = await global.utils.getStreamFromURL(apiURL);
+        const replyText = `🤣 ${name1} 𝐬𝐥𝐚𝐩𝐩𝐞𝐝 ${name2}! 😆`;
 
-      const replyText = `🤣 ${name1} 𝐬𝐥𝐚𝐩𝐩𝐞𝐝 ${name2}!`;
-
-      return message.reply({
-        body: replyText,
-        attachment: stream
-      });
+        return message.reply({
+          body: replyText,
+          attachment: stream
+        });
+      } catch (imageErr) {
+        return message.reply(`🤣 ${name1} 𝐬𝐥𝐚𝐩𝐩𝐞𝐝 ${name2}! 😆\n(𝐂𝐨𝐮𝐥𝐝𝐧'𝐭 𝐥𝐨𝐚𝐝 𝐢𝐦𝐚𝐠𝐞)`);
+      }
 
     } catch (err) {
       console.error("SLAP CMD ERROR:", err);
-      return message.reply("❌ 𝐂𝐨𝐮𝐥𝐝 𝐧𝐨𝐭 𝐟𝐞𝐭𝐜𝐡 𝐬𝐥𝐚𝐩 𝐢𝐦𝐚𝐠𝐞.");
+      return message.reply("❌ 𝐒𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐰𝐞𝐧𝐭 𝐰𝐫𝐨𝐧𝐠!");
     }
   }
 };
