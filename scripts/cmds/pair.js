@@ -84,7 +84,7 @@ module.exports = {
           // White border (egg shape)
           ctx.fillStyle = "#FFFFFF";
           ctx.beginPath();
-          ctx.ellipse(x + width / 2, y + height / 2, width / 2 + 8, height / 2 + 8, 0, 0, Math.PI * 2);
+          ctx.ellipse(x + width / 2, y + height / 2, width / 2 + 10, height / 2 + 10, 0, 0, Math.PI * 2);
           ctx.fill();
 
           // Image ellipse (egg shape)
@@ -99,10 +99,10 @@ module.exports = {
           ctx.restore();
         }
 
-        // Draw profile pictures - egg shape (উপরে চিকন, নিচে মোটা)
-        // Width = 160, Height = 200 (egg shape)
-        if (senderImg) drawEggShape(ctx, senderImg, 90, 190, 160, 210);
-        if (matchImg) drawEggShape(ctx, matchImg, 550, 190, 160, 210);
+        // Draw profile pictures - bigger egg shape
+        // Width = 190, Height = 240 (larger egg shape)
+        if (senderImg) drawEggShape(ctx, senderImg, 70, 160, 190, 240);
+        if (matchImg) drawEggShape(ctx, matchImg, 540, 160, 190, 240);
 
         // Heart in middle
         ctx.fillStyle = "#FFB6D9";
