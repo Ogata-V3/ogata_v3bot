@@ -1,7 +1,7 @@
 {
   "facebookAccount": {
-    "number": "+8801723647045",
-    "password": "Ajmaul0000",
+    "number": "",
+    "password": "",
     "2FASecret": "",
     "i_user": "",
     "proxy": null,
@@ -20,7 +20,7 @@
   },
 
   "adminBot": [
-    "61590001468913"
+    "61590001468913",
     "61590369375024"
   ],
 
