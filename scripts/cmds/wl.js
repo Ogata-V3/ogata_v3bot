@@ -24,13 +24,13 @@ module.exports = {
 
 		guide: {
 
-			en: '   {pn} [add | -a] <uid | @tag>: Add admin role for user'
+			en: '   {pn} [add | -a] <uid | @tag>: Add whiteList role for user'
 
-				+ '\n   {pn} [remove | -r] <uid | @tag>: Remove admin role of user'
+				+ '\n   {pn} [remove | -r] <uid | @tag>: Remove whiteList role of user'
 
-				+ '\n   {pn} [list | -l]: List all admins'
+				+ '\n   {pn} [list | -l]: List all whiteListIds'
 
-        + '\n   {pn} [ on | off ]: enable and disable whiteList mode'
+        + '\n   {pn} [on | off]: enable and disable whiteList mode'
 
 		}
 
@@ -43,17 +43,17 @@ module.exports = {
 
 			added: "✅ | Added whiteList role for %1 users:\n%2",
 
-			alreadyAdmin: "\n⚠ | %1 users already have whiteList role:\n%2",
+			alreadyWhiteList: "\n⚠ | %1 users already have whiteList role:\n%2",
 
 			missingIdAdd: "⚠ | Please enter ID or tag user to add in whiteListIds",
 
 			removed: "✅ | Removed whiteList role of %1 users:\n%2",
 
-			notAdmin: "⚠ | %1 users don't have whiteListIds role:\n%2",
+			notWhiteList: "⚠ | %1 users don't have whiteList role:\n%2",
 
-			missingIdRemove: "⚠ | Please enter ID or tag user to remove whiteListIds",
+			missingIdRemove: "⚠ | Please enter ID or tag user to remove from whiteListIds",
 
-			listAdmin: "👑 | List of whiteListIds:\n%1",
+			listWhiteList: "👑 | List of whiteListIds:\n%1",
 
       enable: "✅ Turned on",
 
@@ -90,34 +90,34 @@ module.exports = {
 
 						uids = args.filter(arg => !isNaN(arg));
 
-					const notAdminIds = [];
+					const notWhiteListIds = [];
 
-					const adminIds = [];
+					const whiteListIds = [];
 
 					for (const uid of uids) {
 
 						if (config.whiteListMode.whiteListIds.includes(uid))
 
-							adminIds.push(uid);
+							whiteListIds.push(uid);
 
 						else
 
-							notAdminIds.push(uid);
+							notWhiteListIds.push(uid);
 
 					}
 
 
-					config.whiteListMode.whiteListIds.push(...notAdminIds);
+					config.whiteListMode.whiteListIds.push(...notWhiteListIds);
 
-					const getNames = await Promise.all(uids.map(uid => usersData.getName(uid).then(name => ({ uid, name }))));
+					const getNames = await Promise.all(notWhiteListIds.map(uid => usersData.getName(uid).then(name => ({ uid, name }))));
 
 					writeFileSync(global.client.dirConfig, JSON.stringify(config, null, 2));
 
 					return message.reply(
 
-						(notAdminIds.length > 0 ? getLang("added", notAdminIds.length, getNames.map(({ uid, name }) => `• ${name} (${uid})`).join("\n")) : "")
+						(notWhiteListIds.length > 0 ? getLang("added", notWhiteListIds.length, getNames.map(({ uid, name }) => `• ${name} (${uid})`).join("\n")) : "")
 
-						+ (adminIds.length > 0 ? getLang("alreadyAdmin", adminIds.length, adminIds.map(uid => `• ${uid}`).join("\n")) : "")
+						+ (whiteListIds.length > 0 ? getLang("alreadyWhiteList", whiteListIds.length, whiteListIds.map(uid => `• ${uid}`).join("\n")) : "")
 
 					);
 
@@ -139,41 +139,41 @@ module.exports = {
 
 					if (Object.keys(event.mentions).length > 0)
 
-						uids = Object.keys(event.mentions)[0];
+						uids = Object.keys(event.mentions);
 
 					else
 
 						uids = args.filter(arg => !isNaN(arg));
 
-					const notAdminIds = [];
+					const notWhiteListIds = [];
 
-					const adminIds = [];
+					const whiteListIds = [];
 
 					for (const uid of uids) {
 
 						if (config.whiteListMode.whiteListIds.includes(uid))
 
-							adminIds.push(uid);
+							whiteListIds.push(uid);
 
 						else
 
-							notAdminIds.push(uid);
+							notWhiteListIds.push(uid);
 
 					}
 
-					for (const uid of adminIds)
+					for (const uid of whiteListIds)
 
 						config.whiteListMode.whiteListIds.splice(config.whiteListMode.whiteListIds.indexOf(uid), 1);
 
-					const getNames = await Promise.all(adminIds.map(uid => usersData.getName(uid).then(name => ({ uid, name }))));
+					const getNames = await Promise.all(whiteListIds.map(uid => usersData.getName(uid).then(name => ({ uid, name }))));
 
 					writeFileSync(global.client.dirConfig, JSON.stringify(config, null, 2));
 
 					return message.reply(
 
-						(adminIds.length > 0 ? getLang("removed", adminIds.length, getNames.map(({ uid, name }) => `• ${name} (${uid})`).join("\n")) : "")
+						(whiteListIds.length > 0 ? getLang("removed", whiteListIds.length, getNames.map(({ uid, name }) => `• ${name} (${uid})`).join("\n")) : "")
 
-						+ (notAdminIds.length > 0 ? getLang("notAdmin", notAdminIds.length, notAdminIds.map(uid => `• ${uid}`).join("\n")) : "")
+						+ (notWhiteListIds.length > 0 ? getLang("notWhiteList", notWhiteListIds.length, notWhiteListIds.map(uid => `• ${uid}`).join("\n")) : "")
 
 					);
 
@@ -191,7 +191,7 @@ module.exports = {
 
 				const getNames = await Promise.all(config.whiteListMode.whiteListIds.map(uid => usersData.getName(uid).then(name => ({ uid, name }))));
 
-				return message.reply(getLang("listAdmin", getNames.map(({ uid, name }) => `• ${name} (${uid})`).join("\n")));
+				return message.reply(getLang("listWhiteList", getNames.map(({ uid, name }) => `• ${name} (${uid})`).join("\n")));
 
 			}
 
@@ -217,7 +217,7 @@ module.exports = {
 
             default:
 
-                return message.SyntaxError();
+                return message.reply("❌ Invalid command. Use: add, remove, list, on, off")
 
         }
 
