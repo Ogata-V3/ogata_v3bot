@@ -2,7 +2,7 @@ module.exports = {
 	config: {
 		name: "autoreplybot",
 		version: "1.0",
-		author: "NTKhang",
+		author: "ajmaul",
 		countDown: 5,
 		role: 1,
 		description: {
