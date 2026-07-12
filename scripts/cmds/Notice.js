@@ -6,7 +6,7 @@ module.exports.config = {
  name: "notice",
  version: "1.0.0",
  hasPermssion: 2, 
- credits: "🔰Rahat🔰",
+ credits: "Ajmaul",
  description: "সকল গ্রুপে নোটিশ পাঠান (টেক্সট, ইমেজ, ভিডিও, অডিও, ফাইল সহ)",
  commandCategory: "Admin",
  usages: "/notice <টেক্সট> বা রিপ্লাই দিয়ে মেসেজ দিন",
