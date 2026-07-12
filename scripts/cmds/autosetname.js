@@ -1,6 +1,6 @@
 function checkShortCut(nickname, uid, userName) {
-	/\{userName\}/gi.test(nickname) ? nickname = nickname.replace(/\{userName\}/gi, userName) : null;
-	/\{userID\}/gi.test(uid) ? nickname = nickname.replace(/\{userID\}/gi, uid) : null;
+	nickname = nickname.replace(/\{userName\}/gi, userName);
+	nickname = nickname.replace(/\{userID\}/gi, uid);
 	return nickname;
 }
 
@@ -89,19 +89,19 @@ module.exports = {
 		if (!await threadsData.get(event.threadID, "settings.enableAutoSetName"))
 			return;
 		const configAutoSetName = await threadsData.get(event.threadID, "data.autoSetName");
+		if (!configAutoSetName)
+			return;
 
-		return async function () {
-			const addedParticipants = [...event.logMessageData.addedParticipants];
+		const addedParticipants = [...event.logMessageData.addedParticipants];
 
-			for (const user of addedParticipants) {
-				const { userFbId: uid, fullName: userName } = user;
-				try {
-					await api.changeNickname(checkShortCut(configAutoSetName, uid, userName), event.threadID, uid);
-				}
-				catch (e) {
-					return message.reply(getLang("error"));
-				}
+		for (const user of addedParticipants) {
+			const { userFbId: uid, fullName: userName } = user;
+			try {
+				await api.changeNickname(checkShortCut(configAutoSetName, uid, userName), event.threadID, uid);
 			}
-		};
+			catch (e) {
+				return message.reply(getLang("error"));
+			}
+		}
 	}
 };
