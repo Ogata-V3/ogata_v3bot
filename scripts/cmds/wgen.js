@@ -7,7 +7,7 @@ module.exports = {
     name: "weigen",
     aliases: ["wgen"],
     version: "1.2",
-    author: "nexo_here",
+    author: "Ajmaul",
     countDown: 3,
     role: 0,
     shortDescription: "Generate AI image",
