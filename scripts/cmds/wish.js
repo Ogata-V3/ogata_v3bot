@@ -6,7 +6,7 @@ module.exports = {
   config: {
     name: "wish",
     version: "2.0",
-    author: "Shahadat Cᴏɴᴠᴇʀᴛ Bʏ MOHAMMAD AKASH",
+    author: "Aizen",
     role: 0,
     shortDescription: "Beautiful happy birthday wish",
     longDescription: "Generate a premium style birthday wish card with avatar",
