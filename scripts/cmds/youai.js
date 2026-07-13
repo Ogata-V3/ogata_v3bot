@@ -5,7 +5,7 @@ module.exports = {
 		name: "youai",
 		aliases: ["you", "youchat", "ai", "gemini"],
 		version: "1.0",
-		author: "nexo_here",
+		author: "Ajmaul",
 		countDown: 5,
 		role: 0,
 		shortDescription: "Chat with You AI",
