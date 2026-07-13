@@ -47,7 +47,7 @@ async function downloadPoster(posterUrl, fileName) {
 module.exports = {
   config: {
     name: "hanime",//haram cmd
-    author: "Vex_Kshitiz",
+    author: "Ajmaul",
     version: "1.0",
     cooldowns: 5,
     role: 2,
