@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "pending",
     version: "1.0.5",
-    author: "Rx Abdullah Modified by MOHAMMAD AKASH ",
+    author: "Ajmaul ",
     aliases: [],
     role: 2,
     shortDescription: "Manage bot's waiting messages",
