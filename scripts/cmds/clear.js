@@ -2,7 +2,7 @@ module.exports = {
   config: {
     name: "clear",
     aliases: [],
-    author: "kshitiz",  
+    author: "Aizen",  
     version: "2.0",
     cooldowns: 5,
     role: 0,
