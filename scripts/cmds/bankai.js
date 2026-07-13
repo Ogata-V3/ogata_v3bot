@@ -12,7 +12,7 @@ module.exports = {
                 name: "bankai",
                 aliases: ["bankaivid"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Aizen X Ajmaul",
                 countDown: 10,
                 role: 0,
                 description: {
