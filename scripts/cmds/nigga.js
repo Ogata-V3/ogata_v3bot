@@ -7,7 +7,7 @@ module.exports = {
     name: "nigga",
     aliases: ["roast", "burn"],
     version: "1.2",
-    author: "nexo_here",
+    author: "Aizen",
     countDown: 2,
     role: 0,
     description: "Send a roast image using UID",
