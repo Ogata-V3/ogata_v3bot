@@ -16,7 +16,7 @@ module.exports = {
   config: {
     name: "my",
     version: "1.7",
-    author: "RAHAT",
+    author: "Ajmaul",
     category: "love",
     guide:
       "{pn} boy @tag | {pn} girl @tag | {pn} queen @tag | {pn} king @tag | {pn} bf @tag | {pn} gf @tag | {pn} list"
