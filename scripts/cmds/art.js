@@ -12,7 +12,7 @@ module.exports = {
                 name: "art",
                 aliases: ["artify", "photoart"],
                 version: "1.7",
-                author: "RAHAT", // credit Change dile thapramu kintu.
+                author: "Ajmaul", // credit Change dile thapramu kintu.
                 countDown: 10,
                 role: 0,
                 description: {
