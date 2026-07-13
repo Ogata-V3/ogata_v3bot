@@ -7,7 +7,7 @@ const baseApiUrl = async () => {
 };
 
 /**
-* @author RAHAT
+* @author Aizen
 * @author: do not delete it
 */
 
@@ -15,7 +15,7 @@ module.exports.config = {
   name: "myboy",
   version: "1.7",
   role: 0,
-  author: "RAHAT",
+  author: "Ajmaul",
   category: "love",
   cooldowns: 5
 };
