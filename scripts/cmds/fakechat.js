@@ -12,7 +12,7 @@ module.exports = {
                 name: "fakechat",
                 aliases: ["fc", "fake", "ফেকচ্যাট"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Ajmaul",
                 countDown: 5,
                 role: 0,
                 description: {
