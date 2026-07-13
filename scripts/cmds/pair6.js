@@ -15,13 +15,13 @@ module.exports = {
                 countDown: 10,
                 role: 0,
                 description: {
-                        bn: "বিপরীত লিঙ্গের মেম্বারদের মধ্যে প্রোফাইল পিকচারসহ জোড়া মেলান",
+                        bn: "বিপরীত লিঙ্গের মেম্বারদের মধ্যে প্রোফাইল পিকচারসহ জোড়া মেলান",
                         en: "Match with opposite gender members including profile pictures",
                         vi: "Ghép đôi với các thành viên khác giới bao gồm cả ảnh hồ sơ"
                 },
                 category: "love",
                 guide: {
-                        bn: '   {pn}: আপনার পারফেক্ট জোড়া খুঁজতে ব্যবহার করুন',
+                        bn: '   {pn}: আপনার পারফেক্ট জোড়া খুঁজতে ব্যবহার করুন',
                         en: '   {pn}: Use to find your perfect pair',
                         vi: '   {pn}: Sử dụng để tìm cặp đôi hoàn hảo của bạn'
                 }
@@ -30,9 +30,9 @@ module.exports = {
         langs: {
                 bn: {
                         noGender: "× বেবি, আপনার জেন্ডার প্রোফাইলে সেট করা নেই",
-                        noMatch: "× দুঃখিত, এই গ্রুপে আপনার জন্য কোনো %1 মেম্বার পাওয়া যায়নি",
+                        noMatch: "× দুঃখিত, এই গ্রুপে আপনার জন্য কোনো %1 মেম্বার পাওয়া যায়নি",
                         success: "💞 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥 𝐏𝐚𝐢𝐫𝐢𝐧𝐠\n• %1\n• %2\n\n𝐋𝐨𝐯𝐞 𝐏𝐞𝐫𝐜𝐞𝐧𝐭𝐚𝐠𝐞: %3%",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noGender: "× Baby, your gender is not defined in your profile",
@@ -44,7 +44,7 @@ module.exports = {
                         noGender: "× Cưng ơi, giới tính của cưng không được xác định",
                         noMatch: "× Rất tiếc, không tìm thấy thành viên %1 nào cho cưng",
                         success: "💞 𝐆𝐡𝐞́𝐩 đ𝐨̂𝐢 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠\n• %1\n• %2\n\n𝐓𝐲̉ 𝐥𝐞̣̂ 𝐭𝐢̀𝐧𝐡 𝐜𝐚̉𝐦: %3%",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Ajmaul để hỗ trợ."
                 }
         },
 
