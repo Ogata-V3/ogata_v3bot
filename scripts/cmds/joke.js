@@ -10,7 +10,7 @@ module.exports = {
     name: "joke",
     aliases: ["jokes"],
     version: "1.7",
-    author: "RAHAT",
+    author: "Ajmaul",
     countDown: 5,
     role: 0,
     category: "fun",
