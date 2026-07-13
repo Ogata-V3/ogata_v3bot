@@ -28,15 +28,15 @@ module.exports = {
         langs: {
                 bn: {
                         noInput: "× বেবি, কিছু তো জিজ্ঞাসা করো!",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT|\n•WhatsApp: 01836298139"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen|\n•WhatsApp: 01836298139"
                 },
                 en: {
                         noInput: "× Baby, please ask something!",
-                        error: "× API error: %1. Contact RAHAT for help.\n•WhatsApp: 01836298139"
+                        error: "× API error: %1. Contact Aizen for help.\n•WhatsApp: 01836298139"
                 },
                 vi: {
                         noInput: "× Cưng ơi, hãy hỏi điều gì đó!",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ.\n•WhatsApp: 01836298139"
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ.\n•WhatsApp: 01836298139"
                 }
         },
 

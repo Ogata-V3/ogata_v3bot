@@ -37,7 +37,7 @@ module.exports = {
                         empty: "× এই ক্যাটাগরিতে কোনো ছবি নেই।",
                         loadErr: "× ছবিগুলো লোড করা সম্ভব হয়নি।",
                         success: "𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐑𝐚𝐧𝐝𝐨𝐦 %1 𝐜𝐝𝐩 𝐢𝐦𝐚𝐠𝐞 𝐛𝐚𝐛𝐲 <😘",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         usage: "⚠️ Usage:\n{pn} <category>\n{pn} list",
@@ -47,7 +47,7 @@ module.exports = {
                         empty: "× No DP found in this category.",
                         loadErr: "× All image URLs failed to load.",
                         success: "𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐑𝐚𝐧𝐝𝐨𝐦 %1 𝐜𝐝𝐩 𝐢𝐦𝐚𝐠𝐞 𝐛𝐚𝐛𝐲 <😘",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         usage: "⚠️ Cách dùng:\n{pn} <danh mục>\n{pn} list",
@@ -57,7 +57,7 @@ module.exports = {
                         empty: "× Không tìm thấy ảnh trong danh mục này.",
                         loadErr: "× Không thể tải được hình ảnh nào.",
                         success: "𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐑𝐚𝐧𝐝𝐨𝐦 %1 𝐜𝐝𝐩 𝐢𝐦𝐚𝐠𝐞 𝐛𝐚𝐛𝐲 <😘",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

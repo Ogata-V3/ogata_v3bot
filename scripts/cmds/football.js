@@ -6,7 +6,7 @@ const baseApiUrl = async () => {
 };
 
 /**
-* @author RAHAT
+* @author Aizen
 * @author: do not delete it
 */
 
@@ -106,7 +106,7 @@ try {
       );
     } catch (error) {
       console.error("Error:", error.message);
-      api.sendMessage("🥹error, contact RAHAT.", event.threadID, event.messageID);
+      api.sendMessage("🥹error, contact Aizen.", event.threadID, event.messageID);
     }
   }
 };

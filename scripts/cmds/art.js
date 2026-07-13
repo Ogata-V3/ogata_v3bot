@@ -34,7 +34,7 @@ module.exports = {
                         no_image: "• Baby, অনুগ্রহ করে একটি ছবিতে রিপ্লাই দিন।",
                         invalid_style: "❌ স্টাইল নম্বর অবশ্যই ১ থেকে ১০০ এর মধ্যে হতে হবে।",
                         generating: "🔄 | Applying art, please wait...\n• Style: %1\n• Style name: %2",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "✅ | Here's your art image baby\n• Style: %1\n• Style name: %2"
                 },
                 en: {
@@ -42,7 +42,7 @@ module.exports = {
                         no_image: "• Baby, Please reply to a photo.",
                         invalid_style: "❌ Style number must be between 1 and 100.",
                         generating: "🔄 | Applying art, please wait...\n• Style: %1\n• Style name: %2",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "✅ | Here's your art image baby\n• Style: %1\n• Style name: %2"
                 },
                 vi: {
@@ -50,7 +50,7 @@ module.exports = {
                         no_image: "📸 Vui lòng phản hồi một ảnh.",
                         invalid_style: "❌ Số kiểu phải từ 1 đến 100.",
                         generating: "🔄 | Applying art, please wait...\n• Style: %1\n• Style name: %2",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "✅ | Here's your art image baby\n• Style: %1\n• Style name: %2"
                 }
         },

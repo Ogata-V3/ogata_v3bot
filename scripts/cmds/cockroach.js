@@ -32,17 +32,17 @@ module.exports = {
                 bn: {
                         noTarget: "× বেবি, কাউকে মেনশন দাও, রিপ্লাই করো অথবা UID দাও! 🪳",
                         success: "এই নাও তোমার তেলাপোকা ছবি বেবি! 🐸",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noTarget: "× Baby, mention, reply, or provide UID of the target! 🪳",
                         success: "Here's your cockroach image baby! 🐸",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noTarget: "× Cưng ơi, hãy gắn thẻ, phản hồi hoặc cung cấp UID! 🪳",
                         success: "Ảnh con gián của cưng đây! 🐸",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

@@ -29,17 +29,17 @@ module.exports = {
 
         langs: {
                 bn: {
-                        error: "❌ An error occurred: contact RAHAT to help %1",
+                        error: "❌ An error occurred: contact Aizen to help %1",
                         noResult: "⭕ | দুঃখিত বেবি, \"%1\" এর জন্য কিছু খুঁজে পাইনি।",
                         success: "✅ | এই নাও তোমার গান: %1"
                 },
                 en: {
-                        error: "❌ An error occurred: contact RAHAT to help %1",
+                        error: "❌ An error occurred: contact Aizen to help %1",
                         noResult: "⭕ | Sorry baby, I couldn't find anything for \"%1\"",
                         success: "✅ | Here is your song: %1"
                 },
                 vi: {
-                        error: "❌ Đã xảy ra lỗi: liên hệ RAHAT để được hỗ trợ %1",
+                        error: "❌ Đã xảy ra lỗi: liên hệ Aizen để được hỗ trợ %1",
                         noResult: "⭕ | Xin lỗi bé, không tìm thấy kết quả cho \"%1\"",
                         success: "✅ | Đây là bài hát của bạn: %1"
                 }

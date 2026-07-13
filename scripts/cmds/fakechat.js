@@ -36,19 +36,19 @@ module.exports = {
                         noTarget: "× বেবি, কাউকে মেনশন দাও, রিপ্লাই করো অথবা UID দাও! 🗨️",
                         noText: "× বেবি, চ্যাটে কি লিখবে সেই টেক্সট তো দাও! ✍️",
                         success: "🗨️ Fake chat generated for: %1",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noTarget: "× Baby, please reply, mention, or provide user UID! 🗨️",
                         noText: "× Baby, please provide the text for the fake chat! ✍️",
                         success: "🗨️ Fake chat generated for: %1",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noTarget: "× Cưng ơi, vui lòng phản hồi, gắn thẻ hoặc cung cấp UID! 🗨️",
                         noText: "× Cưng ơi, vui lòng nhập nội dung tin nhắn giả! ✍️",
                         success: "🗨️ Đã tạo đoạn chat giả cho: %1",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

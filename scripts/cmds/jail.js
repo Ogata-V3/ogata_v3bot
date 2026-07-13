@@ -32,17 +32,17 @@ module.exports = {
                 bn: {
                         noTarget: "× বেবি, কাকে জেলে পাঠাবে? মেনশন, রিপ্লাই বা UID দাও! 🐸",
                         success: "𝐄𝐟𝐟𝐞𝐜𝐭 𝐣𝐚𝐢𝐥 𝐬𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥 𝐛𝐚𝐛𝐲 <😘",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noTarget: "× Baby, mention, reply, or provide UID of the target! 🐸",
                         success: "𝐄𝐟𝐟𝐞𝐜𝐭 𝐣𝐚𝐢𝐥 𝐬𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥 𝐛𝐚𝐛𝐲 <😘",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noTarget: "× Cưng ơi, hãy đề cập, phản hồi hoặc cung cấp UID! 🐸",
                         success: "𝐄𝐟𝐟𝐞𝐜𝐭 𝐣𝐚𝐢𝐥 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠 <😘",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

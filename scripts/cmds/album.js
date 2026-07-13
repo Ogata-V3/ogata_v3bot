@@ -28,21 +28,21 @@ module.exports = {
         langs: {
                 bn: {
                         noInput: "× বেবি, একটি ক্যাটাগরি দাও অথবা ভিডিওতে রিপ্লাই দাও",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।\n•WhatsApp: 01836298139",
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।\n•WhatsApp: 01836298139",
                         invalidPage: "× ভুল পৃষ্ঠা! সর্বোচ্চ পৃষ্ঠা: %1",
                         header: "𝐀𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 𝐀𝐥𝐛𝐮𝐦 𝐕𝐢𝐝𝐞𝐨",
                         footer: "\n♻ | পৃষ্ঠা [%1/%2]<😘\nℹ | টাইপ করুন !%3 %4 - পরবর্তী পৃষ্ঠা দেখতে।"
                 },
                 en: {
                         noInput: "× Baby, please specify a category or reply to a video",
-                        error: "× API error: %1. Contact RAHAT for help.\n•WhatsApp: 01836298139",
+                        error: "× API error: %1. Contact Aizen for help.\n•WhatsApp: 01836298139",
                         invalidPage: "× Invalid page! Max page: %1",
                         header: "𝐀𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 𝐀𝐥𝐛𝐮𝐦 𝐕𝐢𝐝𝐞𝐨",
                         footer: "\n♻ | 𝐏𝐚𝐠𝐞 [%1/%2]<😘\nℹ | 𝐓𝐲𝐩𝐞 !%3 %4 - 𝐭𝐨 𝐬𝐞𝐞 𝐧𝐞𝐱𝐭 𝐩𝐚𝐠𝐞."
                 },
                 vi: {
                         noInput: "× Cưng ơi, vui lòng chỉ định danh mục hoặc phản hồi video",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ.",
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ.",
                         invalidPage: "× Trang không hợp lệ! Trang tối đa: %1",
                         header: "𝐀𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 𝐀𝐥𝐛𝐮𝐦 𝐕𝐢𝐝𝐞𝐨",
                         footer: "\n♻ | Trang [%1/%2]<😘\nℹ | Nhập !%3 %4 - để xem trang tiếp theo."

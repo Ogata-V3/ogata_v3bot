@@ -10,7 +10,7 @@ const baseApiUrl = async () => {
 };
 
 /**
-* @author RAHAT
+* @author Aizen
 * @author: do not delete it
 */
 
@@ -47,7 +47,7 @@ const { threadID, messageID, messageReply, mentions } = event;
     threadID, () => fs.unlinkSync(filePath),  messageID );
   } catch (err) {
     console.error(err);
-    api.sendMessage(`🥹error, contact RAHAT.`, threadID, messageID);
+    api.sendMessage(`🥹error, contact Aizen.`, threadID, messageID);
     }
   },
 };

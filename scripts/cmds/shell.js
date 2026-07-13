@@ -25,15 +25,15 @@ module.exports = {
         langs: {
                 bn: {
                         noInput: "× বেবি, টার্মিনালে রান করার জন্য কোনো কমান্ড দাও! 💻",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noInput: "× Baby, please provide a command to run in terminal! 💻",
-                        error: "× Execution error: %1. Contact RAHAT for help."
+                        error: "× Execution error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noInput: "× Cưng ơi, hãy cung cấp lệnh để chạy trong terminal! 💻",
-                        error: "× Lỗi thực thi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi thực thi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

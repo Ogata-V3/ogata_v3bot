@@ -38,17 +38,17 @@ module.exports = {
                 bn: {
                         noTarget: "× বেবি, কাউকে মেনশন দাও, রিপ্লাই করো অথবা UID দাও! 📺",
                         success: "Effect ad successful 📺",
-                        error: "× ইফেক্ট তৈরি করতে সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× ইফেক্ট তৈরি করতে সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noTarget: "× Baby, mention, reply, or provide UID of the target! 📺",
                         success: "Effect ad successful 📺",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noTarget: "× Cưng ơi, hãy gắn thẻ, phản hồi hoặc cung cấp UID mục tiêu! 📺",
                         success: "Hiệu ứng quảng cáo thành công 📺",
-                        error: "× Lỗi tạo hiệu ứng: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi tạo hiệu ứng: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

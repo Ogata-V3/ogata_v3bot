@@ -28,17 +28,17 @@ module.exports = {
         langs: {
                 bn: {
                         noUrl: "• বেবি, একটি লিঙ্ক (URL) তো দাও! 😘",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "Here's your screenshot image <😘"
                 },
                 en: {
                         noUrl: "• Baby, please provide a URL! 😘",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "Here's your screenshot image <😘"
                 },
                 vi: {
                         noUrl: "• Cưng ơi, vui lòng cung cấp đường dẫn URL! 😘",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "Đây là ảnh chụp màn hình của bạn <😘"
                 }
         },

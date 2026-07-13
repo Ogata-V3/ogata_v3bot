@@ -32,17 +32,17 @@ module.exports = {
                 bn: {
                         noQuery: "• বেবি, এনিমে এর নাম তো দাও! 😘",
                         success: "• 𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐚𝐧𝐢𝐦𝐞 𝐯𝐢𝐝𝐞𝐨 <😘\n• 𝐒𝐞𝐚𝐫𝐜𝐡: %1",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noQuery: "• Baby, please provide a search query! 😘",
                         success: "• 𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐚𝐧𝐢𝐦𝐞 𝐯𝐢𝐝𝐞𝐨 <😘\n• 𝐒𝐞𝐚𝐫𝐜𝐡: %1",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noQuery: "• Cưng ơi, vui lòng nhập tên anime! 😘",
                         success: "• Video anime của cưng đây <😘\n• Tìm kiếm: %1",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

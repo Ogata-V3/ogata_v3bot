@@ -35,17 +35,17 @@ module.exports = {
                 bn: {
                         provide: "• দয়া করে কাউকে মেনশন, মেসেজ রিপ্লাই অথবা UID দিন।",
                         success: "📱 | এই নাও তোমার নোকিয়া স্ক্রিন ইফেক্ট!",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         provide: "• Please mention, message reply or provide a UID.",
                         success: "📱 | Here's your Nokia screen effect!",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         provide: "• Vui lòng gắn thẻ, trả lời tin nhắn hoặc cung cấp UID.",
                         success: "📱 | Hiệu ứng màn hình Nokia của bạn đây!",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

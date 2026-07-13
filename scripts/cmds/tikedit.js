@@ -32,19 +32,19 @@ module.exports = {
                         noInput: "× বেবি, কী ভিডিও খুঁজছো? নাম দাও! 🔍\nউদাহরণ: {pn} naruto edit",
                         tooLarge: "× ভিডিওটি ২৫ মেগাবাইটের বেশি বড়, তাই পাঠানো সম্ভব হয়নি।",
                         success: "🎬 | আপনার জন্য \"%1\" এর ভিডিও এখানে রয়েছে:",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noInput: "× Baby, please provide a search keyword! 🔍\nExample: {pn} naruto edit",
                         tooLarge: "× The video is larger than 25MB. Cannot send.",
                         success: "🎬 | Here's your TikTok edit for \"%1\":",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noInput: "× Cưng ơi, hãy nhập từ khóa tìm kiếm! 🔍\nVD: {pn} naruto edit",
                         tooLarge: "× Video lớn hơn 25MB. Không thể gửi.",
                         success: "🎬 | Đây là video TikTok cho \"%1\":",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

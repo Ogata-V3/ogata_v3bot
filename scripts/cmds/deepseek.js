@@ -27,12 +27,12 @@ module.exports = {
                 bn: {
                         noPrompt: "⚠️ বেবি, কিছু তো জিজ্ঞাসা করো! উদাহরণ: {pn} তুমি কে?",
                         noResponse: "× এআই থেকে কোনো উত্তর পাওয়া যায়নি।",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noPrompt: "⚠️ Baby, please provide a prompt! Example: {pn} Who are you?",
                         noResponse: "× No response from AI.",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 }
         },
 

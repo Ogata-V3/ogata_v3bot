@@ -61,7 +61,7 @@ module.exports = {
 
 		const botName = global.GoatBot.config.nickNameBot || "X69X BOT";
 		const botPrefix = global.GoatBot.config.prefix;
-		const botOwner = global.GoatBot.config.owner || "RAHAT";
+		const botOwner = global.GoatBot.config.owner || "Aizen";
 		const botLanguage = global.GoatBot.config.language || "en";
 		const botAdmin = global.GoatBot.config.adminBot || [];
 

@@ -34,7 +34,7 @@ try {
 
       message.reply(`${msg}\n\n ${quote}`);
     } catch (err) {
-      message.reply("🥹error, contact RAHAT.");
+      message.reply("🥹error, contact Aizen.");
     }
   }
 };

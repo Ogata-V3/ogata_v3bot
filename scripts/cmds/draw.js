@@ -42,7 +42,7 @@ const prompt = args.join(" ");
 
     } catch (error) {
       console.error(error);
-      api.sendMessage("🥹 Error, contact RAHAT.", event.threadID, event.messageID);
+      api.sendMessage("🥹 Error, contact Aizen.", event.threadID, event.messageID);
     }
   }
 };

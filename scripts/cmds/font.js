@@ -33,17 +33,17 @@ module.exports = {
                 bn: {
                         noList: "× কোনো ফন্ট স্টাইল খুঁজে পাওয়া যায়নি।",
                         invalid: "× ভুল ফরম্যাট! সঠিক নিয়ম: {pn} <নাম্বার> <টেক্সট>",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।\n•WhatsApp: 01836298139"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।\n•WhatsApp: 01836298139"
                 },
                 en: {
                         noList: "× No font styles found.",
                         invalid: "× Invalid usage! Format: {pn} <number> <text>",
-                        error: "× API error: %1. Contact RAHAT for help.\n•WhatsApp: 01836298139"
+                        error: "× API error: %1. Contact Aizen for help.\n•WhatsApp: 01836298139"
                 },
                 vi: {
                         noList: "× Không tìm thấy kiểu phông chữ nào.",
                         invalid: "× Sử dụng sai! Định dạng: {pn} <số> <văn bản>",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ.\n•WhatsApp: 01836298139"
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ.\n•WhatsApp: 01836298139"
                 }
         },
 

@@ -8,7 +8,7 @@ const response = await axios.get("https://raw.githubusercontent.com/mahmudx7/HIN
 };
 
 /**
-* @author RAHAT
+* @author Aizen
 * @author: do not delete it
 */
 
@@ -62,7 +62,7 @@ module.exports = {
       });
     } catch (e) {
       console.error("ERROR:", e);
-      api.sendMessage("🥹error, contact RAHAT.", event.threadID, event.messageID);
+      api.sendMessage("🥹error, contact Aizen.", event.threadID, event.messageID);
     }
   }
 };

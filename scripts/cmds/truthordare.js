@@ -80,7 +80,7 @@ try {
       return api.sendMessage("❌ | Invalid command.", event.threadID, event.messageID);
     } catch (error) {
       console.error(error);
-      return api.sendMessage("🥹error, contact RAHAT.", event.threadID, event.messageID);
+      return api.sendMessage("🥹error, contact Aizen.", event.threadID, event.messageID);
     }
   }
 };

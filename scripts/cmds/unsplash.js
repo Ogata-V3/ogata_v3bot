@@ -12,7 +12,7 @@ module.exports = {
                 name: "unsplash",
                 aliases: ["uph"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Aizen",
                 countDown: 10,
                 role: 0,
                 description: {
@@ -33,19 +33,19 @@ module.exports = {
                         noInput: "× বেবি, সঠিক নিয়ম ব্যবহার করো! 📸\nউদাহরণ: {pn} cat - 5",
                         noResult: "× কোনো ছবি খুঁজে পাওয়া যায়নি।",
                         success: "✅ এই নাও তোমার Unsplash ছবিগুলো বেবি! <😘",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noInput: "× Baby, use the correct format! 📸\nExample: {pn} cat - 5",
                         noResult: "× No images found.",
                         success: "✅ Here are your Unsplash images baby! <😘",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noInput: "× Cưng ơi, hãy sử dụng đúng định dạng! 📸\nVí dụ: {pn} cat - 5",
                         noResult: "× Không tìm thấy hình ảnh nào.",
                         success: "✅ Ảnh Unsplash của cưng đây! <😘",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

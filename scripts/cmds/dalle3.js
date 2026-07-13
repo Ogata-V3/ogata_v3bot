@@ -32,19 +32,19 @@ module.exports = {
                         noPrompt: "× বেবি, ছবি তৈরি করার জন্য কিছু তো লেখো",
                         wait: "🔄 | DALL-E 3 ছবি তৈরি হচ্ছে, একটু অপেক্ষা করো বেবি...",
                         success: "𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐃𝐀𝐋𝐋-𝐄 𝟑 𝐢𝐦𝐚𝐠𝐞 𝐛𝐚𝐛𝐲 <😘",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।\n•WhatsApp: 01836298139"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।\n•WhatsApp: 01836298139"
                 },
                 en: {
                         noPrompt: "× Baby, please provide a prompt to generate image",
                         wait: "🔄 | DALL-E 3 Image Generating, please wait...",
                         success: "𝐇𝐞𝐫𝐞'𝐬 𝐲𝐨𝐮𝐫 𝐃𝐀𝐋𝐋-𝐄 𝟑 𝐢𝐦𝐚𝐠𝐞 𝐛𝐚𝐛𝐲 <😘",
-                        error: "× API error: %1. Contact RAHAT for help.\n•WhatsApp: 01836298139"
+                        error: "× API error: %1. Contact Aizen for help.\n•WhatsApp: 01836298139"
                 },
                 vi: {
                         noPrompt: "× Cưng ơi, vui lòng nhập mô tả để tạo ảnh",
                         wait: "🔄 | Đang tạo ảnh DALL-E 3, vui lòng chờ chút...",
                         success: "Ảnh DALL-E 3 của cưng đây",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ.\n•WhatsApp: 01836298139"
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ.\n•WhatsApp: 01836298139"
                 }
         },
 

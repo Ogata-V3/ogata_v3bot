@@ -25,17 +25,17 @@ module.exports = {
         langs: {
                 bn: {
                         noTarget: "• বেবি, কাকে জোকার (clown) বানাবে? মেনশন, রিপ্লাই বা UID দাও",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "Effect clown successful"
                 },
                 en: {
                         noTarget: "• Baby, mention, reply, or provide UID of the target",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "Effect clown successful"
                 },
                 vi: {
                         noTarget: "• Cưng ơi, hãy đề cập, phản hồi hoặc cung cấp UID",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "Hiệu ứng clown thành công"
                 }
         },

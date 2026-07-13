@@ -29,17 +29,17 @@ module.exports = {
                 bn: {
                         noMedia: "× বেবি, একটি ছবি বা ভিডিওতে রিপ্লাই দাও! 🐤",
                         success: "• 𝐔𝐩𝐥𝐨𝐚𝐝𝐞𝐝 𝐒𝐮𝐜𝐜𝐞𝐬𝐬 ✅\n• 𝐔𝐑𝐋: %1",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।\n•WhatsApp: 01836298139"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।\n•WhatsApp: 01836298139"
                 },
                 en: {
                         noMedia: "× Baby, please reply to a media file (image/video)! 🐤",
                         success: "• 𝐔𝐩𝐥𝐨𝐚𝐝𝐞𝐝 𝐒𝐮𝐜𝐜𝐞𝐬𝐬 ✅\n• 𝐔𝐑𝐋: %1",
-                        error: "× API error: %1. Contact RAHAT for help.\n•WhatsApp: 01836298139"
+                        error: "× API error: %1. Contact Aizen for help.\n•WhatsApp: 01836298139"
                 },
                 vi: {
                         noMedia: "× Cưng ơi, hãy phản hồi một tệp phương tiện! 🐤",
                         success: "• 𝐔𝐩𝐥𝐨𝐚𝐝 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠 ✅\n• 𝐋𝐢ên 𝐤ế𝐭: %1",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ.\n•WhatsApp: 01836298139"
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ.\n•WhatsApp: 01836298139"
                 }
         },
 

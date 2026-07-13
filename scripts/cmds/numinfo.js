@@ -25,19 +25,19 @@ module.exports = {
                 bn: {
                         noNumber: "• বেবি, নাম্বার দাও! উদাহরণ: {pn} 01836298139",
                         invalid: "❌ নাম্বারটি সঠিক নয়!",
-                        error: "❌ An error occurred: contact RAHAT %1\n•WhatsApp: 01836298139",
+                        error: "❌ An error occurred: contact Aizen %1\n•WhatsApp: 01836298139",
                         success: "📱 নাম্বারের তথ্য:\n\n• নাম: %1\n• নাম্বার: %2\n• ফেসবুক আইডি: %3"
                 },
                 en: {
                         noNumber: "• Baby, provide a number. Example: {pn} 01836298139",
                         invalid: "❌ Invalid number format!",
-                        error: "❌ An error occurred: contact RAHAT %1\n•WhatsApp: 01836298139",
+                        error: "❌ An error occurred: contact Aizen %1\n•WhatsApp: 01836298139",
                         success: "📱 Number Info:\n\n• Name: %1\n• Number: %2\n• FB ID: %3"
                 },
                 vi: {
                         noNumber: "• Cưng ơi, hãy cung cấp số điện thoại. Ví dụ: {pn} 01836298139",
                         invalid: "❌ Định dạng số không hợp lệ!",
-                        error: "❌ An error occurred: contact RAHAT %1\n•WhatsApp: 01836298139",
+                        error: "❌ An error occurred: contact Aizen %1\n•WhatsApp: 01836298139",
                         success: "📱 Thông tin số:\n\n• Tên: %1\n• Số: %2\n• FB ID: %3"
                 }
         },

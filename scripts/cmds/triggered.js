@@ -34,12 +34,12 @@ module.exports = {
                 bn: {
                         noTarget: "× বেবি, কাকে ট্রিগারড বানাবে তাকে মেনশন দাও, রিপ্লাই করো অথবা UID দাও! ⚡",
                         success: "Effect trigger successful ⚡",
-                        error: "× ছবি তৈরি করতে সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× ছবি তৈরি করতে সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noTarget: "× Baby, mention, reply, or provide UID of the target! ⚡",
                         success: "Effect trigger successful ⚡",
-                        error: "× Failed to create image: %1. Contact RAHAT for help."
+                        error: "× Failed to create image: %1. Contact Aizen for help."
                 }
         },
 

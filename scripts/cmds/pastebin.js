@@ -32,19 +32,19 @@ module.exports = {
                         noInput: "× বেবি, একটি কমান্ডের নাম তো বলো!",
                         notFound: "× ফাইলটি খুঁজে পাওয়া যায়নি: %1.js",
                         success: "✅ সফলভাবে আপলোড হয়েছে!\n\n• শিরোনাম: %1\n• র লিঙ্ক: %2",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT|\n•WhatsApp: 01836298139"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen|\n•WhatsApp: 01836298139"
                 },
                 en: {
                         noInput: "× Baby, please enter a command name!",
                         notFound: "× File not found: %1.js",
                         success: "✅ Upload Successful!\n\n• Title: %1\n• Raw Link: %2",
-                        error: "× API error: %1. Contact RAHAT for help.\n•WhatsApp: 01836298139"
+                        error: "× API error: %1. Contact Aizen for help.\n•WhatsApp: 01836298139"
                 },
                 vi: {
                         noInput: "× Cưng ơi, hãy nhập tên lệnh!",
                         notFound: "× Không tìm thấy tệp: %1.js",
                         success: "✅ Tải lên thành công!\n\n• Tiêu đề: %1\n• Liên kết thô: %2",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ.\n•WhatsApp: 01836298139"
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ.\n•WhatsApp: 01836298139"
                 }
         },
 

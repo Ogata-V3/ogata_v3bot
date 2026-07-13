@@ -61,7 +61,7 @@ module.exports = {
 ━━━━━━━━━━━━━━━━━━━━━━
 
 ❤️ Thanks For Using
-      RAHAT V3
+      Aizen V3
 `;
 
     try {

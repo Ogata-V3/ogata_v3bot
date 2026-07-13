@@ -28,15 +28,15 @@ module.exports = {
         langs: {
                 bn: {
                         noInput: "× বেবি, কিছু তো লেখো অথবা মেসেজে রিপ্লাই দাও",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noInput: "× Baby, please write something or reply to a message",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noInput: "× Cưng ơi, hãy viết gì đó hoặc phản hồi tin nhắn",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

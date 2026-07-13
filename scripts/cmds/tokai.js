@@ -10,7 +10,7 @@ const baseApiUrl = async () => {
 };
 
 /**
-* @author RAHAT
+* @author Aizen
 * @author: do not delete it
 */
 
@@ -60,7 +60,7 @@ const { senderID, mentions, threadID, messageID, messageReply } = event;
       );
 
     } catch (err) {
-      api.sendMessage(`🥹error, contact RAHAT.`, threadID, messageID);
+      api.sendMessage(`🥹error, contact Aizen.`, threadID, messageID);
     }
   }
 };

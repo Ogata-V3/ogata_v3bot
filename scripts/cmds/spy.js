@@ -28,13 +28,13 @@ module.exports = {
 
         langs: {
                 bn: {
-                        error: "× তথ্য সংগ্রহ করতে সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× তথ্য সংগ্রহ করতে সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
-                        error: "× Failed to fetch info: %1. Contact RAHAT for help."
+                        error: "× Failed to fetch info: %1. Contact Aizen for help."
                 },
                 vi: {
-                        error: "× Lỗi lấy thông tin: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi lấy thông tin: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 

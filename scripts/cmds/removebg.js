@@ -26,17 +26,17 @@ module.exports = {
         langs: {
                 bn: {
                         noReply: "• বেবি, ব্যাকগ্রাউন্ড রিমুভ করার জন্য একটি ছবিতে রিপ্লাই দাও.",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "✅ Background Removed Successfully!"
                 },
                 en: {
                         noReply: "• Baby, please reply to an image to remove background.",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "✅ Background Removed Successfully!"
                 },
                 vi: {
                         noReply: "• Cưng ơi, vui lòng phản hồi một hình ảnh để xóa nền.",
-                        error: "❌ An error occurred: contact RAHAT %1",
+                        error: "❌ An error occurred: contact Aizen %1",
                         success: "✅ Xóa nền thành công!"
                 }
         },

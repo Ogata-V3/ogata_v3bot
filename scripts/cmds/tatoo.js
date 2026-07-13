@@ -8,7 +8,7 @@ const baseApiUrl = async () => {
 };
 
 /**
-* @author RAHAT
+* @author Aizen
 * @author: do not delete it
 */
 
@@ -39,7 +39,7 @@ module.exports = {
       }, threadID, () => fs.unlinkSync(file), messageID);
 
     } catch {
-      api.sendMessage("🥹 Error, contact RAHAT.", threadID, messageID);
+      api.sendMessage("🥹 Error, contact Aizen.", threadID, messageID);
     }
   }
 };

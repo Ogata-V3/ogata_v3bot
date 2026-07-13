@@ -29,13 +29,13 @@ module.exports = {
                         notFound: "❌ | No \"%1\" commands found.",
                         notYourReply: "❌ | not your reply baby 🐸",
                         invalidSelection: "❌ | Invalid selection! Please enter a valid number.",
-                        error: "× API error: %1. Contact RAHAT for help.\n•WhatsApp: 01836298139"
+                        error: "× API error: %1. Contact Aizen for help.\n•WhatsApp: 01836298139"
                 },
                 vi: {
                         notFound: "❌ | Không tìm thấy lệnh \"%1\".",
                         notYourReply: "❌ | Không phải phản hồi của bạn đâu cưng 🐸",
                         invalidSelection: "❌ | Lựa chọn không hợp lệ!",
-                        error: "× API error: %1. Contact RAHAT for help.\n•WhatsApp: 01836298139"
+                        error: "× API error: %1. Contact Aizen for help.\n•WhatsApp: 01836298139"
                 }
         },
 

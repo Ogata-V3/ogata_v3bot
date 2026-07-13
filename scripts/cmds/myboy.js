@@ -47,6 +47,6 @@ try {
 
   } catch (error) {
     console.error(error);
-    api.sendMessage("🥹error, contact RAHAT.", event.threadID, event.messageID);
+    api.sendMessage("🥹error, contact Aizen.", event.threadID, event.messageID);
   }
 };

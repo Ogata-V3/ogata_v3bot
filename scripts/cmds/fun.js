@@ -34,21 +34,21 @@ module.exports = {
                         listFetchErr: "❌ ইফেক্ট লিস্ট লোড করতে ব্যর্থ হয়েছে।",
                         noTarget: "❌ Please message reply or mention someone", // আপনার কাস্টম রিকোয়েস্ট অনুযায়ী চেঞ্জ করা হয়েছে
                         authErr: "You are not authorized to change the author name.",
-                        error: "❌ সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।\n•WhatsApp: 01836298139"
+                        error: "❌ সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।\n•WhatsApp: 01836298139"
                 },
                 en: {
                         noType: "❌ Provide a DIG type! Use 'fun list' to see all available effects.",
                         listFetchErr: "❌ Failed to fetch the effects list.",
                         noTarget: "❌ Please message reply or mention someone",
                         authErr: "You are not authorized to change the author name.",
-                        error: "❌ Error occurred: %1. Contact RAHAT for help.\n•WhatsApp: 01836298139"
+                        error: "❌ Error occurred: %1. Contact Aizen for help.\n•WhatsApp: 01836298139"
                 },
                 vi: {
                         noType: "❌ Vui lòng cung cấp loại hiệu ứng! Sử dụng 'fun list' để xem tất cả.",
                         listFetchErr: "❌ Không thể tải danh sách hiệu ứng.",
                         noTarget: "❌ Please message reply or mention someone",
                         authErr: "You are not authorized to change the author name.",
-                        error: "❌ Đã xảy ra lỗi: %1. Liên hệ RAHAT để được hỗ trợ.\n•WhatsApp: 01836298139"
+                        error: "❌ Đã xảy ra lỗi: %1. Liên hệ Aizen để được hỗ trợ.\n•WhatsApp: 01836298139"
                 }
         },
 

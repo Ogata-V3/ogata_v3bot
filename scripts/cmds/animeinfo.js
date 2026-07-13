@@ -30,17 +30,17 @@ module.exports = {
                 bn: {
                         noInput: "⚠️ বেবি, একটি এনিমে এর নাম তো দাও!",
                         notFound: "❌ দুঃখিত বেবি, এই এনিমে তথ্য খুঁজে পাওয়া যায়নি।",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noInput: "⚠️ Baby, please enter an anime name!",
                         notFound: "❌ Sorry baby, anime info not found.",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noInput: "⚠️ Cưng ơi, vui lòng nhập tên anime!",
                         notFound: "❌ Xin lỗi cưng, không tìm thấy thông tin anime này.",
-                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                        error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
                 }
         },
 
