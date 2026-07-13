@@ -1,6 +1,6 @@
 function checkShortCut(nickname, uid, userName) {
-	nickname = nickname.replace(/\{userName\}/gi, userName);
-	nickname = nickname.replace(/\{userID\}/gi, uid);
+	/\{userName\}/gi.test(nickname) ? nickname = nickname.replace(/\{userName\}/gi, userName) : null;
+	/\{userID\}/gi.test(uid) ? nickname = nickname.replace(/\{userID\}/gi, uid) : null;
 	return nickname;
 }
 
@@ -8,7 +8,7 @@ module.exports = {
 	config: {
 		name: "autosetname",
 		version: "1.3",
-		author: "Ajmaul",
+		author: "RAHAT",
 		cooldowns: 5,
 		role: 1,
 		description: {
@@ -89,19 +89,19 @@ module.exports = {
 		if (!await threadsData.get(event.threadID, "settings.enableAutoSetName"))
 			return;
 		const configAutoSetName = await threadsData.get(event.threadID, "data.autoSetName");
-		if (!configAutoSetName)
-			return;
 
-		const addedParticipants = [...event.logMessageData.addedParticipants];
+		return async function () {
+			const addedParticipants = [...event.logMessageData.addedParticipants];
 
-		for (const user of addedParticipants) {
-			const { userFbId: uid, fullName: userName } = user;
-			try {
-				await api.changeNickname(checkShortCut(configAutoSetName, uid, userName), event.threadID, uid);
+			for (const user of addedParticipants) {
+				const { userFbId: uid, fullName: userName } = user;
+				try {
+					await api.changeNickname(checkShortCut(configAutoSetName, uid, userName), event.threadID, uid);
+				}
+				catch (e) {
+					return message.reply(getLang("error"));
+				}
 			}
-			catch (e) {
-				return message.reply(getLang("error"));
-			}
-		}
+		};
 	}
 };

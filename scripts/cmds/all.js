@@ -1,8 +1,8 @@
 module.exports = {
 	config: {
-		name: "jan seen dao",
+		name: "all",
 		version: "1.2",
-		author: "Ajmaul",
+		author: "RAHAT",
 		countDown: 5,
 		role: 1,
 		description: {
