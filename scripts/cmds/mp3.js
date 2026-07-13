@@ -8,7 +8,7 @@ module.exports = {
  aliases: ["mp3", "convertmp3"],
     version: "1.0.0",
     role: 0,
-    author: "MOHAMMAD AKASH",
+    author: "Ajmaul",
     shortDescription: "Convert video to MP3 🎧",
     longDescription: "Download video from URL and convert to MP3.",
     category: "music",
