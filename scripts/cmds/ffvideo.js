@@ -12,7 +12,7 @@ module.exports = {
                 name: "ffvideo",
                 aliases: ["ffvid", "freefirevideo", "ফ্রিফায়ার"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "ajmaul",
                 countDown: 10,
                 role: 0,
                 description: {
