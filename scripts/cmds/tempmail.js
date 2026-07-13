@@ -6,7 +6,7 @@ module.exports.config = {
   version: "4.0",
   role: 0,
   countdown: 5,
-  author: "MOHAMMAD AKASH",
+  author: "Ajmaul",
   usePrefix: true,
   description: "Token-free tempmail inbox & OTP viewer",
   category: "media",
