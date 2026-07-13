@@ -15,7 +15,7 @@ module.exports = {
     name: "football2",
     aliases: ["fball2", "footqz2", "footballqz2"],
     version: "1.7",
-    author: "RAHAT",
+    author: "Ajmaul",
     countDown: 10,
     role: 0,
     category: "game",
