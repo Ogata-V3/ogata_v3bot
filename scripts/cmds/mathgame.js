@@ -10,7 +10,7 @@ module.exports = {
                 name: "mathgame",
                 aliases: ["math"],
                 version: "1.7",
-                author: "Ajmaul" ,
+                author: "Ajmaul",
                 countDown: 10,
                 role: 0,
                 description: {
