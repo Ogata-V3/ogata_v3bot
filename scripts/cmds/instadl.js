@@ -11,7 +11,7 @@ module.exports = {
                 name: "instagramdl",
                 aliases: ["igdl", "instadl"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Ajmaul",
                 countDown: 10,
                 role: 0,
                 description: {
