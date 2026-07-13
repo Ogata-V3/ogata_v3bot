@@ -7,7 +7,7 @@ module.exports = {
     name: "help",
     aliases: ["menu", "commands"],
     version: "5.0",
-    author: "Zoro",
+    author: "Aizen",
     shortDescription: "𝙎𝙝𝙤𝙬 𝙖𝙡𝙡 𝙘𝙤𝙢𝙢𝙖𝙣𝙙𝙨",
     longDescription: "𝘿𝙞𝙨𝙥𝙡𝙖𝙮𝙨 𝙖 𝙗𝙚𝙖𝙪𝙩𝙞𝙛𝙪𝙡 𝙛𝙤𝙣𝙩-𝙨𝙩𝙮𝙡𝙚𝙙 𝙘𝙖𝙩𝙚𝙜𝙤𝙧𝙞𝙯𝙚𝙙 𝙘𝙤𝙢𝙢𝙖𝙣𝙙 𝙢𝙚𝙣𝙪.",
     category: "system",
