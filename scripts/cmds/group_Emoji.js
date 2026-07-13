@@ -2,7 +2,7 @@ module.exports = {
   config: {
     name: "emoji",
     version: "1.1.0",
-    author: "Mohammad Akash",
+    author: "Ajmaul",
     countDown: 0,
     role: 0,
     shortDescription: "Change group emoji 😘",
