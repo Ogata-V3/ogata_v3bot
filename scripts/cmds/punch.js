@@ -6,7 +6,7 @@ module.exports.config = {
   name: "punch",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "Kaneki",
+  credits: "Aizen",
   description: "Punch a tagged friend",
   commandCategory: "game",
   usages: "[tag]",
