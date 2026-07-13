@@ -44,34 +44,5 @@ module.exports = {
         },
 
         onStart: async function ({ api, event, args, message, getLang }) {
-                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
-                if (this.config.author !== authorName) return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
-
-                try {
-                        const uid = args[0]; if (!uid) return message.reply(getLang("noUid"));
-                        api.setMessageReaction("⏳", event.messageID, () => {}, true);
-
-                        const baseURL = await mahmud();
-                        const res = await axios.get(`${baseURL}/api/ffinfo?uid=${uid}`);
-                        const data = res.data;
-
-                        if (!data || !data.success) { 
-                                api.setMessageReaction("❌", event.messageID, () => {}, true);
-                                return message.reply(getLang("notFound")); 
-                        }
-
-                        const b = data.basicInfo || {}, g = data.guildInfo || {}, p = data.petInfo || {}, s = data.socialInfo || {}, c = data.creditScore || {};
-                        const poweredBy = data.poweredBy;
-
-                        const msg = `#PLAYER INFO\n• Name: ${b.name || "N/A"}\n• UID: ${b.uid || uid}\n• Region: ${b.region || "N/A"}\n• Level: ${b.level || "N/A"}\n• Likes: ${b.likes || "0"}\n• EXP: ${b.exp || "0"}\n\n#RANK INFO\n• BR Rank: ${b.rank || "N/A"}\n• BR Points: ${b.rankPoints || "0"}\n• CS Rank: ${b.csRank || "N/A"}\n• CS Points: ${b.csPoints || "0"}\n• Max Rank: ${b.maxRank || "N/A"}\n• Max CS Rank: ${b.maxCsRank || "N/A"}\n\n#ACCOUNT INFO\n• Elite Pass: ${b.elitePass ? "Yes" : "No"}\n• Badges: ${b.badges || "0"}\n• Season: ${b.season || "N/A"}\n• Version: ${b.releaseVersion || "N/A"}\n• Created: ${b.createAt || "N/A"}\n\n#GUILD INFO\n• Guild: ${g.guildName || "No Guild"}\n• Guild ID: ${g.guildId || "N/A"}\n• Level: ${g.guildLevel || "N/A"}\n• Members: ${g.members || "0"}/${g.capacity || "0"}\n• Leader: ${g.leader?.name || "N/A"}\n\n#PET INFO\n• Name: ${p.name || "No Pet"}\n• Level: ${p.level || "0"}\n• EXP: ${p.exp || "0"}\n• Skin ID: ${p.skinId || "N/A"}\n\n#SOCIAL INFO\n• Gender: ${s.gender || "N/A"}\n• Language: ${s.language || "N/A"}\n• Signature: ${s.signature || "No Signature"}\n\n#CREDIT SCORE\n• Score: ${c.score || "0"}\n• Reward: ${c.reward || "N/A"}\n• Period End: ${c.periodEnd || "N/A"}\n\n${poweredBy}`;
-
-                        api.setMessageReaction("✅", event.messageID, () => {}, true);
-                        return message.reply(msg);
-
-                } catch (err) {
-                        console.error("FFINFO Error:", err);
-                        api.setMessageReaction("❌", event.messageID, () => {}, true);
-                        return message.reply(getLang("error", err.message));
-                }
         }
 };

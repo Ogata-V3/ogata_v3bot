@@ -55,10 +55,6 @@ module.exports = {
         onStart: async function ({ api, event, usersData, args, getLang }) {
                 const { threadID, messageID, messageReply, senderID, mentions } = event;
 
-                const obfuscatedAuthor = String.fromCharCode(77, 97, 104, 77, 85, 68);
-                if (this.config.author !== obfuscatedAuthor) {
-                        return api.sendMessage(getLang("authErr"), threadID, messageID);
-                }
 
                 const type = args[0]?.toLowerCase();
                 const baseUrl = await baseApiUrl();

@@ -46,10 +46,6 @@ module.exports = {
         },
 
         onChat: async function ({ api, event, usersData, getLang }) {
-                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
-                if (this.config.author !== authorName) return;
-
-                const { senderID, threadID, messageID } = event;
                 if (!global.antispam) global.antispam = new Map();
                 if (!global.antispam.has(threadID)) return;
 

@@ -19,10 +19,6 @@ module.exports = {
         },
 
         onStart: async function ({ api, message, event }) {
-                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68); 
-                if (this.config.author !== authorName) {
-                        return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
-                }
 
                 const timeStart = Date.now();
                 const checkingMsg = await message.reply("⏳ Checking bot ping...");

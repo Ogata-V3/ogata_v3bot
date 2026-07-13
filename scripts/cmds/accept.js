@@ -49,10 +49,6 @@ module.exports = {
         },
 
         onReply: async function ({ message, Reply, event, api, commandName, getLang }) {
-                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
-                if (this.config.author !== authorName) return;
-                
-                const { author, listRequest } = Reply;
                 if (author !== event.senderID) return;
 
                 const args = event.body.trim().toLowerCase().split(" ");

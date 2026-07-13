@@ -50,49 +50,6 @@ module.exports = {
         },
 
         onStart: async function ({ api, event, args, message, getLang }) {
-                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
-                if (this.config.author !== authorName) return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
-
-                try {
-                        const apiBase = await mahmud();
-
-                        if (args[0] === "add") {
-                                if (!args[1] || event.type !== "message_reply" || !event.messageReply.attachments.length) return message.reply(getLang("noInput"));
-                                api.setMessageReaction("⏳", event.messageID, () => {}, true);
-                                const imgurRes = await axios.get(`${apiBase.replace(/\/$/, "")}/imgur?url=${encodeURIComponent(event.messageReply.attachments[0].url)}`);
-                                const res = await axios.post(`${apiBase}/api/album2/mahmud/add`, { category: args[1].toLowerCase(), videoUrl: imgurRes.data.link });
-                                api.setMessageReaction("🪽", event.messageID, () => {}, true);
-                                return message.reply(res.data.message);
-                        }
-
-                        if (args[0] === "list") {
-                                api.setMessageReaction("⏳", event.messageID, () => {}, true);
-                                const res = await axios.get(`${apiBase}/api/album2/mahmud/list`);
-                                api.setMessageReaction("🪽", event.messageID, () => {}, true);
-                                return message.reply(res.data.message);
-                        }
-
-                        api.setMessageReaction("⏳", event.messageID, () => {}, true);
-                        const configRes = await axios.get(`${apiBase}/api/album2/mahmud/display`);
-                        const { displayNames, realCategories, captions } = configRes.data;
-                        const page = parseInt(args[0]) || 1, itemsPerPage = 10, totalPages = Math.ceil(displayNames.length / itemsPerPage);
-
-                        if (page < 1 || page > totalPages) {
-                                api.setMessageReaction("❌", event.messageID, () => {}, true);
-                                return message.reply(getLang("invalidPage", totalPages));
-                        }
-
-                        const startIndex = (page - 1) * itemsPerPage;
-                        const menu = `${getLang("header")}\n𐙚━━━━━━━━━━━━━━━━━━━━━ᡣ𐭩\n${displayNames.slice(startIndex, startIndex + itemsPerPage).map((name, i) => `${startIndex + i + 1}. ${name}`).join("\n")}\n𐙚━━━━━━━━━━━━━━━━━━━━━ᡣ𐭩${getLang("footer", page, totalPages, this.config.name, page + 1)}`;
-
-                        api.setMessageReaction("🪽", event.messageID, () => {}, true);
-                        return message.reply(menu, (err, info) => {
-                                global.GoatBot.onReply.set(info.messageID, { commandName: this.config.name, messageID: info.messageID, author: event.senderID, realCategories, captions });
-                        });
-                } catch (err) {
-                        api.setMessageReaction("❌", event.messageID, () => {}, true);
-                        return message.reply(getLang("error", err.response?.data?.error || err.message));
-                }
         },
 
         onReply: async function ({ api, event, Reply, getLang, message }) {

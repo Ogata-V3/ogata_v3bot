@@ -53,10 +53,6 @@ module.exports = {
         },
 
         onReply: async function ({ api, event, Reply, usersData, getLang }) {
-                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68); 
-                if (module.exports.config.author !== authorName) return;
-
-                const { character, author } = Reply;
                 const getCoin = 500;
                 const getExp = 121;
                 
