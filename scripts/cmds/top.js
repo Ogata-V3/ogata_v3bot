@@ -13,11 +13,8 @@ module.exports = {
   },
 
   onStart: async function ({ api, args, message, usersData }) {
-     const obfuscatedAuthor = String.fromCharCode(77, 97, 104, 77, 85, 68); 
-     if (module.exports.config.author !== obfuscatedAuthor) {
-     return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
-     }
-    try {
+
+try {
       const type = args[0]?.toLowerCase() || "bal";
       const allUsers = await usersData.getAll();
 

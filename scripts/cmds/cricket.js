@@ -64,16 +64,8 @@ module.exports = {
   },
 
   onStart: async function ({ api, event, usersData }) {
-    const obfuscatedAuthor = String.fromCharCode(77, 97, 104, 77, 85, 68);
-    if (module.exports.config.author !== obfuscatedAuthor) {
-      return api.sendMessage(
-        "You are not authorized to change the author name.\n",
-        event.threadID,
-        event.messageID
-      );
-    }
 
-    try {
+try {
       const apiUrl = await baseApiUrl();
       const response = await axios.get(`${apiUrl}/api/cricket`);
       const { name, imgurLink } = response.data.cricket;
