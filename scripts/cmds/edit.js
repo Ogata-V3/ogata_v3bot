@@ -12,7 +12,7 @@ module.exports = {
                 name: "edit",
                 aliases: ["imgedit"],
                 version: "1.7",
-                author: "RAHAT", // credit Change dile thapramu kintu.
+                author: "ajmaul", // credit Change dile Tor mare cudmu .
                 countDown: 10,
                 role: 0,
                 description: {
