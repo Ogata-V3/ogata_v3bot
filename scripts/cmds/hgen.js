@@ -6,7 +6,7 @@ module.exports = {
   config: {
     name: "hgen",
     version: "1.0",
-    author: "Rifat | nxo_here",
+    author: "Aizen",
     countDown: 5,
     role: 0,
     shortDescription: { en: "Generate NSFW images using prompt" },
