@@ -18,7 +18,7 @@ module.exports = {
   config: {
     name: "myqueen",
     version: "1.7",
-    author: "RAHAT",
+    author: "ajmaul",
     category: "love",
     guide: "{pn} @mention | reply | UID",
   },
