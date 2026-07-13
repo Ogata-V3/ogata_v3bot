@@ -7,7 +7,7 @@ module.exports = {
     name: "gist",
     aliases: ["gistup"],
     version: "1.0",
-    author: "NeoKEX", 
+    author: "Aizen", 
     countDown: 5,
     role: 2,
     shortDescription: "Gist a command's code.",
