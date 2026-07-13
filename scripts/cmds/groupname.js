@@ -2,7 +2,7 @@ module.exports = {
   config: {
     name: "groupname",
     version: "1.1.0",
-    author: "Mohammad Akash",
+    author: "aizen",
     countDown: 0,
     role: 1, // শুধু গ্রুপ অ্যাডমিন বা বট অ্যাডমিন (চাওলে 0 করো)
     shortDescription: "Change group name",
