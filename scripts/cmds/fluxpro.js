@@ -11,7 +11,7 @@ module.exports = {
         config: {
                 name: "fluxpro",
                 version: "1.7",
-                author: "RAHAT",
+                author: "Ajmaul",
                 countDown: 15,
                 role: 0,
                 description: {
