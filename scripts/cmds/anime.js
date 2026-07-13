@@ -12,7 +12,7 @@ module.exports = {
                 name: "anime",
                 aliases: ["anivid", "animevideo"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Aizen",
                 countDown: 10,
                 role: 0,
                 description: {
