@@ -10,7 +10,7 @@ module.exports = {
                 name: "waifu",
                 aliases: ["waifugame"],
                 version: "1.8",
-                author: "RAHAT",
+                author: "ajmaul",
                 countDown: 10,
                 role: 0,
                 description: {
