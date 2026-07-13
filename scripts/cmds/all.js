@@ -2,7 +2,7 @@ module.exports = {
 	config: {
 		name: "all",
 		version: "1.2",
-		author: "RAHAT",
+		author: "Ajmaul",
 		countDown: 5,
 		role: 1,
 		description: {
@@ -20,7 +20,7 @@ module.exports = {
 		const { participantIDs } = event;
 		const lengthAllUser = participantIDs.length;
 		const mentions = [];
-		let body = args.join(" ") || "@all";
+		let body = args.join(" ") || "@Seen dao jan 😓";
 		let bodyLength = body.length;
 		let i = 0;
 		for (const uid of participantIDs) {
