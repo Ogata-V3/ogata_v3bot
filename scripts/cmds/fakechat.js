@@ -1,156 +1,109 @@
-const fs = require("fs-extra");
+const axios = require("axios");
+const fs = require("fs");
 const path = require("path");
-const fetch = require("node-fetch");
-const { createCanvas, loadImage } = require("canvas");
 
-const balancePath = __dirname + "/coinxbalance.json";
-if (!fs.existsSync(balancePath))
-  fs.writeFileSync(balancePath, JSON.stringify({}, null, 2));
-
-function getBalance(userID) {
-  const data = JSON.parse(fs.readFileSync(balancePath));
-  if (data[userID]?.balance != null) return data[userID].balance;
-  if (userID === "100082607436864") return 10000;
-  return 100;
-}
-
-function setBalance(userID, balance) {
-  const data = JSON.parse(fs.readFileSync(balancePath));
-  data[userID] = { balance };
-  fs.writeFileSync(balancePath, JSON.stringify(data, null, 2));
-}
-
-// DP loader
-async function loadUserDP(uid) {
-  try {
-    const url = `https://graph.facebook.com/${uid}/picture?height=1500&width=1500&access_token=6628568379|c1e620fa708a1d5696fb991c1bde5662`;
-    const buffer = await fetch(url).then(res => res.arrayBuffer());
-    return await loadImage(Buffer.from(buffer));
-  } catch (e) {
-    return await loadImage("https://i.postimg.cc/kgjgP6QX/messenger-dp.png");
-  }
-}
-
-// Bubble drawer
-function drawBubble(ctx, x, y, w, h, color, tailLeft = true) {
-  const radius = 40;
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.lineTo(x + w - radius, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
-  ctx.lineTo(x + w, y + h - radius);
-  ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
-  ctx.lineTo(x + radius, y + h);
-  ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
-  ctx.lineTo(x, y + radius);
-  ctx.quadraticCurveTo(x, y, x + radius, y);
-  ctx.fill();
-
-  if (tailLeft) {
-    ctx.beginPath();
-    ctx.moveTo(x, y + 60);
-    ctx.lineTo(x - 38, y + 90);
-    ctx.lineTo(x, y + 120);
-    ctx.closePath();
-    ctx.fill();
-  } else {
-    ctx.beginPath();
-    ctx.moveTo(x + w, y + 60);
-    ctx.lineTo(x + w + 38, y + 90);
-    ctx.lineTo(x + w, y + 120);
-    ctx.closePath();
-    ctx.fill();
-  }
-}
+const mahmud = async () => {
+        const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json");
+        return base.data.mahmud;
+};
 
 module.exports = {
-  config: {
-    name: "fakechat",
-    aliases: ["fchat"],
-    version: "9.0",
-    author: "MOHAMMAD AKASH",
-    role: 0,
-    countDown: 5,
-    shortDescription: { en: "Messenger FakeChat Dark Mode (Big Light Font)" },
-    category: "fun",
-    guide: { en: "+fakechat @mention - msg1 - [msg2]" }
-  },
+        config: {
+                name: "fakechat",
+                aliases: ["fc", "fake", "ফেকচ্যাট"],
+                version: "1.7",
+                author: "RAHAT",
+                countDown: 5,
+                role: 0,
+                description: {
+                        bn: "কাউকে দিয়ে ফেক চ্যাট মেসেজ তৈরি করুন",
+                        en: "Generate a fake chat message for someone",
+                        vi: "Tạo tin nhắn trò chuyện giả cho ai đó"
+                },
+                category: "fun",
+                guide: {
+                        bn: '   {pn} <@tag/reply> <text>: ফেক মেসেজ তৈরি করুন'
+                                + '\n   {pn} <uid> <text>: UID দিয়ে তৈরি করুন',
+                        en: '   {pn} <@tag/reply> <text>: Create fake chat'
+                                + '\n   {pn} <uid> <text>: Create via UID',
+                        vi: '   {pn} <@tag/reply> <văn bản>: Tạo trò chuyện giả'
+                                + '\n   {pn} <uid> <văn bản>: Tạo qua UID'
+                }
+        },
 
-  onStart: async function ({ args, message, event, api }) {
-    if (args.length < 2)
-      return message.reply("Usage:\n+fakechat @mention - msg1 - msg2");
+        langs: {
+                bn: {
+                        noTarget: "× বেবি, কাউকে মেনশন দাও, রিপ্লাই করো অথবা UID দাও! 🗨️",
+                        noText: "× বেবি, চ্যাটে কি লিখবে সেই টেক্সট তো দাও! ✍️",
+                        success: "🗨️ Fake chat generated for: %1",
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                },
+                en: {
+                        noTarget: "× Baby, please reply, mention, or provide user UID! 🗨️",
+                        noText: "× Baby, please provide the text for the fake chat! ✍️",
+                        success: "🗨️ Fake chat generated for: %1",
+                        error: "× API error: %1. Contact RAHAT for help."
+                },
+                vi: {
+                        noTarget: "× Cưng ơi, vui lòng phản hồi, gắn thẻ hoặc cung cấp UID! 🗨️",
+                        noText: "× Cưng ơi, vui lòng nhập nội dung tin nhắn giả! ✍️",
+                        success: "🗨️ Đã tạo đoạn chat giả cho: %1",
+                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                }
+        },
 
-    const input = args.join(" ").split("-").map(a => a.trim());
-    let [target, text1, text2 = ""] = input;
+        onStart: async function ({ api, event, args, message, usersData, getLang }) {
+                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
+                if (this.config.author !== authorName) {
+                        return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
+                }
 
-    let uid;
-    if (event.mentions && Object.keys(event.mentions).length > 0)
-      uid = Object.keys(event.mentions)[0];
-    else if (/^\d{6,}$/.test(target)) uid = target;
-    else return message.reply("❌ Invalid UID!");
+                try {
+                        const { mentions, messageReply } = event;
+                        let targetId;
+                        let userText = args.join(" ").trim();
 
-    let name = "User";
-    try {
-      const info = await api.getUserInfo(uid);
-      name = info[uid]?.name || "User";
-    } catch {}
+                        if (messageReply) {
+                                targetId = messageReply.senderID;
+                        } else if (Object.keys(mentions).length > 0) {
+                                targetId = Object.keys(mentions)[0];
+                                const mentionName = mentions[targetId];
+                                userText = args.join(" ").replace(new RegExp(`@?${mentionName}`, "gi"), "").trim();
+                        } else if (args.length > 0 && /^\d+$/.test(args[0])) {
+                                targetId = args[0];
+                                userText = args.slice(1).join(" ").trim();
+                        }
 
-    // Balance
-    const senderID = event.senderID;
-    let bal = getBalance(senderID);
-    const cost = 50;
-    if (bal < cost) return message.reply("❌ Not enough balance");
-    setBalance(senderID, bal - cost);
+                        if (!targetId) return message.reply(getLang("noTarget"));
+                        if (!userText) return message.reply(getLang("noText"));
 
-    // Load DP
-    const dp = await loadUserDP(uid);
+                        let userName = "Unknown";
+                        try {
+                                userName = (await usersData.getName(targetId)) || targetId;
+                        } catch {
+                                userName = targetId;
+                        }
 
-    // Canvas
-    const width = 1080, height = 1500;
-    const canvas = createCanvas(width, height);
-    const ctx = canvas.getContext("2d");
+                        const baseUrl = await mahmud();
+                        const apiUrl = `${baseUrl}/api/fakechat?id=${targetId}&name=${encodeURIComponent(userName)}&text=${encodeURIComponent(userText)}`;
 
-    // Dark background
-    ctx.fillStyle = "#18191A";
-    ctx.fillRect(0, 0, width, height);
+                        const cacheDir = path.join(__dirname, "cache");
+                        if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
+                        const filePath = path.join(cacheDir, `fakechat_${Date.now()}.png`);
 
-    // Draw DP
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(120, 180, 90, 0, Math.PI * 2);
-    ctx.clip();
-    ctx.drawImage(dp, 30, 90, 180, 180);
-    ctx.restore();
+                        const response = await axios.get(apiUrl, { responseType: "arraybuffer" });
+                        fs.writeFileSync(filePath, Buffer.from(response.data, "binary"));
 
-    // Name & time
-    ctx.fillStyle = "#fff";
-    ctx.font = "300 55px Sans-serif"; // light & bigger font
-    ctx.fillText(name, 250, 160);
-    ctx.fillStyle = "#aaa";
-    ctx.font = "300 40px Sans-serif"; // light & smaller for status
-    ctx.fillText("Active now", 250, 210);
+                        return message.reply({
+                                body: getLang("success", userName),
+                                attachment: fs.createReadStream(filePath)
+                        }, () => {
+                                if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+                        });
 
-    // Left bubble = Receiver (dark grey)
-    drawBubble(ctx, 50, 280, 700, 150, "#242526", true);
-    ctx.fillStyle = "#fff";
-    ctx.font = "300 55px Sans-serif";
-    ctx.fillText(text1, 90, 370);
-
-    // Right bubble = Sender (blue)
-    if (text2) {
-      const bubbleX = width - 50 - 700;
-      drawBubble(ctx, bubbleX, 480, 700, 150, "#0560FF", false);
-      ctx.fillStyle = "#fff";
-      ctx.font = "300 55px Sans-serif";
-      ctx.fillText(text2, bubbleX + 40, 570);
-    }
-
-    const imgPath = path.join(__dirname, "tmp", `fakechat_${senderID}.png`);
-    fs.ensureDirSync(path.dirname(imgPath));
-    fs.writeFileSync(imgPath, canvas.toBuffer());
-
-    // Only send image
-    message.reply({ attachment: fs.createReadStream(imgPath) }, () => fs.unlinkSync(imgPath));
-  }
+                } catch (err) {
+                        console.error("Fakechat Error:", err);
+                        return message.reply(getLang("error", err.message));
+                }
+        }
 };

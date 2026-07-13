@@ -1,121 +1,99 @@
-const axios = require('axios');
-const fs = require('fs-extra'); 
-const path = require('path');
+const axios = require("axios");
+const fs = require("fs-extra");
+const path = require("path");
 
-const API_ENDPOINT = "https://tawsif.is-a.dev/gemini/nano-banana"; 
-
-function extractImageUrl(message, args, event) {
-    let imageUrl = args.find(arg => arg.startsWith('http'));
-
-    if (!imageUrl && event.messageReply && event.messageReply.attachments && event.messageReply.attachments.length > 0) {
-        const imageAttachment = event.messageReply.attachments.find(att => att.type === 'photo' || att.type === 'image');
-        if (imageAttachment && imageAttachment.url) {
-            imageUrl = imageAttachment.url;
-        }
-    }
-    return imageUrl;
-}
-
-function extractEditPrompt(rawArgs, imageUrl) {
-    let prompt = rawArgs.join(" ");
-    
-    if (imageUrl) {
-        prompt = prompt.replace(imageUrl, '').trim();
-    }
-    
-    if (prompt.includes('|')) {
-        prompt = prompt.split('|')[0].trim();
-    }
-
-    return prompt || "enhance quality";
-}
-
+const mahmud = async () => {
+        const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json");
+        return base.data.mahmud;
+};
 
 module.exports = {
-  config: {
-    name: "edit",
-    aliases: ["imgedit", "nanoedit"],
-    version: "2.3",
-    author: "NeoKEX",
-    countDown: 15,
-    role: 0,
-    longDescription: "Edit or modify an existing image using a text prompt.",
-    category: "ai-image",
-    guide: {
-      en: "{pn} [modification prompt] OR reply to an image with [modification prompt]"
-    }
-  },
+        config: {
+                name: "edit",
+                aliases: ["imgedit"],
+                version: "1.7",
+                author: "RAHAT", // credit Change dile thapramu kintu.
+                countDown: 10,
+                role: 0,
+                description: {
+                        bn: "এআই এর মাধ্যমে আপনার ছবি এডিট করুন",
+                        en: "Edit your image using AI prompt",
+                        vi: "Chỉnh sửa hình ảnh của bạn bằng lời nhắc AI"
+                },
+                category: "image",
+                guide: {
+                        bn: '   {pn} <প্রম্পট>: ছবির রিপ্লাই দিয়ে এডিট প্রম্পট লিখুন'
+                                + '\n   উদাহরণ: {pn} change hair color to red',
+                        en: '   {pn} <prompt>: Reply to an image with edit instructions'
+                                + '\n   Example: {pn} add sunglasses to face',
+                        vi: '   {pn} <lời nhắc>: Phản hồi ảnh kèm hướng dẫn chỉnh sửa'
+                                + '\n   Ví dụ: {pn} đổi màu tóc thành đỏ'
+                }
+        },
 
-  onStart: async function({ message, args, event }) {
-    
-    const imageUrl = extractImageUrl(message, args, event);
-    const editPrompt = extractEditPrompt(args, imageUrl);
+        langs: {
+                bn: {
+                        noInput: "× বেবি, একটি ছবিতে রিপ্লাই দিয়ে বলো কি এডিট করতে হবে! 🪄",
+                        wait: "🔄 | তোমার ছবি এডিট করা হচ্ছে, একটু অপেক্ষা করো বেবি...",
+                        success: "✅ | তোমার এডিট করা ছবি তৈরি: \"%1\"",
+                        error: "× এডিট করতে সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                },
+                en: {
+                        noInput: "× Baby, please reply to a photo with your prompt to edit it! 🪄",
+                        wait: "🔄 | Editing your image, please wait...",
+                        success: "✅ Here's your Edited image\nPrompt: %1",
+                        error: "× Failed to edit: %1. Contact RAHAT for help."
+                },
+                vi: {
+                        noInput: "× Cưng ơi, vui lòng phản hồi ảnh kèm lời nhắc chỉnh sửa! 🪄",
+                        wait: "🔄 | Đang chỉnh sửa ảnh, vui lòng chờ chút nhé...",
+                        success: "✅ | Ảnh đã chỉnh sửa cho: \"%1\"",
+                        error: "× Lỗi chỉnh sửa: %1. Liên hệ RAHAT để hỗ trợ."
+                }
+        },
 
-    if (!imageUrl) {
-      return message.reply("❌ Please provide an image URL or reply to an image to edit.");
-    }
-    if (!editPrompt) {
-        return message.reply("❌ Please provide a prompt describing the modification you want to make.");
-    }
+        onStart: async function ({ api, event, args, message, getLang }) {
+                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
+                if (this.config.author !== authorName) {
+                        return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
+                }
 
-    message.reaction("⏳", event.messageID);
-    let tempFilePath; 
+                const prompt = args.join(" ");
+                const repliedImage = event.messageReply?.attachments?.[0];
 
-    try {
-      const fullApiUrl = `${API_ENDPOINT}?prompt=${encodeURIComponent(editPrompt)}&url=${encodeURIComponent(imageUrl)}`;
-      
-      const apiResponse = await axios.get(fullApiUrl);
-      const data = apiResponse.data;
+                if (!prompt || !repliedImage || repliedImage.type !== "photo") {
+                        return message.reply(getLang("noInput"));
+                }
 
-      if (!data.success || !data.imageUrl) {
-        throw new Error(data.error || "API returned success: false or missing image URL.");
-      }
+                const cacheDir = path.join(__dirname, "cache");
+                const imgPath = path.join(cacheDir, `${Date.now()}_edit.jpg`);
+                await fs.ensureDir(cacheDir);
 
-      const finalImageUrl = data.imageUrl;
+                const waitMsg = await message.reply(getLang("wait"));
 
-      const imageDownloadResponse = await axios.get(finalImageUrl, {
-          responseType: 'stream',
-      });
-      
-      const cacheDir = path.join(__dirname, 'cache');
-      if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
-      
-      tempFilePath = path.join(cacheDir, `edited_nano_${Date.now()}.png`);
-      
-      const writer = fs.createWriteStream(tempFilePath);
-      imageDownloadResponse.data.pipe(writer);
+                try {
+                        const baseURL = await mahmud();
+                        const res = await axios.post(
+                                `${baseURL}/api/edit`,
+                                { prompt, imageUrl: repliedImage.url },
+                                { responseType: "arraybuffer" }
+                        );
 
-      await new Promise((resolve, reject) => {
-        writer.on("finish", resolve);
-        writer.on("error", (err) => {
-          writer.close();
-          reject(err);
-        });
-      });
+                        await fs.writeFile(imgPath, Buffer.from(res.data, "binary"));
 
-      message.reaction("✅", event.messageID);
-      await message.reply({
-        attachment: fs.createReadStream(tempFilePath)
-      });
+                        await message.reply({
+                                body: getLang("success", prompt),
+                                attachment: fs.createReadStream(imgPath)
+                        });
 
-    } catch (error) {
-      message.reaction("❌", event.messageID);
-      
-      let errorMessage = "An error occurred during image editing.";
-      if (error.response && error.response.data && error.response.data.error) {
-         errorMessage += ` (API Error: ${error.response.data.error})`;
-      } else if (error.message) {
-         errorMessage = `❌ ${error.message}`;
-      } else if (error.code) {
-         errorMessage = `❌ Network Error: ${error.code}`;
-      }
-
-      console.error("Edit Command Error:", error);
-      message.reply(`❌ ${errorMessage}`);
-    } finally {
-      if (tempFilePath && fs.existsSync(tempFilePath)) {
-          fs.unlinkSync(tempFilePath);
-      }
-    }
-  }
+                } catch (err) {
+                        console.error("Edit Command Error:", err);
+                        return message.reply(getLang("error", err.message));
+                } finally {
+                        if (waitMsg?.messageID) api.unsendMessage(waitMsg.messageID);
+                        setTimeout(() => {
+                                if (fs.existsSync(imgPath)) fs.unlinkSync(imgPath);
+                        }, 10000);
+                }
+        }
 };
