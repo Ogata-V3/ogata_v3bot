@@ -6,7 +6,7 @@ module.exports.config = {
   name: "pet",
   version: "2.0.0",
   hasPermssion: 0,
-  credits: "🔰𝐑𝐀𝐇𝐀𝐓 𝐈𝐒𝐋𝐀𝐌🔰",
+  credits: "Ajmaul",
   description: "Pet a tagged user",
   commandCategory: "🤣funny🤣",
   usages: "pet [@mention/reply/UID/link/name]",
