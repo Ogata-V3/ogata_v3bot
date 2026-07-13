@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "imgur",
     version: "1.0.2",
-    author: "MOHAMMAD AKASH",
+    author: "Aizen",
     role: 0,
     shortDescription: "Upload image/video/GIF to Imgur and get direct links",
     longDescription: "Reply to any image, video, or GIF to upload it to Imgur and get the link.",
