@@ -1,6 +1,6 @@
 module.exports.config = {
   name: "autoreact",
-  version: "3.1",
+  version: "3.2",
   author: "Ajmaul",
   countDown: 0,
   role: 0,
@@ -17,10 +17,20 @@ module.exports.onChat = async function ({ api, event }) {
   const { messageID, body, senderID } = event;
   if (!body || !messageID || !senderID) return;
 
-  // ---- OWNER CHECK ----
-  const ownerIDs = global.config.adminBot || []; // config.json এর adminBot array
+  // ---- OWNER CHECK (safe against undefined global.config / global.GoatBot) ----
+  let ownerIDs = [];
+  try {
+    if (global.config && Array.isArray(global.config.adminBot)) {
+      ownerIDs = global.config.adminBot;
+    } else if (global.GoatBot && global.GoatBot.config && Array.isArray(global.GoatBot.config.adminBot)) {
+      ownerIDs = global.GoatBot.config.adminBot;
+    }
+  } catch (e) {
+    ownerIDs = [];
+  }
+
   if (!ownerIDs.includes(senderID)) return; // owner না হলে কিছুই হবে না
-  // ----------------------
+  // ------------------------------------------------------------------------------
 
   const msg = body.toLowerCase();
 
