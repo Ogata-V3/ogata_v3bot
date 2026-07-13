@@ -7,7 +7,7 @@ module.exports = {
     name: "imagen3",
     aliases: [],
     version: "1.0",
-    author: "nexo_here",
+    author: "Ajmaul",
     countDown: 10,
     role: 0,
     shortDescription: "Generate image using Imagen 3",
