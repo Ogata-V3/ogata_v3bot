@@ -1,59 +1,97 @@
-const request = require("request");
-const fs = require("fs-extra");
+const axios = require("axios");
+const path = require("path");
 
-module.exports.config = {
-  name: "owner",
-  version: "1.0.1",
-  hasPermssion: 0,
-  credits: "🔰𝐑𝐀𝐇𝐀𝐓 𝐈𝐒𝐋𝐀𝐌🔰",
-  description: "Show Owner Info with styled box & random photo",
-  commandCategory: "Information",
-  usages: "owner",
-  cooldowns: 2
-};
+module.exports = {
+  config: {
+    name: "owner",
+    version: "1.0.0",
+    author: "Rahat",
+    category: "owner",
+    guide: {
+      en: "{pn}"
+    },
+    usePrefix: true
+  },
 
-module.exports.run = async function ({ api, event }) {
+  sentThreads: new Map(),
 
-  
-  const info = `
-╔═══════════════✿
-║ ✨ 𝗢𝗪𝗡𝗘𝗥 𝗜𝗡𝗙𝗢 ✨
-╠═══════════════✿
-║ 👑 𝗡𝗮𝗺𝗲 : 𝗥𝗮𝗵𝗮𝘁 𝗜𝘀𝗹𝗮𝗺
-║ 🧸 𝗡𝗶𝗰𝗸 𝗡𝗮𝗺𝗲 : 𝗥𝗮𝗵𝗮𝘁
-║ 🎂 𝗔𝗴𝗲 : 16
-║ 💘 𝗥𝗲𝗹𝗮𝘁𝗶𝗼𝗻 : 𝗦𝗶𝗻𝗴𝗹𝗲
-║ 🎓 𝗣𝗿𝗼𝗳𝗲𝘀𝘀𝗶𝗼𝗻 : 𝗦𝘁𝘂𝗱𝗲𝗻𝘁
-║ 🏡 𝗔𝗱𝗱𝗿𝗲𝘀𝘀 : 𝗝𝗮𝗺𝗮𝗹𝗽𝘂𝗿
-╠═══════════════✿
-║ 🔗 𝗖𝗢𝗡𝗧𝗔𝗖𝗧 𝗟𝗜𝗡𝗞𝗦
-╠═══════════════✿
-║ 📘 𝗙𝗮𝗰𝗲𝗯𝗼𝗼𝗸 :
-║ fb.com/61582708907708
-║ 💬 𝗠𝗲𝘀𝘀𝗲𝗻𝗴𝗲𝗿 :
-║ m.me/61582708907708
-╚═══════════════✿
+  onStart: async function ({ event, message }) {
+    const threadID = event.threadID;
+
+    if (this.sentThreads.has(threadID)) return;
+    this.sentThreads.set(threadID, true);
+
+    const ownerInfo = {
+      name: "𝐑𝐚𝐡𝐚𝐭 𝐌𝐚𝐡𝐦𝐮𝐝",
+      nick: "𝐄 𝐆 𝐎",
+      age: "17",
+      gender: "Male",
+      country: "Bangladesh",
+      city: "Barishal ",
+      religion: "Islam",
+      status: "Single",
+      hobby: "Coding, Gaming",
+      profession: "Bot Developer",
+      bot: "RAHAT V3",
+      github: "github.com/rahatmahmud007",
+      facebook: "facebook.com"
+    };
+
+    const msg = `
+╔══════════════════════╗
+      👑 OWNER INFO 👑
+╚══════════════════════╝
+
+👤 Name      : ${ownerInfo.name}
+🏷️ Nick      : ${ownerInfo.nick}
+🎂 Age       : ${ownerInfo.age}
+🚹 Gender    : ${ownerInfo.gender}
+🌍 Country   : ${ownerInfo.country}
+📍 City      : ${ownerInfo.city}
+🕌 Religion  : ${ownerInfo.religion}
+❤️ Status    : ${ownerInfo.status}
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+🤖 Bot       : ${ownerInfo.bot}
+💻 Profession: ${ownerInfo.profession}
+🎯 Hobby     : ${ownerInfo.hobby}
+
+🌐 GitHub    : ${ownerInfo.github}
+📘 Facebook  : ${ownerInfo.facebook}
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+❤️ Thanks For Using
+      RAHAT V3
 `;
 
-  const images = [
-    "https://i.imgur.com/G8wZwUB.jpeg",
-    "https://i.imgur.com/942vNzR.jpeg",
-    "https://i.imgur.com/viT3o6b.jpeg",
-    "https://i.imgur.com/btn02Xz.jpeg"
-  ];
+    try {
+      const image = (
+        await axios.get(
+          "https://i.ibb.co.com/SwMLdyKN/Screenshot-20260707-133847-Gallery.jpg",
+          {
+            responseType: "stream"
+          }
+        )
+      ).data;
 
-  const randomImg = images[Math.floor(Math.random() * images.length)];
+      await message.reply({
+        body: msg,
+        attachment: image
+      });
 
-  const callback = () => api.sendMessage(
-    {
-      body: info,
-      attachment: fs.createReadStream(__dirname + "/cache/owner.jpg")
-    },
-    event.threadID,
-    () => fs.unlinkSync(__dirname + "/cache/owner.jpg")
-  );
+    } catch (err) {
+      console.log(err);
 
-  return request(encodeURI(randomImg))
-    .pipe(fs.createWriteStream(__dirname + "/cache/owner.jpg"))
-    .on("close", () => callback());
+      await message.reply(
+        msg +
+        "\n\n⚠️ Image could not be loaded from the provided link."
+      );
+    }
+
+    setTimeout(() => {
+      this.sentThreads.delete(threadID);
+    }, 300000);
+  }
 };

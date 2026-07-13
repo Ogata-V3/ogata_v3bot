@@ -1,168 +1,121 @@
 const axios = require("axios");
-const fs = require("fs-extra");
-const path = __dirname + "/coinxbalance.json";
 
-// ✅ ফাইল না থাকলে তৈরি করো
-if (!fs.existsSync(path)) {
-  fs.writeFileSync(path, JSON.stringify({}, null, 2));
-}
-
-// 🔹 ব্যালেন্স পড়া
-function getBalance(userID) {
-  try {
-    const data = JSON.parse(fs.readFileSync(path, "utf-8"));
-    if (data[userID]?.balance !== undefined) return data[userID].balance;
-    return userID === "100082607436864" ? 10000 : 100;
-  } catch {
-    return 100;
-  }
-}
-
-// 🔹 ব্যালেন্স সেট করা
-function setBalance(userID, balance) {
-  try {
-    const data = JSON.parse(fs.readFileSync(path, "utf-8"));
-    data[userID] = { balance: Math.max(0, balance) };
-    fs.writeFileSync(path, JSON.stringify(data, null, 2));
-  } catch {}
-}
-
-// 🔹 সংখ্যা ফরম্যাট
-function formatBalance(num) {
-  if (num >= 1e12) return (num / 1e12).toFixed(2).replace(/\.00$/, "") + "T$";
-  if (num >= 1e9) return (num / 1e9).toFixed(2).replace(/\.00$/, "") + "B$";
-  if (num >= 1e6) return (num / 1e6).toFixed(2).replace(/\.00$/, "") + "M$";
-  if (num >= 1e3) return (num / 1e3).toFixed(2).replace(/\.00$/, "") + "k$";
-  return num + "$";
-}
+const mahmud = async () => {
+        const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json");
+        return base.data.mahmud;
+};
 
 module.exports = {
-  config: {
-    name: "quiz",
-    version: "6.0",
-    author: "MOHAMMAD AKASH",
-    countDown: 5,
-    role: 0,
-    shortDescription: "✦ বাংলা কুইজ ✦ কয়েন সহ 🎯",
-    category: "game",
-    guide: { en: "{p}quiz | {p}quiz h" },
-  },
+        config: {
+                name: "quiz",
+                aliases: ["qz"],
+                version: "1.7",
+                author: "RAHAT",
+                countDown: 10,
+                role: 0,
+                description: {
+                        bn: "সাধারণ জ্ঞান কুইজ খেলে কয়েন এবং এক্সপি জিতুন",
+                        en: "Play general knowledge quiz to win coins and exp",
+                        vi: "Chơi trò chơi đố vui kiến thức để giành được xu và exp"
+                },
+                category: "game",
+                guide: {
+                        bn: '   {pn} en: ইংরেজি কুইজ\n   {pn} bn: বাংলা কুইজ',
+                        en: '   {pn} en: English quiz\n   {pn} bn: Bangla quiz',
+                        vi: '   {pn} en: Câu đố tiếng Anh\n   {pn} bn: Câu đố tiếng Bengal'
+                }
+        },
 
-  onStart: async function ({ api, event, args }) {
-    const { threadID, senderID, messageID } = event;
-    const balance = getBalance(senderID);
-    const TIMEOUT = 20000;
+        langs: {
+                bn: {
+                        reply: "𝐑𝐞𝐩𝐥𝐲 𝐰𝐢𝐭𝐡 𝐲𝐨𝐮𝐫 𝐚𝐧𝐬𝐰𝐞𝐫.",
+                        correct: "✅ | একদম সঠিক উত্তর বেবি!\n\nতুমি জিতেছো %1 কয়েন এবং %2 এক্সপি।",
+                        wrong: "❌ | উত্তরটি ভুল হয়েছে বেবি!\n\nসঠিক উত্তর ছিল: %1",
+                        notYour: "× বেবি, এটি তোমার কুইজ নয়! নিজের জন্য শুরু করো। >🐸",
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                },
+                en: {
+                        reply: "𝐑𝐞𝐩𝐥𝐲 𝐰𝐢𝐭𝐡 𝐲𝐨𝐮𝐫 𝐚𝐧𝐬𝐰𝐞𝐫.",
+                        correct: "✅ | Correct answer baby!\n\nYou earned %1 coins & %2 exp.",
+                        wrong: "❌ | Wrong answer baby!\n\nThe correct answer was: %1",
+                        notYour: "𝐓𝐡𝐢𝐬 𝐢𝐬 𝐧𝐨𝐭 𝐲𝐨𝐮𝐫 𝐪𝐮𝐢𝐳 𝐛𝐚𝐛𝐲 >🐸",
+                        error: "× API error: %1. Contact RAHAT for help."
+                },
+                vi: {
+                        reply: "Trả lời bằng đáp án của bạn đi cưng",
+                        correct: "✅ | Đáp án chính xác cưng ơi!\n\nBạn nhận được %1 xu & %2 exp.",
+                        wrong: "❌ | Sai rồi cưng ơi!\n\n💡 Đáp án đúng là: %1",
+                        notYour: "× Đây không phải câu đố của bạn cưng à! >🐸",
+                        error: "× Lỗi: %1. Liên hệ RAHAT để được hỗ trợ."
+                }
+        },
 
-    // 🧠 সাহায্য মেনু
-    if (args[0]?.toLowerCase() === "h" || args[0] === "help") {
-      const helpMsg = `🧠 কুইজ গাইড 🎯
-━━━━━━━━━━━━━━━
-✅ সঠিক উত্তর: +১,০০০ কয়েন
-❌ ভুল উত্তর: -৫০ কয়েন
-⏳ সময়: ২০ সেকেন্ড
-💰 ন্যূনতম ব্যালেন্স: ৩০ কয়েন
-━━━━━━━━━━━━━━━
-🎮 উদাহরণ: !quiz`;
-      return api.sendMessage(helpMsg, threadID, messageID);
-    }
+        onStart: async function ({ api, event, args, getLang }) {
+                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68); 
+                if (this.config.author !== authorName) {
+                        return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
+                }
+                
+                try {
+                        const input = args.join("").toLowerCase();
+                        const category = input === "en" || input === "english" ? "english" : "bangla";
 
-    // 💰 কয়েন চেক
-    if (balance < 30) {
-      const low = `⚠️ কয়েন কম!
-💎 বর্তমান: ${formatBalance(balance)}
-🎮 খেলতে ন্যূনতম দরকার: 30$`;
-      return api.sendMessage(low, threadID, messageID);
-    }
+                        const apiUrl = await mahmud();
+                        const res = await axios.get(`${apiUrl}/api/quiz?category=${category}`);
+                        const quiz = res.data;
 
-    try {
-      // 📡 কুইজ API
-      const { data } = await axios.get(
-        "https://rubish-apihub.onrender.com/rubish/quiz-api?category=Bangla&apikey=rubish69"
-      );
+                        if (!quiz) return api.sendMessage("× No quiz available baby.", event.threadID, event.messageID);
 
-      if (!data?.question || !data?.answer) throw new Error("Invalid API");
+                        const { question, correctAnswer, options } = quiz;
+                        const { a, b, c, d } = options;
 
-      const question = `✦ বাংলা কুইজ ✦
-${data.question}
+                        const quizMsg = `\n╭──✦ ${question}\n`
+                                + `├‣ 𝗔) ${a}\n`
+                                + `├‣ 𝗕) ${b}\n`
+                                + `├‣ 𝗖) ${c}\n`
+                                + `├‣ 𝗗) ${d}\n`
+                                + `╰──────────────────‣\n`
+                                + `${getLang("reply")}`;
 
-🇦 ${data.A} • 🇧 ${data.B}
-🇨 ${data.C} • 🇩 ${data.D}
+                        api.sendMessage(quizMsg, event.threadID, (error, info) => {
+                                global.GoatBot.onReply.set(info.messageID, {
+                                        type: "reply",
+                                        commandName: this.config.name,
+                                        author: event.senderID,
+                                        messageID: info.messageID,
+                                        correctAnswer
+                                });
 
-⏰ ২০ সেকেন্ড | উত্তর: A/B/C/D`;
+                                setTimeout(() => {
+                                        api.unsendMessage(info.messageID);
+                                }, 40000);
+                        }, event.messageID);
 
-      api.sendMessage(question, threadID, (err, info) => {
-        if (err || !info) return;
+                } catch (error) {
+                        api.sendMessage(getLang("error", error.message), event.threadID, event.messageID);
+                }
+        },
 
-        const timeout = setTimeout(async () => {
-          try {
-            await api.unsendMessage(info.messageID);
-            api.sendMessage(
-              `⏰ সময় শেষ!
-✅ সঠিক উত্তর ছিল: ${data.answer}`,
-              threadID
-            );
-          } catch {}
-          global.GoatBot.onReply.delete(info.messageID);
-        }, TIMEOUT);
+        onReply: async function ({ event, api, Reply, usersData, getLang }) {
+                const { correctAnswer, author } = Reply;
+                if (event.senderID !== author) return api.sendMessage(getLang("notYour"), event.threadID, event.messageID);
 
-        global.GoatBot.onReply.set(info.messageID, {
-          commandName: module.exports.config.name,
-          author: senderID,
-          answer: data.answer,
-          messageID: info.messageID,
-          timeout,
-        });
-      });
-    } catch (err) {
-      return api.sendMessage(
-        `❌ সমস্যা হয়েছে!
-😵 কুইজ লোড করা যায়নি, পরে আবার চেষ্টা করো।`,
-        threadID,
-        messageID
-      );
-    }
-  },
+                const userReply = event.body.trim().toLowerCase();
+                const userData = await usersData.get(author);
+                const rewardCoins = 500;
+                const rewardExp = 121;
 
-  // 🔁 উত্তর হ্যান্ডলিং
-  onReply: async function ({ api, event, Reply }) {
-    const { senderID, body, threadID } = event;
-    if (senderID !== Reply.author) return;
+                await api.unsendMessage(Reply.messageID);
 
-    const answer = body.trim().toUpperCase();
-    if (!["A", "B", "C", "D"].includes(answer)) {
-      return api.sendMessage(
-        `⚠️ শুধু লিখো A / B / C / D\nউদাহরণ: A`,
-        threadID
-      );
-    }
-
-    clearTimeout(Reply.timeout);
-    const correct = answer === Reply.answer;
-    let balance = getBalance(senderID);
-
-    if (correct) {
-      balance += 1000;
-      setBalance(senderID, balance);
-      await api.unsendMessage(Reply.messageID);
-      global.GoatBot.onReply.delete(Reply.messageID);
-
-      api.sendMessage(
-        `✅ সঠিক উত্তর!
-🎉 তুমি জিতেছ +১,০০০ কয়েন!
-💎 নতুন ব্যালেন্স: ${formatBalance(balance)}`,
-        threadID
-      );
-    } else {
-      balance = Math.max(0, balance - 50);
-      setBalance(senderID, balance);
-
-      api.sendMessage(
-        `❌ ভুল উত্তর!
-😔 -৫০ কয়েন কেটে নেওয়া হয়েছে
-💎 বর্তমান ব্যালেন্স: ${formatBalance(balance)}
-🔄 আবার চেষ্টা করো!`,
-        threadID
-      );
-    }
-  },
+                if (userReply === correctAnswer.toLowerCase()) {
+                        await usersData.set(author, {
+                                money: userData.money + rewardCoins,
+                                exp: userData.exp + rewardExp,
+                                data: userData.data
+                        });
+                        return api.sendMessage(getLang("correct", rewardCoins, rewardExp), event.threadID, event.messageID);
+                } else {
+                        return api.sendMessage(getLang("wrong", correctAnswer), event.threadID, event.messageID);
+                }
+        }
 };

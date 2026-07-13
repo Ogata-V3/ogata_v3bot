@@ -1,48 +1,91 @@
 const axios = require("axios");
 
+const mahmud = async () => {
+        const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json");
+        return base.data.mahmud;
+};
+
 module.exports = {
-  config: {
-    name: "nokia",
-    aliases: [],
-    version: "0.0.7",
-    author: "Azadx69x",
-    countDown: 3,
-    role: 0,
-    shortDescription: "𝐏𝐫𝐨𝐟𝐢𝐥𝐞 𝐩𝐢𝐜𝐭𝐮𝐫𝐞 𝐢𝐧𝐬𝐢𝐝𝐞 𝐚 𝐍𝐨𝐤𝐢𝐚 𝐩𝐡𝐨𝐧𝐞",
-    longDescription: "𝐒𝐡𝐨𝐰𝐬 𝐚 𝐮𝐬𝐞𝐫'𝐬 𝐩𝐫𝐨𝐟𝐢𝐥𝐞 𝐩𝐢𝐜𝐭𝐮𝐫𝐞 𝐢𝐧𝐬𝐢𝐝𝐞 𝐚 𝐍𝐨𝐤𝐢𝐚 𝐩𝐡𝐨𝐧𝐞 𝐟𝐫𝐚𝐦𝐞",
-    category: "fun",
-    guide: {
-      en: "{pn} (𝐫𝐞𝐩𝐥𝐲 𝐨𝐫 𝐧𝐨 𝐫𝐞𝐩𝐥𝐲)"
-    }
-  },
+        config: {
+                name: "nokia",
+                version: "1.7",
+                author: "RAHAT",
+                countDown: 5,
+                role: 0,
+                description: {
+                        bn: "নোকিয়া স্ক্রিন ইফেক্ট তৈরি করুন",
+                        en: "Generate Nokia screen style image",
+                        vi: "Tạo hiệu ứng màn hình Nokia"
+                },
+                category: "fun",
+                guide: {
+                        bn: '   {pn} @mention: নির্দিষ্ট কাউকে মেনশন করুন' +
+                                '\n   {pn} [reply]: রিপ্লাই দিয়ে ইফেক্ট তৈরি করুন' +
+                                '\n   {pn} [UID]: ইউজার আইডি দিন',
+                        en: '   {pn} @mention: Generate with mentioned user' +
+                                '\n   {pn} [reply]: Generate with replied user' +
+                                '\n   {pn} [UID]: Provide a user ID',
+                        vi: '   {pn} @mention: Tạo với người được nhắc' +
+                                '\n   {pn} [reply]: Tạo với người đã trả lời' +
+                                '\n   {pn} [UID]: Cung cấp UID'
+                }
+        },
 
-  onStart: async function ({ event, message, args, usersData }) {
-    try {
-      let targetID =
-        (event.type === "message_reply" && event.messageReply?.senderID) ||
-        (event.mentions && Object.keys(event.mentions)[0]) ||
-        event.senderID;
+        langs: {
+                bn: {
+                        provide: "• দয়া করে কাউকে মেনশন, মেসেজ রিপ্লাই অথবা UID দিন।",
+                        success: "📱 | এই নাও তোমার নোকিয়া স্ক্রিন ইফেক্ট!",
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                },
+                en: {
+                        provide: "• Please mention, message reply or provide a UID.",
+                        success: "📱 | Here's your Nokia screen effect!",
+                        error: "× API error: %1. Contact RAHAT for help."
+                },
+                vi: {
+                        provide: "• Vui lòng gắn thẻ, trả lời tin nhắn hoặc cung cấp UID.",
+                        success: "📱 | Hiệu ứng màn hình Nokia của bạn đây!",
+                        error: "× Lỗi: %1. Liên hệ RAHAT để hỗ trợ."
+                }
+        },
 
-      const name = await usersData.getName(targetID).catch(() => "𝐔𝐧𝐤𝐧𝐨𝐰𝐧 𝐔𝐬𝐞𝐫");
+        onStart: async function ({ api, event, args, message, getLang }) {
+                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
+                if (this.config.author !== authorName) {
+                        return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
+                }
 
-      const avatarURL = await usersData.getAvatarUrl(targetID);
+                try {
+                        const { mentions, type, messageReply } = event;
+                        let uid;
 
-      const apiURL = `https://azadx69x-all-apis-top.vercel.app/api/nokia?image=${encodeURIComponent(avatarURL)}`;
+                        if (Object.keys(mentions).length > 0) {
+                                uid = Object.keys(mentions)[0];
+                        } else if (type === "message_reply") {
+                                uid = messageReply.senderID;
+                        } else if (args[0]) {
+                                uid = args[0];
+                        } else {
+                                return message.reply(getLang("provide"));
+                        }
 
-      const stream = await global.utils.getStreamFromURL(apiURL);
+                        api.setMessageReaction("⏳", event.messageID, () => {}, true);
 
-      const replyText = `𝐇𝐞𝐫𝐞 𝐍𝐨𝐤𝐢𝐚 𝐩𝐡𝐨𝐧𝐞 𝐨𝐟 ${name}'𝐬📱`;
+                        const baseURL = await mahmud();
+                        const imageUrl = `${baseURL}/api/nokia?uid=${uid}`;
+                        const stream = await global.utils.getStreamFromURL(imageUrl);
 
-      return message.reply({
-        body: replyText,
-        attachment: stream
-      });
+                        api.setMessageReaction("✅", event.messageID, () => {}, true);
 
-    } catch (err) {
-      console.error("𝐍𝐎𝐊𝐈𝐀 𝐂𝐌𝐃 𝐄𝐑𝐑𝐎𝐑:", err);
+                        return message.reply({
+                                body: getLang("success"),
+                                attachment: stream
+                        });
 
-      const errorText = `❌ 𝐂𝐨𝐮𝐥𝐝 𝐧𝐨𝐭 𝐟𝐞𝐭𝐜𝐡 𝐭𝐡𝐞 𝐍𝐨𝐤𝐢𝐚 𝐩𝐡𝐨𝐧𝐞 𝐢𝐦𝐚𝐠𝐞.`;
-      return message.reply(errorText);
-    }
-  }
+                } catch (err) {
+                        console.error("Nokia Error:", err);
+                        api.setMessageReaction("❌", event.messageID, () => {}, true);
+                        return message.reply(getLang("error", err.message));
+                }
+        }
 };

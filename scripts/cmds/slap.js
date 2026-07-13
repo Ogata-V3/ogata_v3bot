@@ -1,109 +1,89 @@
-const { createCanvas, loadImage } = require("canvas");
+const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 
+const baseApiUrl = async () => {
+  const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json");
+  return base.data.mahmud;
+};
+
 module.exports = {
-  config: {
-    name: "slap",
-    version: "1.0.0",
-    author: "Zoro",
-    countDown: 3,
-    role: 0,
-    shortDescription: "𝐒𝐥𝐚𝐩 𝐚 𝐮𝐬𝐞𝐫 😆",
-    longDescription: "𝐒𝐥𝐚𝐩 𝐚𝐧𝐲𝐨𝐧𝐞 𝐰𝐢𝐭𝐡 𝐚 𝐟𝐮𝐧𝐧𝐲 𝐢𝐦𝐚𝐠𝐞",
-    category: "fun",
-    guide: {
-      en: "{pn} @mention / reply"
-    }
-  },
+        config: {
+                name: "slap",
+                aliases: ["thappor"],
+                version: "1.7",
+                author: "RAHAT",
+                countDown: 10,
+                role: 0,
+                description: {
+                        bn: "কাউকে থাপ্পড় মারার ছবি তৈরি করুন",
+                        en: "Create a slap image of someone"
+                },
+                category: "fun",
+                guide: {
+                        bn: '   {pn} <@tag>: কাউকে ট্যাগ করে থাপ্পড় মারুন'
+                                + '\n   {pn} <uid>: UID এর মাধ্যমে থাপ্পড় মারুন'
+                                + '\n   (অথবা কারো মেসেজে রিপ্লাই দিয়ে এটি ব্যবহার করুন)',
+                        en: '   {pn} <@tag>: Slap a tagged user'
+                                + '\n   {pn} <uid>: Slap by UID'
+                                + '\n   (Or reply to someone\'s message)'
+                }
+        },
 
-  onStart: async function ({ event, message, usersData }) {
-    try {
-      const senderID = event.senderID;
+        langs: {
+                bn: {
+                        noTarget: "× বেবি, কাকে থাপ্পড় মারবে তাকে মেনশন দাও বা রিপ্লাই করো!",
+                        success: "এই নাও থাপ্পড়! একদম গাল লাল হয়ে গেছে 💥",
+                        error: "× থাপ্পড় মারতে গিয়ে সমস্যা হয়েছে: %1। প্রয়োজনে Contact RAHAT।"
+                },
+                en: {
+                        noTarget: "× Baby, mention or reply to someone to slap!",
+                        success: "Here's a slap! 💥",
+                        error: "× Failed to slap: %1. Contact RAHAT for help."
+                }
+        },
 
-      let targetID =
-        (event.type === "message_reply" && event.messageReply?.senderID) ||
-        (event.mentions && Object.keys(event.mentions)[0]);
+        onStart: async function ({ api, message, args, event, getLang }) {
+                const authorName = String.fromCharCode(77, 97, 104, 77, 85, 68);
+                if (this.config.author !== authorName) {
+                        return api.sendMessage("You are not authorized to change the author name.", event.threadID, event.messageID);
+                }
 
-      if (!targetID) {
-        return message.reply("❌ 𝐏𝐥𝐞𝐚𝐬𝐞 𝐦𝐞𝐧𝐭𝐢𝐨𝐧 𝐨𝐫 𝐫𝐞𝐩𝐥𝐲 𝐭𝐨 𝐬𝐨𝐦𝐞𝐨𝐧𝐞!");
-      }
+                const { senderID, messageReply, mentions } = event;
+                let id2;
 
-      const name1 = await usersData.getName(senderID).catch(() => "User");
-      const name2 = await usersData.getName(targetID).catch(() => "User");
+                if (messageReply) {
+                        id2 = messageReply.senderID;
+                } else if (Object.keys(mentions).length > 0) {
+                        id2 = Object.keys(mentions)[0];
+                } else if (args[0] && !isNaN(args[0])) {
+                        id2 = args[0];
+                }
 
-      try {
-        // Get profile pictures
-        const senderImg = await loadImage(
-          `https://graph.facebook.com/${senderID}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
-        ).catch(() => null);
+                if (!id2) return message.reply(getLang("noTarget"));
 
-        const targetImg = await loadImage(
-          `https://graph.facebook.com/${targetID}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`
-        ).catch(() => null);
+                try {
+                        const baseUrl = await baseApiUrl();
+                        const url = `${baseUrl}/api/dig?type=slap&user=${senderID}&user2=${id2}`;
 
-        // Load template image
-        const templateImg = await loadImage("https://i.imgur.com/LyG1bq1.jpeg");
+                        const response = await axios.get(url, { responseType: "arraybuffer" });
+                        const cachePath = path.join(__dirname, "cache", `slap_${id2}.png`);
+                        
+                        if (!fs.existsSync(path.join(__dirname, "cache"))) {
+                                fs.mkdirSync(path.join(__dirname, "cache"));
+                        }
 
-        // Create canvas
-        const width = 800;
-        const height = 600;
-        const canvas = createCanvas(width, height);
-        const ctx = canvas.getContext("2d");
+                        fs.writeFileSync(cachePath, Buffer.from(response.data));
 
-        // Draw template background
-        ctx.drawImage(templateImg, 0, 0, width, height);
+                        await message.reply({
+                                body: getLang("success"),
+                                attachment: fs.createReadStream(cachePath)
+                        });
 
-        // Draw profile pictures as circles with border
-        function drawCircle(ctx, img, x, y, size) {
-          // White border
-          ctx.fillStyle = "#FFFFFF";
-          ctx.beginPath();
-          ctx.arc(x + size / 2, y + size / 2, size / 2 + 5, 0, Math.PI * 2);
-          ctx.fill();
-
-          // Image circle
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
-          ctx.closePath();
-          ctx.clip();
-          if (img) {
-            ctx.drawImage(img, x, y, size, size);
-          }
-          ctx.restore();
+                        fs.unlinkSync(cachePath);
+                } catch (err) {
+                        console.error("Error in slap command:", err);
+                        return message.reply(getLang("error", err.message));
+                }
         }
-
-        // Draw slapper and target pictures - positioned better
-        if (senderImg) drawCircle(ctx, senderImg, 80, 140, 220);
-        if (targetImg) drawCircle(ctx, targetImg, 500, 140, 220);
-
-        // Save image
-        const outputPath = path.join(__dirname, "slap_output.png");
-        const stream = canvas.createPNGStream();
-        const out = fs.createWriteStream(outputPath);
-        
-        stream.pipe(out);
-
-        out.on("finish", () => {
-          const replyText = `🤣 ${name1} 𝐬𝐥𝐚𝐩𝐩𝐞𝐝 ${name2}! 😆`;
-
-          message.reply({
-            body: replyText,
-            attachment: fs.createReadStream(outputPath)
-          }, () => {
-            try { fs.unlinkSync(outputPath); } catch (e) {}
-          });
-        });
-
-      } catch (imageErr) {
-        console.error("Image error:", imageErr);
-        return message.reply(`🤣 ${name1} 𝐬𝐥𝐚𝐩𝐩𝐞𝐝 ${name2}! 😆`);
-      }
-
-    } catch (err) {
-      console.error("SLAP CMD ERROR:", err);
-      return message.reply("❌ 𝐒𝐨𝐦𝐞𝐭𝐡𝐢𝐧𝐠 𝐰𝐞𝐧𝐭 𝐰𝐫𝐨𝐧𝐠!");
-    }
-  }
 };
