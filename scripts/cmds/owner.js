@@ -22,19 +22,17 @@ module.exports = {
     this.sentThreads.set(threadID, true);
 
     const ownerInfo = {
-      name: "𝐑𝐚𝐡𝐚𝐭 𝐌𝐚𝐡𝐦𝐮𝐝",
-      nick: "𝐄 𝐆 𝐎",
-      age: "17",
+      name: "Ajmaul",
+      nick: "Aizen",
+      age: "18",
       gender: "Male",
       country: "Bangladesh",
-      city: "Barishal ",
+      city: "Joypurhat",
       religion: "Islam",
       status: "Single",
-      hobby: "Coding, Gaming",
-      profession: "Bot Developer",
-      bot: "RAHAT V3",
-      github: "github.com/rahatmahmud007",
-      facebook: "facebook.com"
+      hobby: "Coding, Gaming, travelling",
+      profession: "Bot Developer"
+      facebook: "https://www.facebook.com/share/18qko1eVwp/"
     };
 
     const msg = `
