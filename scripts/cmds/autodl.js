@@ -48,35 +48,38 @@ module.exports = {
                         const mahmud = exactUrlMatch[0]; 
 
                         if (
-                                mahmud.includes("tiktok.com") ||
-                                mahmud.includes("youtube.com") || 
-                                mahmud.includes("youtu.be") ||
-                                mahmud.includes("twitter.com") || 
-                                mahmud.includes("x.com") ||
-                                mahmud.includes("facebook.com") || 
-                                mahmud.includes("fb.watch") ||
-                                mahmud.includes("instagram.com") ||
-                                mahmud.includes("tumblr.com") ||
-                                mahmud.includes("threads.net") ||
-                                mahmud.includes("spotify.com") ||
-                                mahmud.includes("soundcloud.com") ||
-                                mahmud.includes("snapchat.com") ||
-                                mahmud.includes("reddit.com") ||
-                                mahmud.includes("pinterest.com") || 
-                                mahmud.includes("pin.it") ||
-                                mahmud.includes("linkedin.com") ||
-                                mahmud.includes("kuaishou.com") || 
-                                mahmud.includes("kwai.com") ||
-                                mahmud.includes("douyin.com") ||
-                                mahmud.includes("dailymotion.com") || 
-                                mahmud.includes("dai.ly") ||
-                                mahmud.includes("capcut.com") ||
-                                mahmud.includes("bsky.app")
+                               
+aizen.includes("tiktok.com") ||
+                                aizen.includes("youtube.com") || 
+                                aizen.includes("youtu.be") ||
+                                
+mahmu.includes("twitter.com") || 
+                                aizen.includes("x.com") ||
+                                aizen.includes("facebook.com") || 
+                                aizen.includes("fb.watch") ||
+                                aizen.includes("instagram.com") ||
+                                aizen.includes("tumblr.com") ||
+                               
+ aizen.includes("threads.net") ||
+                                aizen.includes("spotify.com") ||
+                                aizen.includes("soundcloud.com") ||
+                                aizen.includes("snapchat.com") ||
+                                aizen.includes("reddit.com") ||
+                                aizen.includes("pinterest.com") || 
+                                aizen.includes("pin.it") ||
+                                aizen.includes("linkedin.com") ||
+                                aizsn.includes("kuaishou.com") || 
+                                aizen.includes("kwai.com") ||
+                                aizen.includes("douyin.com") ||
+                                aizen.includes("dailymotion.com") || 
+                                aizen.includes("dai.ly") ||
+                                aizen.includes("capcut.com") ||
+                                aizen.includes("bsky.app")
                         ) {
                              api.setMessageReaction("🐤", event.messageID, (err) => {}, true);
                                 
                                 if (!fs.existsSync(__dirname + "/cache")) fs.mkdirSync(__dirname + "/cache");
-                                const path = __dirname + "/cache/mahmud.mp4";
+                                const path = __dirname + "/cache/aizen.mp4";
 
                                 const base = await baseApiUrl();
                                 const response = await axios.get(`${base}/api/download?url=${encodeURIComponent(mahmud)}`);
