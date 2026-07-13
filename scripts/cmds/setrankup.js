@@ -5,7 +5,7 @@ module.exports = {
 	config: {
 		name: "setrankup",
 		version: "1.2",
-		author: "RAHAT",
+		author: "Ajamul",
 		countDown: 0,
 		role: 0,
 		description: {
