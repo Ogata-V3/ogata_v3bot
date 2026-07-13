@@ -38,7 +38,7 @@ module.exports = {
                         noGender: "× Baby, your gender is not defined in your profile",
                         noMatch: "× Sorry, no %1 members found for you in this group",
                         success: "💞 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥 𝐏𝐚𝐢𝐫𝐢𝐧𝐠\n• %1\n• %2\n\n𝐋𝐨𝐯𝐞 𝐏𝐞𝐫𝐜𝐞𝐧𝐭𝐚𝐠𝐞: %3%",
-                        error: "× API error: %1. Contact RAHAT for help."
+                        error: "× API error: %1. Contact Aizen for help."
                 },
                 vi: {
                         noGender: "× Cưng ơi, giới tính của cưng không được xác định",
