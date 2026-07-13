@@ -10,7 +10,7 @@ module.exports = {
                 name: "anicdp",
                 aliases: ["animecdp"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "aizen",
                 countDown: 10,
                 role: 0,
                 description: {
