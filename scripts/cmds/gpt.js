@@ -10,7 +10,7 @@ module.exports = {
                 name: "gpt",
                 aliases: ["gpt4"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Ajmaul",
                 countDown: 5,
                 role: 0,
                 description: {
