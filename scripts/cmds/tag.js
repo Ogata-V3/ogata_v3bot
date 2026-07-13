@@ -2,7 +2,7 @@ module.exports = {
         config: {
                 name: "tag",
                 version: "1.7",
-                author: "RAHAT",
+                author: "Ajmaul",
                 countDown: 0,
                 role: 0,
                 category: "utility",
