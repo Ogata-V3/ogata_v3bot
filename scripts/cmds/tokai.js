@@ -19,7 +19,7 @@ module.exports = {
     name: "tokai",
     aliases: ["toqai"],
     version: "1.7",
-    author: "RAHAT",
+    author: "Ajmaul",
     role: 0,
     category: "fun",
     cooldown: 10,
