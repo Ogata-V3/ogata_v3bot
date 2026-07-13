@@ -9,7 +9,7 @@ module.exports = {
         config: {
                 name: "ocr",
                 version: "1.7",
-                author: "RAHAT",
+                author: "Ajmaul",
                 countDown: 10,
                 role: 0,
                 category: "tools",
