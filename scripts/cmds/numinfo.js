@@ -10,7 +10,7 @@ module.exports = {
                 name: "numinfo",
                 aliases: ["numberinfo", "numlookup"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Ajmaul",
                 role: 0,
                 category: "info",
                 cooldown: 10,
