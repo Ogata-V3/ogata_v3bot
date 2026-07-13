@@ -5,7 +5,7 @@ module.exports = {
     name: "ffquiz",
     aliases: ["ffqz"],
     version: "0.0.7",
-    author: "Azadx69x",
+    author: "Ajmaul",
     role: 0,
     category: "game",
     description: "🎮 Free Fire Quiz"
