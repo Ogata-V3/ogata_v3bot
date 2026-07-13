@@ -6,7 +6,7 @@ module.exports.config = {
 name: "fluxdev",
 version: "1.0.1",
 hasPermission: 0,
-credits: "nexo_here",
+credits: "Ajmaul",
 description: "Generate image using FluxDev API",
 usePrefix: true,
 commandCategory: "AI-IMAGE",
