@@ -6,7 +6,7 @@ module.exports = {
                 name: "shell",
                 aliases: ["terminal", "sh"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Ajmaul",
                 countDown: 5,
                 role: 2,
                 description: {
