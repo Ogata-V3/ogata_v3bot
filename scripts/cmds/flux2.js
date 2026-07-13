@@ -6,7 +6,7 @@ module.exports = {
     name: "flux2",
     aliases: ["fluximg", "fluxv2"],
     version: "3.0",
-    author: "nexo_here",
+    author: "Ajmaul",
     countDown: 10,
     role: 0,
     shortDescription: "Generate AI image using Flux v2 API",
