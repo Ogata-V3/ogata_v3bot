@@ -10,7 +10,7 @@ module.exports = {
                 name: "aniqz2",
                 aliases: ["animeqz2"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Aizen",
                 countDown: 10,
                 role: 0,
                 description: {
