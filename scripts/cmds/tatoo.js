@@ -16,7 +16,7 @@ module.exports = {
   config: {
     name: "tatoo",
     version: "1.7",
-    author: "RAHAT",
+    author: "ajmaul",
     role: 0,
     category: "fun",
     cooldown: 10,
