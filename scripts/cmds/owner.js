@@ -5,7 +5,7 @@ module.exports = {
   config: {
     name: "owner",
     version: "1.0.0",
-    author: "Rahat",
+    author: "Ajmaul",
     category: "owner",
     guide: {
       en: "{pn}"
