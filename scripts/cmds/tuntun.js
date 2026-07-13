@@ -11,7 +11,7 @@ module.exports = {
         config: {
                 name: "tuntun",
                 version: "1.7",
-                author: "RAHAT",
+                author: "Ajmaul",
                 role: 0,
                 category: "fun",
                 cooldown: 10,
