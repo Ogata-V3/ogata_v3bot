@@ -16,7 +16,7 @@ module.exports = {
 		name: "emojimean",
 		alias: ["em", "emojimeaning", "emojimean"],
 		version: "1.4",
-		author: "RAHAT",
+		author: "Ajmaul",
 		countDown: 5,
 		role: 0,
 		description: {
