@@ -9,7 +9,7 @@ module.exports = {
         config: {
                 name: "ffinfo",
                 version: "1.7",
-                author: "RAHAT",
+                author: "ajmaul",
                 countDown: 5,
                 role: 0,
                 description: {
