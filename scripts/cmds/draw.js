@@ -11,7 +11,7 @@ module.exports = {
   config: {
     name: "draw",
     version: "1.7",
-    author: "RAHAT",
+    author: "ajmaul",
     countDown: 5,
     role: 0,
     category: "image",
