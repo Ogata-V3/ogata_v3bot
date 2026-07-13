@@ -9,7 +9,7 @@ module.exports = {
   config: {
     name: "xlnub",
     version: "1.7",
-    author: "RAHAT",
+    author: "Aizen",
     countDown: 10,
     role: 0,
     category: "Image gen",
