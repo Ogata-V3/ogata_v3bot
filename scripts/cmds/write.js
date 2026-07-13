@@ -12,7 +12,7 @@ module.exports = {
                 name: "write",
                 aliases: ["wr", "লিখুন"],
                 version: "1.7",
-                author: "RAHAT",
+                author: "Aizen",
                 countDown: 5,
                 role: 0,
                 description: {
