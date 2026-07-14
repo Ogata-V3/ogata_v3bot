@@ -4,8 +4,8 @@ const path = require("path");
 module.exports = {
 	config: {
 		name: "delete",
-    aliases: ["del"],
-		version: "1.7",
+		aliases: ["del"],
+		version: "1.8",
 		author: "Ajmaul",
 		countDown: 10,
 		role: 2,
@@ -41,14 +41,54 @@ module.exports = {
 		}
 
 		const commandName = args[0].toLowerCase();
-		const commandPath = path.join(__dirname, `${commandName}.js`);
+
+		// Recursively search for the command file starting from this
+		// command's folder root (handles commands stored in subfolders too)
+		function findCommandFile(startDir, fileName) {
+			const entries = fs.readdirSync(startDir, { withFileTypes: true });
+			for (const entry of entries) {
+				const fullPath = path.join(startDir, entry.name);
+				if (entry.isDirectory()) {
+					const found = findCommandFile(fullPath, fileName);
+					if (found) return found;
+				} else if (entry.isFile() && entry.name.toLowerCase() === fileName) {
+					return fullPath;
+				}
+			}
+			return null;
+		}
 
 		try {
-			if (!fs.existsSync(commandPath)) {
-			return message.reply(getLang("notFound", commandName));
+			// __dirname is this file's folder; go up one level to the
+			// commands root in case commands live in category subfolders
+			const searchRoot = path.resolve(__dirname, "..");
+			const commandPath = findCommandFile(searchRoot, `${commandName}.js`);
+
+			if (!commandPath) {
+				return message.reply(getLang("notFound", commandName));
 			}
 
-	    fs.unlinkSync(commandPath);
+			// Remove the file from disk
+			fs.unlinkSync(commandPath);
+
+			// Clear it from require cache so it stops being usable immediately
+			delete require.cache[require.resolve(commandPath)];
+
+			// Remove from the bot's active command registry, if present.
+			// Adjust this block to match your framework's actual global object
+			// (e.g. global.client.commands, global.GoatBot.commands, etc.)
+			if (global.client && global.client.commands) {
+				const cmd = global.client.commands.get(commandName);
+				if (cmd) {
+					global.client.commands.delete(commandName);
+					if (cmd.config && Array.isArray(cmd.config.aliases)) {
+						for (const alias of cmd.config.aliases) {
+							global.client.commands.delete(alias);
+						}
+					}
+				}
+			}
+
 			return message.reply(getLang("deleted", commandName));
 		} catch (err) {
 			return message.reply(getLang("error", err.message));
