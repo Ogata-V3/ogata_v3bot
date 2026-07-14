@@ -1,134 +1,130 @@
-const login = require("fca-delta");
-const fs = require("fs-extra");
-const path = require("path");
-const chalk = require("chalk");
+/**
+ * @author NTKhang
+ * ! The source code is written by NTKhang, please don't change the author's name everywhere. Thank you for using
+ * ! Official source code: https://github.com/ntkhang03/Goat-Bot-V2
+ * ! If you do not download the source code from the above address, you are using an unknown version and at risk of having your account hacked
+ *
+ * English:
+ * ! Please do not change the below code, it is very important for the project.
+ * It is my motivation to maintain and develop the project for free.
+ * ! If you change it, you will be banned forever
+ * Thank you for using
+ *
+ * Vietnamese:
+ * ! Vui lòng không thay đổi mã bên dưới, nó rất quan trọng đối với dự án.
+ * Nó là động lực để tôi duy trì và phát triển dự án miễn phí.
+ * ! Nếu thay đổi nó, bạn sẽ bị cấm vĩnh viễn
+ * Cảm ơn bạn đã sử dụng
+ */
 
-// ──────────────────────────────────────────────────────────────
-//  FLEXIBLE LOGIN SYSTEM — EMAIL/PASSWORD OR COOKIE
-// ──────────────────────────────────────────────────────────────
+const { spawn } = require("child_process");
+const log = require("./logger/log.js");
 
-async function flexibleLogin(config) {
-  return new Promise(async (resolve, reject) => {
-    const accountPath = path.join(process.cwd(), "account.txt");
-    let loginData = null;
+// ============ AUTO-RESTART CONFIGURATION ============
+const RESTART_CONFIG = {
+  minDelay: 3000,       // 3s minimum delay before restart
+  maxDelay: 60000,      // 60s maximum delay (cap for backoff)
+  resetAfter: 300000,   // reset crash counter after 5 minutes of stable uptime
+  maxCrashes: 10        // stop after 10 consecutive crashes (likely a fatal bug)
+};
 
-    try {
-      // ① Try Email/Password from config.json first
-      if (config.facebookAccount?.email && config.facebookAccount?.password) {
-        console.log(chalk.cyan("[LOGIN] Attempting email/password login..."));
-        
-        loginData = {
-          email: config.facebookAccount.email,
-          password: config.facebookAccount.password,
-          "2faSecret": config.facebookAccount["2FASecret"] || undefined
-        };
+let crashCount = 0;
+let lastCrashTime = null;
+let stableTimer = null;
 
-        login(loginData, { 
-          ...config.optionsFca,
-          forceLogin: true 
-        }, (err, api) => {
-          if (err) {
-            console.log(chalk.yellow("[LOGIN] Email/password failed, trying account.txt..."));
-            tryAccountFile();
-          } else {
-            console.log(chalk.green("[LOGIN] ✅ Email/password login successful!"));
-            resolve(api);
-          }
-        });
-      } else {
-        // No email/password, try account file directly
-        tryAccountFile();
-      }
+function getRestartDelay() {
+  // Exponential backoff: 3s, 6s, 12s, 24s, 48s, 60s, 60s...
+  const delay = Math.min(
+    RESTART_CONFIG.minDelay * Math.pow(2, crashCount - 1),
+    RESTART_CONFIG.maxDelay
+  );
+  return delay;
+}
 
-      // ② Fallback to account.txt
-      function tryAccountFile() {
-        if (fs.existsSync(accountPath)) {
-          try {
-            console.log(chalk.cyan("[LOGIN] Reading account.txt..."));
-            loginData = fs.readFileSync(accountPath, "utf8").trim();
-            
-            if (!loginData) {
-              throw new Error("account.txt is empty");
-            }
+function startProject() {
+  const startTime = Date.now();
 
-            // Try as appstate (JSON)
-            try {
-              loginData = JSON.parse(loginData);
-              console.log(chalk.cyan("[LOGIN] Attempting appstate.json login..."));
-            } catch {
-              // Try as cookie string
-              console.log(chalk.cyan("[LOGIN] Attempting cookie login..."));
-              loginData = { cookies: loginData };
-            }
+  // Clear any previous stable timer
+  if (stableTimer) clearTimeout(stableTimer);
 
-            login(loginData, config.optionsFca, (err, api) => {
-              if (err) {
-                console.error(chalk.red("[LOGIN] Account.txt login failed:", err.message));
-                reject(err);
-              } else {
-                console.log(chalk.green("[LOGIN] ✅ Account.txt login successful!"));
-                resolve(api);
-              }
-            });
-          } catch (e) {
-            console.error(chalk.red("[LOGIN] Error reading account.txt:", e.message));
-            reject(e);
-          }
-        } else {
-          console.error(chalk.red("[LOGIN] ❌ No login method available!"));
-          console.error(chalk.yellow("Please provide either:"));
-          console.error(chalk.yellow("  1. email & password in config.json"));
-          console.error(chalk.yellow("  2. account.txt file with cookie/appstate"));
-          reject(new Error("No login credentials found"));
-        }
-      }
+  const child = spawn("node", ["Goat.js"], {
+    cwd: __dirname,
+    stdio: "inherit",
+    shell: true
+  });
 
-    } catch (error) {
-      reject(error);
+  // If bot runs stably for resetAfter ms, reset crash counter
+  stableTimer = setTimeout(() => {
+    if (crashCount > 0) {
+      console.log(`[AUTO-RESTART] ✓ Bot stable for 5 minutes — resetting crash counter (was ${crashCount})`);
+      crashCount = 0;
     }
+  }, RESTART_CONFIG.resetAfter);
+
+  child.on("close", (code) => {
+    if (stableTimer) clearTimeout(stableTimer);
+
+    const uptime = Math.floor((Date.now() - startTime) / 1000);
+
+    // Exit code 0 = clean exit (intentional stop), don't restart
+    if (code === 0) {
+      console.log(`[AUTO-RESTART] Bot stopped cleanly (uptime: ${uptime}s). Not restarting.`);
+      return;
+    }
+
+    // Exit code 2 = intentional restart signal from bot (e.g. .restart command)
+    if (code === 2) {
+      console.log(`[AUTO-RESTART] ↻ Bot requested restart (uptime: ${uptime}s). Restarting now...`);
+      crashCount = 0;
+      return startProject();
+    }
+
+    // Any other exit = crash
+    crashCount++;
+    lastCrashTime = Date.now();
+    const delay = getRestartDelay();
+
+    if (crashCount >= RESTART_CONFIG.maxCrashes) {
+      console.log(`[AUTO-RESTART] ❌ Bot crashed ${crashCount} times in a row. Stopping auto-restart to prevent infinite loop.`);
+      console.log(`[AUTO-RESTART] Please check the logs and fix the error, then restart manually.`);
+      return;
+    }
+
+    console.log(`[AUTO-RESTART] ⚠ Bot crashed with code ${code} (uptime: ${uptime}s, crash #${crashCount}). Restarting in ${delay / 1000}s...`);
+
+    setTimeout(() => {
+      console.log(`[AUTO-RESTART] ↻ Restarting now... (attempt ${crashCount}/${RESTART_CONFIG.maxCrashes})`);
+      startProject();
+    }, delay);
+  });
+
+  child.on("error", (err) => {
+    console.error(`[AUTO-RESTART] Failed to start process:`, err.message);
   });
 }
 
-// ──────────────────────────────────────────────────────────────
-//  MAIN BOT STARTUP
-// ──────────────────────────────────────────────────────────────
+// ============ START BOT ============
+console.log(`[AUTO-RESTART] Starting bot with auto-restart enabled...`);
+startProject();
 
-async function startBot() {
-  try {
-    console.log(chalk.blue.bold("\n╔════════════════════════════════════╗"));
-    console.log(chalk.blue.bold("║   GOATBOT V2 - STARTING BOT         ║"));
-    console.log(chalk.blue.bold("╚════════════════════════════════════╝\n"));
+// ============ UPTIME SERVER ============
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-    // Load config
-    const configPath = path.join(process.cwd(), "config.json");
-    if (!fs.existsSync(configPath)) {
-      throw new Error("config.json not found!");
-    }
+app.get('/', (req, res) => {
+  res.send(`<h1>✅ Bot is running</h1><p>Uptime: ${Math.floor(process.uptime())}s | Crash count: ${crashCount}</p>`);
+});
 
-    const config = fs.readJsonSync(configPath);
-    console.log(chalk.green("[CONFIG] Loaded successfully"));
+app.get('/uptime', (req, res) => {
+  res.json({
+    status: 'ok',
+    uptime: Math.floor(process.uptime()),
+    crashCount,
+    lastCrashTime
+  });
+});
 
-    // Login with flexible method
-    const api = await flexibleLogin(config);
-    console.log(chalk.green("[API] Connected to Facebook!\n"));
-
-    // Rest of your bot initialization code
-    console.log(chalk.cyan("[BOT] Initializing bot systems..."));
-    
-    // Load bot handler, commands, events etc here
-    // ... (your existing bot code)
-
-    console.log(chalk.green.bold("\n✅ BOT STARTED SUCCESSFULLY!\n"));
-
-  } catch (error) {
-    console.error(chalk.red.bold("\n❌ BOT STARTUP FAILED!"));
-    console.error(chalk.red(error.message));
-    console.error(chalk.red(error.stack));
-    process.exit(1);
-  }
-}
-
-// Start bot
-startBot();
-
-module.exports = { flexibleLogin };
+app.listen(PORT, () => {
+  console.log(`[UPTIME] Server running on port ${PORT}`);
+});
