@@ -1038,7 +1038,6 @@ async function startBot(loginWithEmail) {
                         log.master("LOAD TIME", `${convertTime(Date.now() - global.GoatBot.startTime)}`);
                         logColor("#f5ab00", createLine("COPYRIGHT"));
                         
-                        console.log(`\x1b[1m\x1b[33m${("COPYRIGHT:")}\x1b[0m\x1b[1m\x1b[37m \x1b[0m\x1b[1m\x1b[36m${("GoatBot V2 Fork by mdajmaul. Credit: NTKhang (Original Author). Do not sell this source code.")}\x1b[0m`);
                         logColor("#f5ab00", character);
                         
                         global.GoatBot.config.adminBot = adminBot;
