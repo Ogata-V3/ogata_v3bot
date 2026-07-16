@@ -31,7 +31,7 @@
     },
     {
         "name": "fr",
-        "value": "0GI2PGVIvKOmL9qxC.AWfF7__xHzRk1Usl9obDTLu68mzNI6jiN3U0weURhgwvc2rW91g.BqUwbn..AAA.0.0.BqWSlU.AWdBJ4rJ3Z3iv4kwlumDzO7JEeU",
+        "value": "0GI2PGVIvKOmL9qxC.AWd19Y16lFdyR4KMarRfsS4-ySZRqtEx0_y2cyO2HhuyhcUZx7E.BqUwbn..AAA.0.0.BqWS9A.AWdCXuyEiH-1tAzvMgFojBkz9XE",
         "domain": ".facebook.com",
         "hostOnly": false,
         "path": "/",
@@ -41,7 +41,7 @@
         "session": false,
         "firstPartyDomain": "",
         "partitionKey": null,
-        "expirationDate": 1792004179.32,
+        "expirationDate": 1792005695.482,
         "storeId": null
     },
     {
@@ -56,7 +56,7 @@
         "session": false,
         "firstPartyDomain": "",
         "partitionKey": null,
-        "expirationDate": 1789412180,
+        "expirationDate": 1789413697,
         "storeId": null
     },
     {
@@ -76,7 +76,7 @@
     },
     {
         "name": "fbl_st",
-        "value": "101734812%3BT%3A29737136",
+        "value": "101731756%3BT%3A29737161",
         "domain": ".facebook.com",
         "hostOnly": false,
         "path": "/",
@@ -86,7 +86,7 @@
         "session": false,
         "firstPartyDomain": "",
         "partitionKey": null,
-        "expirationDate": 1815764180,
+        "expirationDate": 1815765697,
         "storeId": null
     },
     {
@@ -146,7 +146,7 @@
         "session": false,
         "firstPartyDomain": "",
         "partitionKey": null,
-        "expirationDate": 1818788179.32,
+        "expirationDate": 1818789695.482,
         "storeId": null
     },
     {
@@ -181,7 +181,7 @@
     },
     {
         "name": "wl_cbv",
-        "value": "v2%3Bclient_version%3A3217%3Btimestamp%3A1784228180",
+        "value": "v2%3Bclient_version%3A3217%3Btimestamp%3A1784229696",
         "domain": ".facebook.com",
         "hostOnly": false,
         "path": "/",
@@ -191,7 +191,7 @@
         "session": false,
         "firstPartyDomain": "",
         "partitionKey": null,
-        "expirationDate": 1792004180,
+        "expirationDate": 1792005696,
         "storeId": null
     }
 ]
