@@ -62,7 +62,23 @@ module.exports = {
 
                         const data = response.data;
                         const info = `
-👤 Player Info:
-━━━━━━━━━━━
-📱 Nickname: ${data.nickname}
-🆔 UID: ${data.uid}
+🎮 Free Fire Player Info
+━━━━━━━━━━━━━━━━━━━━━
+👤 Nickname: ${data.nickname || "N/A"}
+🆔 UID: ${uid}
+⭐ Level: ${data.level || "N/A"}
+🏆 Rank: ${data.rank || "N/A"}
+⚔️ Kills: ${data.kills || 0}
+💀 Deaths: ${data.deaths || 0}
+📊 K/D: ${((data.kills || 0) / (data.deaths || 1)).toFixed(2)}
+🎯 Wins: ${data.wins || 0}
+━━━━━━━━━━━━━━━━━━━━━
+                        `;
+
+                        return message.reply(info);
+
+                } catch (error) {
+                        return message.reply(lang.error.replace("%1", error.message || "Unknown error"));
+                }
+        }
+};
