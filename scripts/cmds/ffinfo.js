@@ -29,7 +29,7 @@ module.exports = {
                 bn: {
                         noUid: "• দয়া করে একটি ফ্রি ফায়ার UID দিন।",
                         notFound: "× প্লেয়ার খুঁজে পাওয়া যায়নি!",
-                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
+                        error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
                 },
                 en: {
                         noUid: "• Please provide a Free Fire UID.\n\nexample: !ffinfo 404394256",
@@ -44,5 +44,25 @@ module.exports = {
         },
 
         onStart: async function ({ api, event, args, message, getLang }) {
-        }
-};
+                const lang = getLang();
+                
+                if (!args[0]) {
+                        return message.reply(lang.noUid);
+                }
+
+                const uid = args[0];
+                
+                try {
+                        const apiUrl = await mahmud();
+                        const response = await axios.get(`${apiUrl}/userinfo?uid=${uid}`);
+                        
+                        if (!response.data || response.data.error) {
+                                return message.reply(lang.notFound);
+                        }
+
+                        const data = response.data;
+                        const info = `
+👤 Player Info:
+━━━━━━━━━━━
+📱 Nickname: ${data.nickname}
+🆔 UID: ${data.uid}
