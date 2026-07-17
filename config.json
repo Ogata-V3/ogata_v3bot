@@ -43,8 +43,8 @@
   },
 
   "database": {
-    "type": "mongodb",
-    "uriMongodb": "${process.env.MONGODB_URI}"
+    "type": "sqlite",
+    "uriMongodb": ""
   },
 
   "timeZone": "Asia/Dhaka",
