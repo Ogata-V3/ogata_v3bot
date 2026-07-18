@@ -1,76 +1,52 @@
 const axios = require("axios");
 
 const baseApiUrl = async () => {
-	const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/HINATA/main/baseApiUrl.json");
-	return base.data.mahmud;
+  const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/exe/main/baseApiUrl.json");
+  return base.data.mahmud
 };
 
 module.exports = {
-	config: {
-		name: "say",
-		version: "1.7",
-		author: "Ajmaul",
-		countDown: 5,
-		role: 0,
-		description: {
-			bn: "যেকোনো লেখাকে অডিও বা ভয়েস মেসেজে রূপান্তর করুন",
-			en: "Convert any text into an audio or voice message",
-			vi: "Chuyển đổi bất kỳ văn bản nào thành tin nhắn âm thanh hoặc giọng nói"
-		},
-		category: "media",
-		guide: {
-			bn: '   {pn} <লেখা>: (অথবা কোনো মেসেজে রিপ্লাই দিন)',
-			en: '   {pn} <text>: (or reply to a message)',
-			vi: '   {pn} <văn bản>: (hoặc trả lời tin nhắn)'
-		}
-	},
+  config: {
+    name: "say",
+    version: "1.7",
+    author: "MahMUD",
+    countDown: 5,
+    role: 0,
+    category: "media",
+    guide: "{pn} <text> (or reply to a message)",
+  },
 
-	langs: {
-		bn: {
-			noInput: "× বেবি, কিছু তো লেখো অথবা মেসেজে রিপ্লাই দাও",
-			error: "× সমস্যা হয়েছে: %1। প্রয়োজনে Contact Aizen।"
-		},
-		en: {
-			noInput: "× Baby, please write something or reply to a message",
-			error: "× API error: %1. Contact Aizen for help."
-		},
-		vi: {
-			noInput: "× Cưng ơi, hãy viết gì đó hoặc phản hồi tin nhắn",
-			error: "× Lỗi: %1. Liên hệ Aizen để hỗ trợ."
-		}
-	},
+  onStart: async function ({ api, message, args, event }) {
+    let text = args.join(" ");
 
-	onStart: async function ({ api, event, args, message, getLang }) {
+    if (event.type === "message_reply" && event.messageReply.body) {
+      text = event.messageReply.body;
+    }
 
-		let text = args.join(" ");
-		if (event.type === "message_reply" && event.messageReply.body) {
-			text = event.messageReply.body;
-		}
+    if (!text) {
+      return message.reply("⚠️ দয়া করে কিছু লিখুন বা একটি মেসেজে রিপ্লাই দিন!");
+    }
 
-		if (!text) return message.reply(getLang("noInput"));
+    try {
+      const baseUrl = await baseApiUrl();
+      const response = await axios.get(`${baseUrl}/api/say`, {
+        params: { text },
+        headers: { "Author": module.exports.config.author },
+        responseType: "stream",
+      });
 
-		try {
-			api.setMessageReaction("⏳", event.messageID, () => {}, true);
+      if (response.data.error) {
+        return message.reply(`❌ Error: ${response.data.error}`);
+      }
 
-			const baseUrl = await baseApiUrl();
-			const response = await axios.get(`${baseUrl}/api/say`, {
-				params: { text },
-				headers: { "Author": "Ajmaul" }, // fixed: was undefined "authorName", now uses config.author value
-				responseType: "stream"
-			});
+      message.reply({
+        body: "",
+        attachment: response.data,
+      });
 
-			return message.reply({
-				body: "",
-				attachment: response.data
-			}, () => {
-				api.setMessageReaction("🪽", event.messageID, () => {}, true);
-			});
-
-		} catch (err) {
-			console.error("Say Error:", err);
-			api.setMessageReaction("❌", event.messageID, () => {}, true);
-			const errorMsg = err.response?.data?.error || err.message;
-			return message.reply(getLang("error", errorMsg));
-		}
-	}
+    } catch (e) {
+      console.error("API Error:", e.response ? e.response.data : e.message);
+      message.reply("🐥 দুঃখিত, কিছু একটা সমস্যা হয়েছে!\n\nfix Author name\n" + (e.response?.data?.error || e.message));
+    }
+  },
 };
