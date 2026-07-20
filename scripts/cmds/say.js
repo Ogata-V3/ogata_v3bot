@@ -1,10 +1,5 @@
 const axios = require("axios");
 
-const baseApiUrl = async () => {
-  const base = await axios.get("https://raw.githubusercontent.com/mahmudx7/exe/main/baseApiUrl.json");
-  return base.data.mahmud
-};
-
 module.exports = {
   config: {
     name: "say",
@@ -24,29 +19,27 @@ module.exports = {
     }
 
     if (!text) {
-      return message.reply("⚠️ দয়া করে কিছু লিখুন বা একটি মেসেজে রিপ্লাই দিন!");
+      return message.reply("⚠️ দয়া করে কিছু লিখুন বা একটি মেসেজে রিপ্লাই দিন!");
     }
 
     try {
-      const baseUrl = await baseApiUrl();
-      const response = await axios.get(`${baseUrl}/api/say`, {
-        params: { text },
-        headers: { "Author": module.exports.config.author },
+      // Using alternative TTS API
+      const response = await axios.get(`https://tts-api.com/tts`, {
+        params: { 
+          text: text,
+          lang: "bn"
+        },
         responseType: "stream",
       });
 
-      if (response.data.error) {
-        return message.reply(`❌ Error: ${response.data.error}`);
-      }
-
       message.reply({
-        body: "",
+        body: "🎤 আপনার বার্তা:",
         attachment: response.data,
       });
 
     } catch (e) {
-      console.error("API Error:", e.response ? e.response.data : e.message);
-      message.reply("🐥 দুঃখিত, কিছু একটা সমস্যা হয়েছে!\n\nfix Author name\n" + (e.response?.data?.error || e.message));
+      console.error("API Error:", e.message);
+      message.reply("🐥 দুঃখিত, TTS API এখন উপলব্ধ নয়। পরে চেষ্টা করুন।");
     }
   },
 };
