@@ -194,17 +194,17 @@ module.exports = {
 		if (!event.body)
 			return;
 		const threadData = global.db.allThreadData.find(t => t.threadID === event.threadID) || await threadsData.create(event.threadID);
-		const isEnabled = threadData.settings.badWords;
+		const isEnabled = threadData.settings?.badWords;
 		if (!isEnabled)
 			return;
-		const allAliases = [...(global.GoatBot.commands.get("badwords").config.aliases || []), ...(threadData.data.aliases?.["badwords"] || [])];
+		const allAliases = [...(global.GoatBot.commands.get("badwords").config.aliases || []), ...(threadData.data?.aliases?.["badwords"] || [])];
 		const isCommand = allAliases.some(a => event.body.startsWith(prefix + a));
 		if (isCommand)
 			return;
-		const badWordList = threadData.data.badWords?.words;
+		const badWordList = threadData.data?.badWords?.words;
 		if (!badWordList || badWordList.length === 0)
 			return;
-		const violationUsers = threadData.data.badWords?.violationUsers || {};
+		const violationUsers = threadData.data?.badWords?.violationUsers || {};
 
 		for (const word of badWordList) {
 			if (event.body.match(new RegExp(`\\b${word}\\b`, "gi"))) {
