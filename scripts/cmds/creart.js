@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "creart",
     version: "1.2",
-    author: "Ajmaul",
+    author: "ajmaul",
     countDown: 5,
     role: 0,
     shortDescription: "Generate AI image",

@@ -1,7 +1,7 @@
 module.exports.config = {
   name: "autoreact",
   version: "3.2",
-  author: "Ajmaul",
+  author: "ajmaul",
   countDown: 0,
   role: 0,
   shortDescription: "Auto react to owner's messages based on keywords",

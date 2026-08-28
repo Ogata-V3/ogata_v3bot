@@ -12,7 +12,7 @@ module.exports = {
                 name: "video",
                 aliases: ["ভিডিও"],
                 version: "1.7",
-                author: "Ajmaul",
+                author: "ajmaul",
                 countDown: 10,
                 role: 0,
                 description: {

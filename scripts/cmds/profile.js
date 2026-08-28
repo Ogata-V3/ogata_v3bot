@@ -12,7 +12,7 @@ module.exports = {
                 name: "profile",
                 aliases: ["pp", "dp", "pfp", "প্রোফাইল"],
                 version: "1.7",
-                author: "MahMUD",
+                author: "ajmaul",
                 countDown: 5,
                 role: 0,
                 description: {

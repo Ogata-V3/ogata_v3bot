@@ -18,7 +18,7 @@ module.exports = {
   config: {
     name: "toilet",
     version: "1.7",
-    author: "Ajmaul",
+    author: "ajmaul",
     role: 0,
     category: "fun",
     cooldown: 10,

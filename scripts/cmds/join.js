@@ -3,7 +3,7 @@ module.exports = {
     name: "join",
     aliases: ["addme"],
     version: "1.0",
-    author: "Ajmaul",
+    author: "ajmaul",
     shortDescription: "Add yourself to a group by tid",
     longDescription: "Bot adds the command sender to a group specified by tid if bot is present",
     category: "owner",

@@ -12,7 +12,7 @@ module.exports = {
                 name: "trigger",
                 aliases: ["triggered"],
                 version: "1.0",
-                author: "Ajmaul",
+                author: "ajmaul",
                 countDown: 10,
                 role: 0,
                 description: {

@@ -4,7 +4,7 @@ module.exports = {
 	config: {
 		name: "thread",
 		version: "1.5",
-		author: "Ajmaul",
+		author: "ajmaul",
 		countDown: 5,
 		role: 0,
 		description: {

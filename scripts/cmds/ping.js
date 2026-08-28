@@ -2,7 +2,7 @@ module.exports = {
         config: {
                 name: "ping",
                 version: "1.7",
-                author: "Ajmaul",
+                author: "ajmaul",
                 countDown: 5,
                 role: 0,
                 description: {

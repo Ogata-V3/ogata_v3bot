@@ -8,7 +8,7 @@ module.exports = {
     name: "up",
     aliases: ["dashboard"],
     version: "0.0.7",
-    author: "Aizen",//Author change korle tor marechudi
+    author: "ajmaul",//Author change korle tor marechudi
     role: 0,
     countDown: 5,
     shortDescription: { en: "System status card" },

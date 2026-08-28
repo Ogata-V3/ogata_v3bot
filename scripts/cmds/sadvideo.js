@@ -6,7 +6,7 @@ module.exports = {
   config: {
     name: "sad",
     version: "2.0.0",
-    author: " Ajmaul ",
+    author: "ajmaul",
     countDown: 5,
     role: 0,
     shortDescription: "Sad video sender 😢",

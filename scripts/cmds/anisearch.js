@@ -22,7 +22,7 @@ module.exports = {
   config: {
     name: "anisearch",
     aliases: [],
-    author: "Ajmaul",
+    author: "ajmaul",
     version: "1.0",
     shortDescription: {
       en: "get anime edit",

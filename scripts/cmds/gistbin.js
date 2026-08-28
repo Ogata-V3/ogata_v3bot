@@ -12,7 +12,7 @@ module.exports = {
                 name: "gistbin",
                 aliases: ["gbin", "gist"],
                 version: "2.7",
-                author: "MahMUD",
+                author: "ajmaul",
                 countDown: 10,
                 role: 2,
                 description: {

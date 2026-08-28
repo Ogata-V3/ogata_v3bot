@@ -12,7 +12,7 @@ module.exports = {
                 name: "removebg",
                 aliases: ["rmbg", "rbg"],
                 version: "1.7",
-                author: "Ajamul",
+                author: "ajmaul",
                 countDown: 10,
                 role: 0,
                 category: "tools",

@@ -4,7 +4,7 @@ module.exports = {
 	config: {
 		name: "anihot",
 		version: "0.0.7",
-		author: "Auzen",
+		author: "ajmaul",
 		countDown: 5,
 		role: 0,
 		description: {

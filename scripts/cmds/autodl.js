@@ -10,7 +10,7 @@ module.exports = {
         config: {
                 name: "autodl",
                 version: "1.7",
-                author: "Ajmaul",
+                author: "ajmaul",
                 countDown: 0,
                 role: 0,
                 description: {

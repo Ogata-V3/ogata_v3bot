@@ -4,7 +4,7 @@ const cool = 10000;
 module.exports.config = {
   name: "greetings",
   version: "5.1",
-  author: "Ajmaul",
+  author: "ajmaul",
   countDown: 0,
   role: 0,
   shortDescription: "Auto greeting reply system",

@@ -6,7 +6,7 @@ module.exports = {
     name: "flux3",
     aliases: ["fluxv3"],
     version: "1.0",
-    author: "Ajmaul",
+    author: "ajmaul",
     countDown: 10,
     role: 0,
     shortDescription: "Generate AI image using FluxAWS API",

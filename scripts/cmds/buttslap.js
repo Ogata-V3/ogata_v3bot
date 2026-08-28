@@ -12,7 +12,7 @@ module.exports = {
                 name: "buttslap",
                 aliases: ["butslap"],
                 version: "1.7",
-                author: "Ajmaul",
+                author: "ajmaul",
                 role: 0,
                 category: "fun",
                 cooldown: 8,

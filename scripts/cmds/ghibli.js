@@ -12,7 +12,7 @@ module.exports = {
                 name: "ghibli",
                 aliases: ["ghib", "ghibliart"],
                 version: "1.7",
-                author: "MahMUD", // credit Change dile thapramu kintu.
+                author: "ajmaul", // credit Change dile thapramu kintu.
                 countDown: 10,
                 role: 0,
                 description: {

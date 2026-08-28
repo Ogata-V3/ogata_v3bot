@@ -10,7 +10,7 @@ module.exports = {
                 name: "caption",
                 aliases: ["cp", "ক্যাপশন"],
                 version: "1.7",
-                author: "Ajmaul",
+                author: "ajmaul",
                 countDown: 5,
                 role: 0,
                 description: {

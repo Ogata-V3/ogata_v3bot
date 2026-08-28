@@ -9,7 +9,7 @@ module.exports = {
         config: {
                 name: "gemini",
                 version: "3.7",
-                author: "MahMUD",
+                author: "ajmaul",
                 countDown: 10,
                 role: 0,
                 category: "ai",

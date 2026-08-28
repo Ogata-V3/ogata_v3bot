@@ -11,7 +11,7 @@ module.exports = {
         config: {
                 name: "clown",
                 version: "1.7",
-                author: "Ajmaul",
+                author: "ajmaul",
                 role: 0,
                 category: "fun",
                 cooldown: 10,

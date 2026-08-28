@@ -10,7 +10,7 @@ module.exports = {
                 name: "github",
                 aliases: ["git"],
                 version: "2.7",
-                author: "MahMUD",
+                author: "ajmaul",
                 countDown: 10,
                 category: "github",
                 description: {

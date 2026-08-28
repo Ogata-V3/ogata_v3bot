@@ -17,7 +17,7 @@ module.exports = {
     name: "flower",
     version: "1.7",
     role: 0,
-    author: "Ajmaul",
+    author: "ajmaul",
     category: "media",
     guide: {
       en: "Use {pn} to get a random Flower video."

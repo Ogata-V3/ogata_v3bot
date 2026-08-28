@@ -35,7 +35,7 @@ module.exports = {
 	config: {
 		name: "event",
 		version: "1.9",
-		author: "Ajmaul",
+		author: "ajmaul",
 		countDown: 5,
 		role: 2,
 		description: {

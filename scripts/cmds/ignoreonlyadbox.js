@@ -3,7 +3,7 @@ module.exports = {
 		name: "ignoreonlyadbox",
 		aliases: ["ignoreadboxonly", "ignoreadminboxonly"],
 		version: "1.2",
-		author: "Ajmaul",
+		author: "ajmaul",
 		countDown: 5,
 		role: 2,
 		description: {

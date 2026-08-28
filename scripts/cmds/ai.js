@@ -9,7 +9,7 @@ module.exports = {
         config: {
                 name: "ai",
                 version: "1.7",
-                author: "Aizen",
+                author: "ajmaul",
                 countDown: 5,
                 role: 0,
                 description: {

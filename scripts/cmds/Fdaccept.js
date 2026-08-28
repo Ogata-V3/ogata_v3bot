@@ -7,7 +7,7 @@ module.exports = {
     name: "fdaccept",
     aliases: ["fdacp", "fdrequest "],
     version: "2.1",
-    author: "Ajmaul",
+    author: "ajmaul",
     countDown: 8,
     role: 2,
     shortDescription: "Accept all friend requests automatically",

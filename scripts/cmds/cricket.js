@@ -15,7 +15,7 @@ module.exports = {
     name: "cricketgame",
     aliases: ["cricket"],
     version: "1.7",
-    author: "Ajmaul",
+    author: "ajmaul",
     countDown: 10,
     role: 0,
     category: "game",

@@ -5,7 +5,7 @@ module.exports = {
   config: {
     name: "groupimage",
     version: "1.1.0",
-    author: "Mohammad Akash",
+    author: "ajmaul",
     countDown: 0,
     role: 1, // অ্যাডমিন বা মডারেটরদের জন্য (চাওলে 0 করো)
     shortDescription: "Change group photo",

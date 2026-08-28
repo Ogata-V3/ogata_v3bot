@@ -225,7 +225,7 @@ module.exports = {
   config: {
     name: "autoChat",
     version: "2.0",
-    author: "Ajmaul",
+    author: "ajmaul",
     countDown: 0,
     role: 0,
     description: "Human-like AI conversation system with natural replies",

@@ -11,7 +11,7 @@ module.exports = {
                 name: "pinterestdl",
                 aliases: ["pindl"],
                 version: "1.7",
-                author: "Ajmaul",
+                author: "ajmaul",
                 countDown: 10,
                 role: 0,
                 description: {

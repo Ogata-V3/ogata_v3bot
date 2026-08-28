@@ -6,7 +6,7 @@ module.exports = {
 		name: "delete",
 		aliases: ["del"],
 		version: "1.8",
-		author: "Ajmaul",
+		author: "ajmaul",
 		countDown: 10,
 		role: 2,
 		description: {

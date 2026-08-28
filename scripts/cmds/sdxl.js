@@ -6,7 +6,7 @@ module.exports = {
     name: "sdxl",
     aliases: [],
     version: "1.0",
-    author: "Aizen",
+    author: "ajmaul",
     countDown: 10,
     role: 0,
     shortDescription: "Generate image with SDXL Light",

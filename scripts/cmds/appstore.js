@@ -5,7 +5,7 @@ module.exports = {
 	config: {
 		name: "appstore",
 		version: "1.2",
-		author: "aizen",
+		author: "ajmaul",
 		countDown: 5,
 		role: 0,
 		description: {

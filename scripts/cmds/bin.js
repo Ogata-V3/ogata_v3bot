@@ -7,7 +7,7 @@ module.exports = {
     name: "pastebin",
     aliases: ["bin"],
     version: "1.4",
-    author: "Aizen", // lalalalala
+    author: "ajmaul", // lalalalala
     countDown: 5,
     role: 0,
     shortDescription: "Upload a command's code to Pastebin.",

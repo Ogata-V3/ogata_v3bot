@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "say",
     version: "1.7",
-    author: "Aizen",
+    author: "ajmaul",
     countDown: 5,
     role: 0,
     category: "media",

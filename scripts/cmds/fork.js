@@ -2,7 +2,7 @@ module.exports = {
         config: {
                 name: "fork",
                 version: "2.7",
-                author: "MahMUD",
+                author: "ajmaul",
                 countDown: 5,
                 role: 0,
                 description: {

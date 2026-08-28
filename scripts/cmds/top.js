@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "top",
     version: "1.7",
-    author: "MahMUD",
+    author: "ajmaul",
     role: 0,
     category: "economy",
     guide: {

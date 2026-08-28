@@ -15,7 +15,7 @@ module.exports = {
     name: "wordgame",
     aliases: ["wordguss", "word"],
     version: "1.0",
-    author: "Ajmaul",
+    author: "ajmaul",
     role: 0,
     reward: 100,
     category: "game",

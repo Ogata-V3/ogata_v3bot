@@ -3,7 +3,7 @@ module.exports = {
     name: "utils",
     aliases: ["util"],
     version: "1.0",
-    author: "Ajmaul",
+    author: "ajmaul",
     countDown: 5,
     role: 2,
     shortDescription: "Bot utility info",

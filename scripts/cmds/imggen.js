@@ -6,7 +6,7 @@ module.exports = {
     name: "imgen",
     aliases: ["imggen", "imagine"],
     version: "1.0",
-    author: "nexo_here",
+    author: "ajmaul",
     countDown: 10,
     role: 0,
     shortDescription: "Generate AI image using imgen API",

@@ -9,7 +9,7 @@ module.exports = {
     name: "nc",
     version: "1.2",
     role: 2,
-    author: "Aizen_here",
+    author: "ajmaul",
     category: "fun",
     shortDescription: "Send random nude cosplay by page",
     longDescription: "Get a cosplay profile with 3 images; use page like: {pn} 2",

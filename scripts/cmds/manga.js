@@ -5,7 +5,7 @@ module.exports = {
     name: "manga",
     aliases: ["man", "ani-manga"],
     version: "1.0",
-    author: "Ajmaul",
+    author: "ajmaul",
     countDown: 0,
     role: 0,
     description: "Search Manga info using AniList API",

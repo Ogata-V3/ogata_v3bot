@@ -16,7 +16,7 @@ module.exports = {
   config: {
     name: "userdata",
     version: "1.0.0",
-    author: "Zoro",
+    author: "ajmaul",
     countDown: 3,
     role: 0,
     shortDescription: "Save/get any custom user data",

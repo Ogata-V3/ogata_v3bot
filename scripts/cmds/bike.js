@@ -18,7 +18,7 @@ module.exports = {
     aliases: ["bikevideo", "bikevid"],
     version: "1.7",
     role: 0,
-    author: "Aizen",
+    author: "ajmaul",
     category: "media",
     guide: {
       en: "Use {pn} to get a random bike video."

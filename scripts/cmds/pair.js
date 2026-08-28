@@ -5,7 +5,7 @@ const { createCanvas, loadImage } = require("canvas");
 module.exports = {
   config: {
     name: "pair",
-    author: "Ew'r Saim X Ariyan",
+    author: "ajmaul",
     category: "love",
   },
 

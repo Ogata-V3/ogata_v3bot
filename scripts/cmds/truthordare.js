@@ -12,7 +12,7 @@ module.exports = {
     name: "truthordare",
     aliases: ["td", "tord"],
     version: "1.7",
-    author: "Ajmaul",
+    author: "ajmaul",
     role: 0,
     category: "game",
     description: "Play Truth or Dare, add new questions, or list total questions.",

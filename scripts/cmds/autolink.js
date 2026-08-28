@@ -5,7 +5,7 @@ module.exports = {
     config: {
         name: "autolink",
         version: "1.3",
-        author: "Ajmaul",
+        author: "ajmaul",
         countDown: 5,
         role: 0,
         shortDescription: "Auto-download & send videos silently (no messages)",

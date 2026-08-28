@@ -13,7 +13,7 @@ module.exports = {
     aliases: ["onepiecevid", "onep", "onepvideo"],
     version: "1.7",
     role: 0,
-    author: "Ajmaul",
+    author: "ajmaul",
     category: "anime",
     guide: {
       en: "Use {pn} to get a random onepiece video."

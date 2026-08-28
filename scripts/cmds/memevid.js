@@ -13,7 +13,7 @@ module.exports = {
     aliases: ["memevid"],
     version: "1.7",
     role: 0,
-    author: "Ajmaul",
+    author: "ajmaul",
     category: "fun",
     guide: {
       en: "Use {pn} to get a random meme video."

@@ -9,7 +9,7 @@ module.exports = {
         config: {
                 name: "ss",
                 version: "1.7",
-                author: "Ajmaul",
+                author: "ajmaul",
                 role: 0,
                 description: {
                         en: "Take a screenshot of a website",
