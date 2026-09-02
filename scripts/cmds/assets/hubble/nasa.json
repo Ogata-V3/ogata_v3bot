@@ -1,0 +1,128 @@
+[
+  {
+    "date": "January 1",
+    "image": "hst_bday_jan01.jpg",
+    "name": "Star Cluster NGC 6826",
+    "caption": "A blinking planetary nebula in the constellation Cygnus.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/jan01.html"
+  },
+  {
+    "date": "January 2",
+    "image": "hst_bday_jan02.jpg",
+    "name": "Galaxy NGC 1300",
+    "caption": "A classic barred spiral galaxy in the constellation Eridanus.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/jan02.html"
+  },
+  {
+    "date": "January 3",
+    "image": "hst_bday_jan03.jpg",
+    "name": "Crab Nebula",
+    "caption": "The remnant of a supernova explosion witnessed in 1054 AD.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/jan03.html"
+  },
+  {
+    "date": "January 4",
+    "image": "hst_bday_jan04.jpg",
+    "name": "Orion Nebula",
+    "caption": "A stellar nursery 1,500 light-years from Earth.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/jan04.html"
+  },
+  {
+    "date": "January 5",
+    "image": "hst_bday_jan05.jpg",
+    "name": "Whirlpool Galaxy",
+    "caption": "A grand-design spiral galaxy interacting with a smaller companion.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/jan05.html"
+  },
+  {
+    "date": "February 1",
+    "image": "hst_bday_feb01.jpg",
+    "name": "Ant Nebula",
+    "caption": "A bipolar nebula with jets of gas streaming from a dying star.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/feb01.html"
+  },
+  {
+    "date": "February 14",
+    "image": "hst_bday_feb14.jpg",
+    "name": "Rose Galaxies",
+    "caption": "Two interacting galaxies resembling a rose, formed by gravity.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/feb14.html"
+  },
+  {
+    "date": "March 1",
+    "image": "hst_bday_mar01.jpg",
+    "name": "Pillars of Creation",
+    "caption": "Towering columns of gas and dust in the Eagle Nebula.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/mar01.html"
+  },
+  {
+    "date": "April 1",
+    "image": "hst_bday_apr01.jpg",
+    "name": "Sombrero Galaxy",
+    "caption": "A galaxy with a bright nucleus and a large central bulge.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/apr01.html"
+  },
+  {
+    "date": "May 1",
+    "image": "hst_bday_may01.jpg",
+    "name": "Butterfly Nebula",
+    "caption": "A bipolar planetary nebula with delicate wing-like structures.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/may01.html"
+  },
+  {
+    "date": "June 1",
+    "image": "hst_bday_jun01.jpg",
+    "name": "Mystic Mountain",
+    "caption": "A craggy fantasy mountaintop in the Carina Nebula.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/jun01.html"
+  },
+  {
+    "date": "July 4",
+    "image": "hst_bday_jul04.jpg",
+    "name": "Fireworks Galaxy NGC 6946",
+    "caption": "A spiral galaxy with an unusually high rate of supernovae.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/jul04.html"
+  },
+  {
+    "date": "August 1",
+    "image": "hst_bday_aug01.jpg",
+    "name": "Stephan's Quintet",
+    "caption": "A visual grouping of five galaxies in the constellation Pegasus.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/aug01.html"
+  },
+  {
+    "date": "September 1",
+    "image": "hst_bday_sep01.jpg",
+    "name": "Cat's Eye Nebula",
+    "caption": "A complex planetary nebula with concentric rings of gas.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/sep01.html"
+  },
+  {
+    "date": "October 1",
+    "image": "hst_bday_oct01.jpg",
+    "name": "Cartwheel Galaxy",
+    "caption": "A ring galaxy formed by a head-on collision between galaxies.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/oct01.html"
+  },
+  {
+    "date": "November 1",
+    "image": "hst_bday_nov01.jpg",
+    "name": "Helix Nebula",
+    "caption": "The nearest bright planetary nebula to Earth, in Aquarius.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/nov01.html"
+  },
+  {
+    "date": "December 1",
+    "image": "hst_bday_dec01.jpg",
+    "name": "Snowflake Cluster",
+    "caption": "A young star cluster shaped like a cosmic snowflake.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/dec01.html"
+  },
+  {
+    "date": "December 25",
+    "image": "hst_bday_dec25.jpg",
+    "name": "Christmas Tree Cluster",
+    "caption": "A cluster of young stars resembling a cosmic Christmas tree.",
+    "url": "https://imagine.gsfc.nasa.gov/hst_bday/stories/dec25.html"
+  }
+]
